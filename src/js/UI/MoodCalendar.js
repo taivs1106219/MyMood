@@ -4,10 +4,8 @@ import * as cn from "classnames";
 
 function MoodCalendar() {
   const [date, setDate] = useState(new Date());
-  const today = new Date();
+  const tmpDay = new Date(date);
 
-  const todayString =
-    today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
   return (
     <>
       <div className="d-flex">
@@ -21,10 +19,43 @@ function MoodCalendar() {
             <InputDate value={date} onChange={setDate}></InputDate>
           </div>
         </div>
-        <MoodNote></MoodNote>
+        {[...Array(date.getDay()).keys()].map((e, i) => {
+          tmpDay.setDate(date.getDate() - (date.getDay() - e) + 1);
+          return <MoodNote date={new Date(tmpDay)}></MoodNote>;
+        })}
+        {[...Array(7 - date.getDay()).keys()].map((e, i) => {
+          tmpDay.setDate(date.getDate() + e+1);
+          console.log(i);
+          return <MoodNote date={new Date(tmpDay)}></MoodNote>;
+        })}
       </div>
     </>
   );
+  function MoodNote({ date }) {
+    // console.log(date);
+    return (
+      <div className="card mb-3">
+        <div className="card-body">
+          <h5 className="card-title">
+            {date.getFullYear()}-{date.getMonth()}-{date.getDate()} 星期{" "}
+            {date.getDay()?date.getDay():7}
+          </h5>
+          <h6 className="card-subtitle mb-2 text-body-secondary">
+            今日心情：顛
+          </h6>
+          <p className="card-text">
+            我对得起谁我谁都对不起！我活着就是一种错误！但你那冰冷的言语就是对的吗？你小嘴巴一开一合就嘚啵嘚啵两句，给我本来就脆弱的心理防线捅出了一个巨洞，你骂完我你是舒服了，你把所有的责任都推到了我身上！那一把游戏的失误是我一个人能决定得了的吗？
+          </p>
+          <a href="#" className="card-link">
+            也許可以放更多東西
+          </a>
+          <a href="#" className="card-link">
+            之後塞更多東西吧
+          </a>
+        </div>
+      </div>
+    );
+  }
 }
 
 const InputDate = ({
@@ -48,25 +79,5 @@ const InputDate = ({
     />
   );
 };
-
-function MoodNote() {
-  return (
-    <div className="card">
-      <div className="card-body">
-        <h5 className="card-title">2024-09-04</h5>
-        <h6 className="card-subtitle mb-2 text-body-secondary">今日心情：顛</h6>
-        <p className="card-text">
-          我对得起谁我谁都对不起！我活着就是一种错误！但你那冰冷的言语就是对的吗？你小嘴巴一开一合就嘚啵嘚啵两句，给我本来就脆弱的心理防线捅出了一个巨洞，你骂完我你是舒服了，你把所有的责任都推到了我身上！那一把游戏的失误是我一个人能决定得了的吗？
-        </p>
-        <a href="#" className="card-link">
-          也許可以放更多東西
-        </a>
-        <a href="#" className="card-link">
-          之後塞更多東西吧
-        </a>
-      </div>
-    </div>
-  );
-}
 
 export default MoodCalendar;
