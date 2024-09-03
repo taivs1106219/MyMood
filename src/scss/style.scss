@@ -1,1 +1,20 @@
-@import "bootstrap/scss/bootstrap"
+@import "bootstrap/scss/bootstrap";
+#winCtrl-bar {
+  -webkit-app-region: drag;
+  height: 38px;
+  width: 100%;
+}
+// #close-btn,
+// #max-btn,
+// #min-btn,
+// #devices-btn {
+//   -webkit-app-region: none;
+// }
+
+#close-btn:hover {
+  transition: 0.3s;
+}
+#max-btn:hover,
+#min-btn:hover {
+  transition: 0.3s;
+}
