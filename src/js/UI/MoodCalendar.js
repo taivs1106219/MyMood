@@ -24,7 +24,7 @@ function MoodCalendar() {
           return <MoodNote date={new Date(tmpDay)}></MoodNote>;
         })}
         {[...Array(7 - date.getDay()).keys()].map((e, i) => {
-          tmpDay.setDate(date.getDate() + e+1);
+          tmpDay.setDate(date.getDate() + e + 1);
           console.log(i);
           return <MoodNote date={new Date(tmpDay)}></MoodNote>;
         })}
@@ -37,8 +37,8 @@ function MoodCalendar() {
       <div className="card mb-3">
         <div className="card-body">
           <h5 className="card-title">
-            {date.getFullYear()}-{date.getMonth()}-{date.getDate()} 星期{" "}
-            {date.getDay()?date.getDay():7}
+            {date.getFullYear()}-{date.getMonth()}-{date.getDate()} 星期
+            {getDay2Chinese(date.getDay())}
           </h5>
           <h6 className="card-subtitle mb-2 text-body-secondary">
             今日心情：顛
@@ -56,6 +56,11 @@ function MoodCalendar() {
       </div>
     );
   }
+}
+
+function getDay2Chinese(day) {
+  const days = ["日", "一", "二", "三", "四", "五", "六"];
+  return days[day];
 }
 
 const InputDate = ({
