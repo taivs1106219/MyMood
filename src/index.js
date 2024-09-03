@@ -1,6 +1,12 @@
+import React from "react";
 import { createRoot } from "react-dom/client";
 
-document.body.innerHTML="<div id=\"app\"></div>"
+document.body.innerHTML = '<div id="app"></div>';
 
-const root=createRoot(document.getElementById("app"))
-root.render("MyMood")
+const root = createRoot(document.getElementById("app"));
+
+root.render(<App />);
+
+function App(){
+  return <h1>MyMood</h1>
+}
