@@ -4,12 +4,12 @@
   height: 38px;
   width: 100%;
 }
-// #close-btn,
-// #max-btn,
-// #min-btn,
-// #devices-btn {
-//   -webkit-app-region: none;
-// }
+#close-btn,
+#max-btn,
+#min-btn,
+#devices-btn {
+  -webkit-app-region: none;
+}
 
 #close-btn:hover {
   transition: 0.3s;
