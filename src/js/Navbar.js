@@ -39,7 +39,7 @@ export function Navbar(props) {
           "align-items-center"
         )}
       >
-        <p className="ms-1 mb-0">MyMood</p>
+        <p className="ms-1 mb-0 h5">MyMood</p>
       </div>
     </>
   );

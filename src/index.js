@@ -3,14 +3,16 @@ import { createRoot } from "react-dom/client";
 
 import "../src/scss/style.scss";
 
-import classNames from "classnames";
+import * as cn from "classnames";
 
 import bootstrap from "bootstrap";
 
 import { Navbar } from "./js/Navbar";
 import icons from "../res/icons/icons";
 import Sidebar from "./js/Sidebar";
-import Homepage from "./js/Homepage";
+import Homepage from "./js/UI/Homepage";
+import MoodCalendar from "./js/UI/MoodCalendar";
+import TouchFish from "./js/UI/TouchFish";
 
 document.body.innerHTML = '<div id="app"></div>';
 
@@ -19,27 +21,39 @@ const root = createRoot(document.getElementById("app"));
 root.render(<App />);
 
 function App() {
-  const [currentPage, setCurrentPage] = useState();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [touchFish, setTouchFish] = useState(0);
   return (
     <>
-      <div
-        id="winCtrl-bar"
-        className={classNames("d-flex", "flex-row-reverse")}
-      >
+      <div id="winCtrl-bar" className={cn("d-flex", "flex-row-reverse")}>
         <Navbar></Navbar>
       </div>
 
-      <button
-        className="btn btn-light"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#sidebar"
-      >
-        <icons.List></icons.List>
-      </button>
-      <div id="app-body" className="container">
-        <Homepage></Homepage>
-      </div>
-      <Sidebar></Sidebar>
+      <PageContent
+        pagenum={currentPage}
+        touchFish={{ touchFish, setTouchFish }}
+      ></PageContent>
+
+      <Sidebar
+        page={{
+          getCurrentPage: currentPage,
+          setCurrentPage: setCurrentPage,
+        }}
+      ></Sidebar>
     </>
   );
+}
+
+function PageContent({ pagenum, touchFish }) {
+  switch (pagenum) {
+    case 1:
+      return <MoodCalendar></MoodCalendar>;
+      break;
+    case 2:
+      return <TouchFish touchFish={touchFish}></TouchFish>;
+      break;
+    default:
+      return <Homepage></Homepage>;
+      break;
+  }
 }
