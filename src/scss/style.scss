@@ -18,3 +18,14 @@
 #min-btn:hover {
   transition: 0.3s;
 }
+
+body {
+  overflow-y: hidden;
+}
+#main-content {
+  height: calc(100vh - 38px);
+  overflow-y: auto;
+}
+.autoscroll {
+  overflow-y: auto;
+}

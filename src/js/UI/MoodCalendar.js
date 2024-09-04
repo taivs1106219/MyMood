@@ -5,29 +5,30 @@ import * as cn from "classnames";
 function MoodCalendar() {
   const [date, setDate] = useState(new Date());
   const tmpDay = new Date(date);
-
+  console.log(date);
+  tmpDay.setDate(date.getDate() - date.getDay());
   return (
     <>
-      <div className="d-flex">
-        <MenuButton></MenuButton>
-        <h2>心情日曆</h2>
-      </div>
-      <div className="px-3">
-        <div className={cn("d-grid", "gap-2", " col-4", "mx-auto", "mb-3")}>
-          <div className="input-group input-group-lg">
-            <span className="input-group-text">選擇日期</span>
-            <InputDate value={date} onChange={setDate}></InputDate>
+      <div className="flex-column" id="main-content">
+        <div className="d-flex">
+          <MenuButton></MenuButton>
+          <h2>心情日曆</h2>
+        </div>
+        <div className="px-3">
+          <div className={cn("d-grid", "gap-2", " col-4", "mx-auto", "mb-4")}>
+            <div className="input-group input-group-lg">
+              <span className="input-group-text">選擇日期</span>
+              <InputDate value={date} onChange={setDate}></InputDate>
+            </div>
+          </div>
+
+          <div className="mx-3 autoscroll flex-fill">
+            {[...Array(7).keys()].map((e, i) => {
+              tmpDay.setDate(tmpDay.getDate() + 1);
+              return <MoodNote date={new Date(tmpDay)}></MoodNote>;
+            })}
           </div>
         </div>
-        {[...Array(date.getDay()).keys()].map((e, i) => {
-          tmpDay.setDate(date.getDate() - (date.getDay() - e) + 1);
-          return <MoodNote date={new Date(tmpDay)}></MoodNote>;
-        })}
-        {[...Array(7 - date.getDay()).keys()].map((e, i) => {
-          tmpDay.setDate(date.getDate() + e + 1);
-          console.log(i);
-          return <MoodNote date={new Date(tmpDay)}></MoodNote>;
-        })}
       </div>
     </>
   );
@@ -37,7 +38,7 @@ function MoodCalendar() {
       <div className="card mb-3">
         <div className="card-body">
           <h5 className="card-title">
-            {date.getFullYear()}-{date.getMonth()}-{date.getDate()} 星期
+            {date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()} 星期
             {getDay2Chinese(date.getDay())}
           </h5>
           <h6 className="card-subtitle mb-2 text-body-secondary">
@@ -78,9 +79,7 @@ const InputDate = ({
       className="form-control"
       ref={ref}
       type="date"
-      onChange={(e) =>
-        onChange(new Date(e.currentTarget.valueAsNumber + timezoneOffset))
-      }
+      onChange={(e) => onChange(new Date(e.currentTarget.valueAsNumber))}
     />
   );
 };
