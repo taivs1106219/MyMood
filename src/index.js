@@ -13,6 +13,7 @@ import Sidebar from "./js/Sidebar";
 import Homepage from "./js/UI/Homepage";
 import MoodCalendar from "./js/UI/MoodCalendar";
 import TouchFish from "./js/UI/TouchFish";
+import Settings from "./js/UI/Settings";
 
 document.body.innerHTML = '<div id="app"></div>';
 
@@ -42,18 +43,20 @@ function App() {
       ></Sidebar>
     </>
   );
-}
-
-function PageContent({ pagenum, touchFish }) {
-  switch (pagenum) {
-    case 1:
-      return <MoodCalendar></MoodCalendar>;
-      break;
-    case 2:
-      return <TouchFish touchFish={touchFish}></TouchFish>;
-      break;
-    default:
-      return <Homepage></Homepage>;
-      break;
+  function PageContent({ pagenum, touchFish }) {
+    switch (pagenum) {
+      case 1:
+        return <MoodCalendar></MoodCalendar>;
+        break;
+      case 6:
+        return <TouchFish touchFish={touchFish}></TouchFish>;
+        break;
+      case 7:
+        return <Settings></Settings>;
+        break;
+      default:
+        return <Homepage page={{ currentPage, setCurrentPage }}></Homepage>;
+        break;
+    }
   }
 }

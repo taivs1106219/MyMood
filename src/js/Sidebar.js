@@ -1,11 +1,23 @@
 import React, { useState } from "react";
 import bootstrap from "bootstrap";
 
-const sidebarItems = ["首頁", "心情日曆", "心情不好？來摸魚吧！", "設定"];
+const sidebarItems = [
+  "首頁",
+  "心情日記",
+  "折線圖",
+  "我的寵物",
+  "❀（沒有然後了）",
+  "AI君の建議",
+  "今天整了些啥",
+  "心情不好？來摸魚吧！",
+  "設定",
+];
 
 function Sidebar(props) {
   const page = props.page;
-  const [activeItem, setActiveItem] = useState(0);
+  // const [activeItem, setActiveItem] = useState(0);
+  const activeItem = page.getCurrentPage;
+  const setActiveItem =()=> page.setCurrentPage;
   return (
     <>
       <div
@@ -22,6 +34,7 @@ function Sidebar(props) {
         <div className="offcanvas-body">
           <ul className="list-group">
             {sidebarItems.map((element, index) => {
+              console.log(activeItem)
               const className =
                 activeItem == index
                   ? "list-group-item active"
@@ -44,7 +57,7 @@ function Sidebar(props) {
   function handleClick(index) {
     setActiveItem(index);
     page.setCurrentPage(index);
-    console.log(page.getCurrentPage)
+    console.log(page.getCurrentPage);
   }
 }
 
