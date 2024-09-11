@@ -10,7 +10,7 @@ const sidebarItems = [
   "AI君の建議",
   "今天整了些啥",
   "心情不好？來摸魚吧！",
-  "設定",
+  "設定與個人化",
 ];
 
 function Sidebar(props) {
