@@ -34,7 +34,7 @@ function Settings() {
         <div className="container">
           <div class="input-group flex-nowrap mb-3">
             <span class="input-group-text" id="addon-wrapping">
-              暱稱
+              輸入用戶名
             </span>
             <input
               type="text"
