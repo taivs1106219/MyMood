@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
 import "../src/scss/style.scss";
@@ -19,11 +19,14 @@ document.body.innerHTML = '<div id="app"></div>';
 
 const root = createRoot(document.getElementById("app"));
 
-root.render(<App />);
-
+let config = {};
+let dataPath = "";
 function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const [touchFish, setTouchFish] = useState(0);
+
+  document.body.style.backgroundColor = config.bg_color;
+  console.log(dataPath);
   return (
     <>
       <div id="winCtrl-bar" className={cn("d-flex", "flex-row-reverse")}>
@@ -52,7 +55,7 @@ function App() {
         return <TouchFish touchFish={touchFish}></TouchFish>;
         break;
       case 7:
-        return <Settings></Settings>;
+        return <Settings config={config} dataPath={dataPath}></Settings>;
         break;
       default:
         return <Homepage page={{ currentPage, setCurrentPage }}></Homepage>;
@@ -60,3 +63,15 @@ function App() {
     }
   }
 }
+
+async function main() {
+  // let appConfig = await api.invoke("get-config");
+  // console.log(api.invoke("get-config"))
+  const appConfig = await api.invoke("get-config");
+  const appDataPath = await api.invoke("get-datapath");
+  config = JSON.parse(JSON.stringify(appConfig));
+  dataPath = appDataPath;
+  root.render(<App />);
+}
+
+main();

@@ -34,7 +34,6 @@ function Sidebar(props) {
         <div className="offcanvas-body">
           <ul className="list-group">
             {sidebarItems.map((element, index) => {
-              console.log(activeItem)
               const className =
                 activeItem == index
                   ? "list-group-item active"

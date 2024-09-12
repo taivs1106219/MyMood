@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import * as cn from "classnames";
 
 import MenuButton from "./MenuButton";
@@ -23,7 +23,26 @@ const front_colors = [
   "#ff00ff",
 ];
 
-function Settings() {
+function Settings({ config, dataPath }) {
+  const [username, setUsername] = useState("");
+  function handleClick() {
+    api.send("write-file", [
+      dataPath + "/config.json",
+      JSON.stringify(config, null, 2),
+    ]);
+  }
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      console.log(username);
+      config.nickname = username;
+      api.send("write-file", [
+        dataPath + "/config.json",
+        JSON.stringify(config, null, 2),
+      ]);
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [username]);
   return (
     <>
       <div className="d-flex">
@@ -32,16 +51,17 @@ function Settings() {
       </div>
       <div>
         <div className="container">
-          <div class="input-group flex-nowrap mb-3">
-            <span class="input-group-text" id="addon-wrapping">
+          <div className="input-group flex-nowrap mb-3">
+            <span className="input-group-text" id="addon-wrapping">
               輸入用戶名
             </span>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               placeholder="Username"
               aria-label="Username"
               aria-describedby="addon-wrapping"
+              onChange={(e) => setUsername(e.target.value)}
             ></input>
           </div>
           <div className="w-100">
@@ -55,6 +75,10 @@ function Settings() {
                     style={{ backgroundColor: e }}
                     key={e}
                     value={" "}
+                    onClick={() => {
+                      config.bg_color = e;
+                      handleClick();
+                    }}
                   ></input>
                 );
               })}
@@ -73,6 +97,10 @@ function Settings() {
                     style={{ backgroundColor: e }}
                     key={e}
                     value={e == "#ffffff" ? "恢復預設" : " "}
+                    onClick={() => {
+                      config.front_color = e;
+                      handleClick();
+                    }}
                   ></input>
                 );
               })}
