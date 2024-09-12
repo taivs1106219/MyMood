@@ -1,14 +1,15 @@
-const { app, BrowserWindow ,ipcMain} = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
+const os = require("node:os");
+const fsPromise = require("node:fs/promises");
 
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 768,
     height: 1024,
-    frame:false,
+    frame: false,
     webPreferences: {
-      preload: path.join(__dirname, "./preload.js")
-      
+      preload: path.join(__dirname, "./preload.js"),
     },
   });
 
@@ -29,6 +30,23 @@ const createWindow = () => {
   });
 };
 
-app.whenReady().then(() => {
-  createWindow();
-});
+// app.whenReady().then(() => {
+//   createWindow();
+// });
+
+function checkFileExists(path, callback) {
+  return fsPromise.access(path, fsPromise.constants.F_OK);
+}
+
+function startApp() {
+  checkFileExists(path.join(os.homedir(), ".mymood"))
+    .then(() => app.whenReady().then(() => createWindow()))
+    .catch(() => {
+      fsPromise
+        .mkdir(path.join(os.homedir(), ".mymood"))
+        .then(() => startApp())
+        .catch(() => startApp());
+    });
+}
+
+startApp();
