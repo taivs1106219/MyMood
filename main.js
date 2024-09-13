@@ -4,7 +4,7 @@ const os = require("node:os");
 const fsPromise = require("node:fs/promises");
 const default_configs = require("./default_configs");
 let config;
-
+let userdata;
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 600,
@@ -43,14 +43,6 @@ function checkFileExists(path, callback) {
 const dataPath = path.join(os.homedir(), ".mymood");
 
 async function startApp() {
-  // checkFileExists(path.join(os.homedir(), ".mymood"))
-  //   .then(() => app.whenReady().then(() => createWindow()))
-  //   .catch(() => {
-  //     fsPromise
-  //       .mkdir(path.join(os.homedir(), ".mymood"))
-  //       .then(() => startApp())
-  //       .catch(() => startApp());
-  //   });
   try {
     await checkFileExists(dataPath);
   } catch {
@@ -65,6 +57,12 @@ async function startApp() {
   } catch {
     config = default_configs;
   }
+  try {
+    await checkFileExists(path.join(dataPath, "userdata.json"));
+    userdata = require(path.join(dataPath, "userdata.json"));
+  } catch {
+    userdata = {};
+  }
   await app.whenReady();
   createWindow();
 }
@@ -72,15 +70,14 @@ async function startApp() {
 ipcMain.handle("get-config", async () => {
   return config;
 });
+ipcMain.handle("get-userdata", async () => {
+  return userdata;
+});
 ipcMain.handle("get-datapath", async () => {
   return dataPath;
 });
 ipcMain.on("write-file", (e, [path, data]) => {
- 
-    
-    fsPromise.writeFile(path,data)
-  
-  
+  fsPromise.writeFile(path, data);
 });
 
 startApp();
