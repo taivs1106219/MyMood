@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import * as cn from "classnames";
+import cn from "classnames";
 
 import MenuButton from "./MenuButton";
 
@@ -51,7 +51,7 @@ function Settings({ config, dataPath }) {
       </div>
       <div>
         <div className="container">
-          <div className="input-group flex-nowrap mb-3">
+          <div className={cn("input-group", "flex-nowrap", "mb-3")}>
             <span className="input-group-text" id="addon-wrapping">
               輸入用戶名
             </span>
@@ -65,12 +65,12 @@ function Settings({ config, dataPath }) {
             ></input>
           </div>
           <div className="w-100">
-            <div className="input-group d-flex mb-3" role="group">
+            <div className={cn("input-group", "d-flex", "mb-3")} role="group">
               <span className="input-group-text">背景顏色</span>
               {bg_colors.map((e) => {
                 return (
                   <input
-                    className="btn btn-outline-secondary flex-fill"
+                    className={cn("btn", "btn-outline-secondary", "flex-fill")}
                     type="button"
                     style={{ backgroundColor: e }}
                     key={e}

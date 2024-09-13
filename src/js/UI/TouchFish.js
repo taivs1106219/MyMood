@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import fish from "../../../res/images/fish.png";
-import * as cn from "classnames";
+import cn from "classnames";
 import MenuButton from "./MenuButton";
 
 function TouchFish({ touchFish }) {

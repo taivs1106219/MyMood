@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import MenuButton from "./MenuButton";
 import zanghu from "../../../res/images/zanghu.jpg";
+import cn from "classnames";
+
 function Homepage({ page }) {
+  const [moodVal,setMoodVal]=useState(3)
+
+  function handleChange(e) {
+    setMoodVal(e.target.value)
+  }
+
   return (
     <>
       <div className="d-flex">
@@ -23,14 +31,16 @@ function Homepage({ page }) {
             <div className="card-body">
               <div className="mb-2">
                 <label htmlFor="customRange1" className="form-label">
-                  我的精神狀態——堪比大便
+                  我的心情指數：{moodVal}
                 </label>
                 <input
                   type="range"
                   className="form-range"
                   min={1}
                   max={5}
+                  defaultValue={3}
                   id="customRange1"
+                  onChange={(e) => handleChange(e)}
                 ></input>
               </div>
               <div className="mb-2">
@@ -39,7 +49,7 @@ function Homepage({ page }) {
                   <textarea
                     type="text"
                     id="MoodNote"
-                    class="form-control"
+                    className="form-control"
                     placeholder="心情筆記"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
@@ -49,10 +59,10 @@ function Homepage({ page }) {
             </div>
           </div>
         </div>
-        <div className="row mb-3 justify-content-center">
+        <div className={cn("row", "mb-3", "justify-content-center")}>
           <div className="col-4">
             <button
-              className="btn btn-lg btn-info mb-3 "
+              className="btn btn-lg btn-info"
               onClick={handleMCalendarClick}
             >
               查看心情日記

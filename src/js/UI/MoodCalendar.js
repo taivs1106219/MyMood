@@ -1,6 +1,6 @@
 import React, { useState, useRef, useLayoutEffect } from "react";
 import MenuButton from "./MenuButton";
-import * as cn from "classnames";
+import cn from "classnames";
 
 function MoodCalendar() {
   const [date, setDate] = useState(new Date());
@@ -47,7 +47,7 @@ function MoodCalendar() {
             {date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()} 星期
             {getDay2Chinese(date.getDay())}
           </h5>
-          <h6 className="card-subtitle mb-2 text-body-secondary">
+          <h6 className={cn("card-subtitle", "mb-2", "text-body-secondary")}>
             今日心情：顛
           </h6>
           <p className="card-text">
@@ -85,7 +85,7 @@ const InputDate = ({
       className="form-control"
       ref={ref}
       type="date"
-      style={{fontVariantNumeric:"tabular-nums"}}
+      style={{ fontVariantNumeric: "tabular-nums" }}
       onChange={(e) => onChange(new Date(e.currentTarget.valueAsNumber))}
     />
   );

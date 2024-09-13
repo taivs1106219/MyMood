@@ -1,6 +1,6 @@
 import React from "react";
 import icons from "../../../res/icons/icons";
-import *as cn from "classnames";
+import cn from "classnames";
 
 function MenuButton() {
   return (
