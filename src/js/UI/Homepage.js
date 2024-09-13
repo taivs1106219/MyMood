@@ -15,8 +15,8 @@ function Homepage({ page }) {
           style={{ width: "45%" }}
         ></img>
 
-        <div className="card w-75">
-          <div className="card-body">
+        <div className="card w-75 mb-3">
+          <div className="card-body ">
             <div className="mb-2">
               <label htmlFor="customRange1" className="form-label">
                 我的精神狀態——堪比大便
@@ -28,18 +28,26 @@ function Homepage({ page }) {
                 max={5}
                 id="customRange1"
               ></input>
-              {/* 1: 我要跳下去 
-              2: 我想跳下去
-              3: 感覺很普通
-              4: 有點嗨
-              5: 感覺人生達到了高潮
-          */}
             </div>
-            <label>我的心情筆記</label>
-            <input type="text"></input>
+            <div className="mb-2">
+              <label htmlFor="MoodNote">我的心情筆記</label>
+              <div className="input-group mb-3">
+                <textarea
+                  type="text"
+                  id="MoodNote"
+                  class="form-control"
+                  placeholder="心情筆記"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                ></textarea>
+              </div>
+            </div>
           </div>
         </div>
-        <button className="btn btn-lg btn-info" onClick={handleMCalendarClick}>
+        <button
+          className="btn btn-lg btn-info mb-3"
+          onClick={handleMCalendarClick}
+        >
           查看心情日記
         </button>
         <div className="card w-75">
