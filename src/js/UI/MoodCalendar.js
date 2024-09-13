@@ -14,18 +14,24 @@ function MoodCalendar() {
           <MenuButton></MenuButton>
           <h2>心情日曆</h2>
         </div>
-        <div className="px-3">
-          <div className={cn("d-grid", "gap-2", " col-4", "mx-auto", "mb-4")}>
-            <div className="input-group input-group-lg">
-              <span className="input-group-text">選擇日期</span>
-              <InputDate value={date} onChange={setDate}></InputDate>
+        <div className="container">
+          <div className="row mb-3 justify-content-center">
+            <div className="col-8">
+              <div className="input-group input-group-lg w-100">
+                <span className="input-group-text">選擇日期</span>
+                <InputDate value={date} onChange={setDate}></InputDate>
+              </div>
             </div>
           </div>
 
-          <div className="mx-3 autoscroll flex-fill">
+          <div className="autoscroll">
             {[...Array(7).keys()].map((e, i) => {
               tmpDay.setDate(tmpDay.getDate() + 1);
-              return <MoodNote date={new Date(tmpDay)}></MoodNote>;
+              return (
+                <div className="row">
+                  <MoodNote date={new Date(tmpDay)}></MoodNote>
+                </div>
+              );
             })}
           </div>
         </div>
@@ -79,6 +85,7 @@ const InputDate = ({
       className="form-control"
       ref={ref}
       type="date"
+      style={{fontVariantNumeric:"tabular-nums"}}
       onChange={(e) => onChange(new Date(e.currentTarget.valueAsNumber))}
     />
   );
