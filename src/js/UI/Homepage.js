@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import MenuButton from "./MenuButton";
 import zanghu from "../../../res/images/zanghu.jpg";
 import cn from "classnames";
 
-function Homepage({ page }) {
-  const [moodVal,setMoodVal]=useState(3)
-
-  function handleChange(e) {
-    setMoodVal(e.target.value)
+function Homepage({ page, userdata }) {
+  const [moodVal, setMoodVal] = useState(3);
+  const [notes, setNotes] = useState("");
+  
+  function handleMoodValChange(e) {
+    setMoodVal(e.target.value);
   }
 
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      console.log(notes);
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [notes]);
   return (
     <>
       <div className="d-flex">
@@ -40,7 +48,7 @@ function Homepage({ page }) {
                   max={5}
                   defaultValue={3}
                   id="customRange1"
-                  onChange={(e) => handleChange(e)}
+                  onChange={(e) => handleMoodValChange(e)}
                 ></input>
               </div>
               <div className="mb-2">
@@ -53,6 +61,7 @@ function Homepage({ page }) {
                     placeholder="心情筆記"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
+                    onChange={(e)=>setNotes(e.target.value)}
                   ></textarea>
                 </div>
               </div>
