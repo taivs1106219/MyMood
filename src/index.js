@@ -19,6 +19,7 @@ document.body.innerHTML = '<div id="app"></div>';
 
 const root = createRoot(document.getElementById("app"));
 
+let userdata = {};
 let config = {};
 let dataPath = "";
 function App() {
@@ -58,19 +59,22 @@ function App() {
         return <Settings config={config} dataPath={dataPath}></Settings>;
         break;
       default:
-        return <Homepage page={{ currentPage, setCurrentPage }}></Homepage>;
+        return (
+          <Homepage
+            page={{ currentPage, setCurrentPage }}
+            userdata={userdata}
+          ></Homepage>
+        );
         break;
     }
   }
 }
 
 async function main() {
-  // let appConfig = await api.invoke("get-config");
-  // console.log(api.invoke("get-config"))
-  const appConfig = await api.invoke("get-config");
-  const appDataPath = await api.invoke("get-datapath");
-  config = JSON.parse(JSON.stringify(appConfig));
-  dataPath = appDataPath;
+  dataPath = await api.invoke("get-datapath");
+  config = JSON.parse(JSON.stringify(await api.invoke("get-config")));
+  userdata = JSON.parse(JSON.stringify(await api.invoke("get-userdata")));
+
   root.render(<App />);
 }
 
