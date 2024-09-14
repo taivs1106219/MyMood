@@ -14,6 +14,7 @@ import Homepage from "./js/UI/Homepage";
 import MoodCalendar from "./js/UI/MoodCalendar";
 import TouchFish from "./js/UI/TouchFish";
 import Settings from "./js/UI/Settings";
+import { data } from "autoprefixer";
 
 document.body.innerHTML = '<div id="app"></div>';
 
@@ -63,6 +64,7 @@ function App() {
           <Homepage
             page={{ currentPage, setCurrentPage }}
             userdata={userdata}
+            dataPath={dataPath}
           ></Homepage>
         );
         break;
