@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from "react";
 
 function MoodEditor({ date, userdata, dataPath }) {
-  const [moodVal, setMoodVal] = useState(3);
-  const [notes, setNotes] = useState("");
   const dateToday = Number(
     `${date.getFullYear()}${
       date.getMonth() + 1 > 9
         ? date.getMonth() + 1
         : "0" + (date.getMonth() + 1)
     }${date.getDate()}`
+  );
+
+  const [dataModded, setDataModded] = useState(false);
+
+  const [moodVal, setMoodVal] = useState(
+    Object.hasOwn(userdata, dateToday.toString())
+      ? userdata[dateToday].moodVal
+      : 3
+  );
+
+  const [notes, setNotes] = useState(
+    Object.hasOwn(userdata, dateToday.toString())
+      ? userdata[dateToday].notes
+      : ""
   );
 
   // Object.assign(
@@ -21,17 +33,17 @@ function MoodEditor({ date, userdata, dataPath }) {
   //   userdata
   // );
 
-  userdata[dateToday] = {};
+  if (dataModded) {
+    userdata[dateToday] = {};
 
-  userdata[dateToday].moodVal = moodVal;
-  userdata[dateToday].notes = notes;
+    userdata[dateToday].moodVal = moodVal;
+    userdata[dateToday].notes = notes;
 
-  console.log(userdata);
-
-  api.send("write-file", [
-    dataPath + "/userdata.json",
-    JSON.stringify(userdata, null, 2),
-  ]);
+    api.send("write-file", [
+      dataPath + "/userdata.json",
+      JSON.stringify(userdata, null, 2),
+    ]);
+  }
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -40,7 +52,9 @@ function MoodEditor({ date, userdata, dataPath }) {
 
     return () => clearTimeout(delayDebounceFn);
   }, [notes]);
+
   function handleMoodValChange(e) {
+    setDataModded(true);
     setMoodVal(e.target.value);
   }
   return (
@@ -48,14 +62,21 @@ function MoodEditor({ date, userdata, dataPath }) {
       <div className="card-body">
         <div className="mb-2">
           <label htmlFor="customRange1" className="form-label">
-            我的心情指數：{moodVal}
+            我的心情指數：
+            {Object.hasOwn(userdata, dateToday.toString())
+              ? userdata[dateToday].moodVal
+              : 3}
           </label>
           <input
             type="range"
             className="form-range"
             min={1}
             max={5}
-            defaultValue={3}
+            value={
+              Object.hasOwn(userdata, dateToday.toString())
+                ? userdata[dateToday].moodVal
+                : 3
+            }
             id="customRange1"
             onChange={(e) => handleMoodValChange(e)}
           ></input>
@@ -70,7 +91,15 @@ function MoodEditor({ date, userdata, dataPath }) {
               placeholder="心情筆記"
               aria-label="Username"
               aria-describedby="basic-addon1"
-              onChange={(e) => setNotes(e.target.value)}
+              value={
+                Object.hasOwn(userdata, dateToday.toString())
+                  ? userdata[dateToday].notes
+                  : ""
+              }
+              onChange={(e) => {
+                setNotes(e.target.value);
+                setDataModded(true);
+              }}
             ></textarea>
           </div>
         </div>
