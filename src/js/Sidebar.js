@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import bootstrap from "bootstrap";
 
+import cn from "classnames";
+
 const sidebarItems = [
   "首頁",
   "心情日記",
@@ -17,7 +19,7 @@ function Sidebar(props) {
   const page = props.page;
   // const [activeItem, setActiveItem] = useState(0);
   const activeItem = page.getCurrentPage;
-  const setActiveItem =()=> page.setCurrentPage;
+  const setActiveItem = () => page.setCurrentPage;
   return (
     <>
       <div
@@ -31,16 +33,21 @@ function Sidebar(props) {
             MyMood
           </h5>
         </div>
-        <div className="offcanvas-body">
-          <ul className="list-group">
+        <div className="offcanvas-body px-0">
+          <ul className="list-group list-group-flush">
             {sidebarItems.map((element, index) => {
-              const className =
-                activeItem == index
-                  ? "list-group-item active"
-                  : "list-group-item";
+              // const className =
+              //   activeItem == index
+              //     ? "list-group-item list-group-item-action list-group-flush active"
+              //     : "list-group-item list-group-item-action";
               return (
                 <li
-                  className={className}
+                  className={cn(
+                    "list-group-item",
+                    "list-group-item-action",
+                    
+                    activeItem == index ? "active" : null
+                  )}
                   onClick={() => handleClick(index)}
                   key={index}
                 >
