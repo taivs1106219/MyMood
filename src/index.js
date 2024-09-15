@@ -15,6 +15,7 @@ import MoodCalendar from "./js/UI/MoodCalendar";
 import TouchFish from "./js/UI/TouchFish";
 import Settings from "./js/UI/Settings";
 import { data } from "autoprefixer";
+import MoodEditor from "./js/UI/MoodEditor";
 
 document.body.innerHTML = '<div id="app"></div>';
 
@@ -24,6 +25,7 @@ let userdata = {};
 let config = {};
 let dataPath = "";
 function App() {
+  const [editorDate,setEditorDate]=useState(0)
   const [currentPage, setCurrentPage] = useState(0);
   const [touchFish, setTouchFish] = useState(0);
 
@@ -51,7 +53,13 @@ function App() {
   function PageContent({ pagenum, touchFish }) {
     switch (pagenum) {
       case 1:
-        return <MoodCalendar></MoodCalendar>;
+        return (
+          <MoodCalendar
+            userdata={userdata}
+            currentPage={{ currentPage, setCurrentPage }}
+            setEditorDate={setEditorDate}
+          ></MoodCalendar>
+        );
         break;
       case 6:
         return <TouchFish touchFish={touchFish}></TouchFish>;
@@ -59,6 +67,8 @@ function App() {
       case 7:
         return <Settings config={config} dataPath={dataPath}></Settings>;
         break;
+      case 1000:
+        return<MoodEditor date={editorDate} userdata={userdata} dataPath={dataPath}></MoodEditor>
       default:
         return (
           <Homepage
