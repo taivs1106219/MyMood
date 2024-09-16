@@ -9,12 +9,12 @@ function MoodCalendar({ userdata, currentPage, setEditorDate }) {
   tmpDay.setDate(date.getDate() - date.getDay() - 1);
   return (
     <>
-      <div className="flex-column" id="main-content">
+      <div className="" id="main-content">
         <div className="d-flex">
           <MenuButton></MenuButton>
           <h2>心情日曆</h2>
         </div>
-        <div className="container">
+        <div className="container" style={{overflowX:"none"}}>
           <div className="row mb-3 justify-content-center">
             <div className="col-8">
               <div className="input-group input-group-lg w-100">
@@ -24,7 +24,7 @@ function MoodCalendar({ userdata, currentPage, setEditorDate }) {
             </div>
           </div>
 
-          <div className="autoscroll">
+          <div className="autoscroll" style={{overflowX:"hidden"}}>
             {[...Array(7).keys()].map((e, i) => {
               tmpDay.setDate(tmpDay.getDate() + 1);
               return (
