@@ -5,13 +5,13 @@ import cn from "classnames";
 import MoodEditor from "./MoodEditor";
 import { data } from "autoprefixer";
 
-const today = new Date();
-
 function Homepage({ page, userdata, dataPath }) {
+  const today = new Date();
+
   const chartData = {
     type: "line",
     data: {
-      labels: ["1", "2", "3", "4", "5"],
+      labels: ["0","0","0","0","0"],
       datasets: [
         {
           label: "心情指數",
@@ -21,14 +21,24 @@ function Homepage({ page, userdata, dataPath }) {
         },
       ],
     },
-    options:{
-      title:{
-        display:true,
-        text:"近五日心情指數"
-      }
-    }
+    options: {
+      title: {
+        display: true,
+        text: "近五日心情指數",
+      },
+    },
   };
-  console.log("https://quickchart.io/chart?c=" + encodeURI(JSON.stringify(chartData)));
+  const firstDay = new Date(today);
+  firstDay.setDate(firstDay.getDate() - 5);
+  for (let i = 0; i < 5; i++) {
+    const tmpDay = new Date(firstDay);
+    tmpDay.setDate(tmpDay.getDate() + i);
+    chartData.data.labels[i] = tmpDay.getDate();
+  }
+  console.log(firstDay);
+  console.log(
+    "https://quickchart.io/chart?c=" + encodeURI(JSON.stringify(chartData))
+  );
   return (
     <div className="autoscroll" id="main-content">
       <div className="d-flex">
