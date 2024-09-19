@@ -11,7 +11,7 @@ function Homepage({ page, userdata, dataPath }) {
   const chartData = {
     type: "line",
     data: {
-      labels: ["0","0","0","0","0"],
+      labels: ["0", "0", "0", "0", "0"],
       datasets: [
         {
           label: "心情指數",
@@ -22,18 +22,42 @@ function Homepage({ page, userdata, dataPath }) {
       ],
     },
     options: {
-      title: {
-        display: true,
-        text: "近五日心情指數",
+      plugins: {
+        title: {
+          display: true,
+          text: "近五日心情指數",
+        },
+      },
+      scales: {
+        y: {
+          min: 1,
+          max: 5,
+          ticks: {
+            stepSize: 1,
+          },
+        },
       },
     },
   };
   const firstDay = new Date(today);
   firstDay.setDate(firstDay.getDate() - 5);
   for (let i = 0; i < 5; i++) {
-    const tmpDay = new Date(firstDay);
-    tmpDay.setDate(tmpDay.getDate() + i);
-    chartData.data.labels[i] = tmpDay.getDate();
+    const tmpDate = new Date(firstDay);
+    // 記錄第一天為暫存
+    tmpDate.setDate(tmpDate.getDate() + i);
+    // 加上偏移量
+    const currentDate = tmpDate.getDate();
+    // 當日日期
+    const currentDateString = `${tmpDate.getFullYear()}${
+      tmpDate.getMonth() + 1 > 9
+        ? tmpDate.getMonth() + 1
+        : "0" + (tmpDate.getMonth() + 1)
+    }${tmpDate.getDate()}`;
+    // 日期字串
+    chartData.data.labels[i] = currentDate + " 日";
+    // 設置日期
+    chartData.data.datasets[0].data[i] = userdata[currentDateString].moodVal;
+    // 設置心情制5
   }
   console.log(firstDay);
   console.log(
@@ -78,7 +102,7 @@ function Homepage({ page, userdata, dataPath }) {
               {/* <h1 className="display-1">折綫圖</h1> */}
               <img
                 src={
-                  "https://quickchart.io/chart?c=" +
+                  "https://quickchart.io/chart?v=4&c=" +
                   encodeURI(JSON.stringify(chartData))
                 }
                 className="w-100"
