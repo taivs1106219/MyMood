@@ -3,13 +3,34 @@ import MenuButton from "./MenuButton";
 import zanghu from "../../../res/images/zanghu.jpg";
 import cn from "classnames";
 import MoodEditor from "./MoodEditor";
+import { data } from "autoprefixer";
 
 const today = new Date();
 
 function Homepage({ page, userdata, dataPath }) {
-  console.log(dataPath)
+  const chartData = {
+    type: "line",
+    data: {
+      labels: ["1", "2", "3", "4", "5"],
+      datasets: [
+        {
+          label: "心情指數",
+          data: [50, 60, 70, 180, 190],
+          fill: false,
+          borderColor: "blue",
+        },
+      ],
+    },
+    options:{
+      title:{
+        display:true,
+        text:"近五日心情指數"
+      }
+    }
+  };
+  console.log("https://quickchart.io/chart?c=" + encodeURI(JSON.stringify(chartData)));
   return (
-    <>
+    <div className="autoscroll" id="main-content">
       <div className="d-flex">
         <MenuButton></MenuButton>
         <h2>首頁</h2>
@@ -44,12 +65,19 @@ function Homepage({ page, userdata, dataPath }) {
         <div className="row">
           <div className="card">
             <div className="card-body">
-              <h1 className="display-1">折綫圖</h1>
+              {/* <h1 className="display-1">折綫圖</h1> */}
+              <img
+                src={
+                  "https://quickchart.io/chart?c=" +
+                  encodeURI(JSON.stringify(chartData))
+                }
+                className="w-100"
+              ></img>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
   function handleMCalendarClick() {
     page.setCurrentPage(1);
