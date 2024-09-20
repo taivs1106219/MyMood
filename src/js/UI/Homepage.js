@@ -30,7 +30,7 @@ function Homepage({ page, userdata, dataPath }) {
       },
       scales: {
         y: {
-          min: 1,
+          min: 0,
           max: 5,
           ticks: {
             stepSize: 1,
@@ -56,7 +56,10 @@ function Homepage({ page, userdata, dataPath }) {
     // 日期字串
     chartData.data.labels[i] = currentDate + " 日";
     // 設置日期
-    chartData.data.datasets[0].data[i] = userdata[currentDateString].moodVal;
+    chartData.data.datasets[0].data[i] =
+      userdata[currentDateString] == undefined
+        ? undefined
+        : userdata[currentDateString].moodVal;
     // 設置心情制5
   }
   console.log(firstDay);
