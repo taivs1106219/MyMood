@@ -3,6 +3,7 @@ const path = require("path");
 const os = require("node:os");
 const fsPromise = require("node:fs/promises");
 const default_configs = require("./default_configs");
+const { mkdir } = require("fs");
 let config;
 let userdata;
 const createWindow = () => {
@@ -44,12 +45,24 @@ const dataPath = path.join(os.homedir(), ".mymood");
 
 async function startApp() {
   try {
+    await checkFileExists(path.join(dataPath, "theme.css"));
+  } catch {
+    try {
+      await fsPromise.writeFile(path.join(dataPath, "theme.css"), "");
+      startApp();
+    } catch {
+      startApp;
+    }
+  }
+  try {
     await checkFileExists(dataPath);
   } catch {
-    await fsPromise
-      .mkdir(dataPath)
-      .then(() => startApp())
-      .catch(() => startApp());
+    try {
+      await fsPromise.mkdir(dataPath);
+      startApp();
+    } catch {
+      startApp();
+    }
   }
   try {
     await checkFileExists(path.join(dataPath, "config.json"));

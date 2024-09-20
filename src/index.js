@@ -30,7 +30,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const [touchFish, setTouchFish] = useState(0);
 
-  document.body.style.backgroundColor = config.bg_color;
+  // document.body.style.backgroundColor = config.bg_color;
   console.log(dataPath);
   return (
     <>
@@ -69,14 +69,7 @@ function App() {
         return <Settings config={config} dataPath={dataPath}></Settings>;
         break;
       case 1000:
-        return (
-          <MoodEditorPage
-            date={editorDate}
-            userdata={userdata}
-            dataPath={dataPath}
-            setCurrentPage={setCurrentPage}
-          ></MoodEditorPage>
-        );
+        <MoodEditorPage setCurrentPage={setCurrentPage}></MoodEditorPage>;
       default:
         return (
           <Homepage
@@ -94,7 +87,18 @@ async function main() {
   dataPath = await api.invoke("get-datapath");
   config = JSON.parse(JSON.stringify(await api.invoke("get-config")));
   userdata = JSON.parse(JSON.stringify(await api.invoke("get-userdata")));
-
+  // import(dataPath+"/theme.css")
+  // document.addEventListener(
+  //   "DOMContentLoaded",
+  //   () =>
+  //     (document.head.innerHTML += `<link rel="stylesheet" type="text/css" href="${
+  //       dataPath + "/theme.css"
+  //     }"></link>`),
+  //   false
+  // );
+  document.head.innerHTML += `<link rel="stylesheet" type="text/css" href="${
+    dataPath + "/theme.css"
+  }"></link>`;
   root.render(<App />);
 }
 

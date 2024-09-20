@@ -5,9 +5,9 @@ import cn from "classnames";
 function MenuButton() {
   return (
     <button
-      className={cn("btn", "btn-light", "btn-lg")}
+      className={cn("btn","btn-light", "btn-lg","bg")}
       style={
-        {backgroundColor:"white",border:"0",width:"3rem"}
+        {border:"0",width:"3rem"}
       }
       data-bs-toggle="offcanvas"
       data-bs-target="#sidebar"

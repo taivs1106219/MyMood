@@ -12,21 +12,21 @@ export function Navbar(props) {
     <>
       <button
         id="close-btn"
-        className="winCtrl-btn border-0"
+        className="winCtrl-btn border-0 bg"
         onClick={() => api.send("close-window")}
       >
         <icons.X_lg></icons.X_lg>
       </button>
       <button
         id="max-btn"
-        className="winCtrl-btn border-0"
+        className="winCtrl-btn border-0 bg"
         onClick={() => api.send("maximize-window")}
       >
         <icons.App></icons.App>
       </button>
       <button
         id="min-btn"
-        className="winCtrl-btn border-0"
+        className="winCtrl-btn border-0 bg"
         onClick={() => api.send("minimize-window")}
       >
         <icons.Dash_lg></icons.Dash_lg>

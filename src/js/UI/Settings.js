@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import cn from "classnames";
 
 import MenuButton from "./MenuButton";
+import bg_css from "../../scss/themes/background";
 
 const bg_colors = [
   "#ffffff",
@@ -30,6 +31,7 @@ function Settings({ config, dataPath }) {
       dataPath + "/config.json",
       JSON.stringify(config, null, 2),
     ]);
+    api.send("write-file", [dataPath + "/theme.css", bg_css(config.bg_color)]);
   }
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
