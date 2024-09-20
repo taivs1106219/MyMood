@@ -40,7 +40,7 @@ export function Navbar(props) {
           "align-items-center"
         )}
       >
-        <img src={logo_black} className="h-100"></img>
+        <img src={logo_black} alt="MyMood" className="h-100"></img>
       </div>
     </>
   );

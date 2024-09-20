@@ -108,6 +108,7 @@ function Homepage({ page, userdata, dataPath }) {
                   "https://quickchart.io/chart?v=4&c=" +
                   encodeURI(JSON.stringify(chartData))
                 }
+                alt="連網以查看折線圖"
                 className="w-100"
               ></img>
             </div>
