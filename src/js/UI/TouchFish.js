@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import fish from "../../../res/images/fish.png";
+import fish_brown from "../../../res/images/fish_brown.png";
 import cn from "classnames";
 import MenuButton from "./MenuButton";
 
@@ -21,7 +21,7 @@ function TouchFish({ touchFish }) {
           onClick={handleClick}
           className={cn("w-100", "btn", "btn-light")}
         >
-          <img src={fish} draggable="false" className="w-100"></img>
+          <img src={fish_brown} draggable="false" className="w-100"></img>
         </button>
       </div>
     </div>
