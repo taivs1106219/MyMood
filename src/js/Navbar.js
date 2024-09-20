@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React from "react";
 
 import icons from "../../res/icons/icons";
+import logo_black from"../../res/images/logo_black.png"
 
 export function Navbar(props) {
   function handleClick() {
@@ -39,7 +40,7 @@ export function Navbar(props) {
           "align-items-center"
         )}
       >
-        <p className="ms-1 mb-0 h5">MyMood</p>
+        <img src={logo_black} className="h-100"></img>
       </div>
     </>
   );
