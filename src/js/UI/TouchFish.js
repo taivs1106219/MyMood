@@ -19,7 +19,7 @@ function TouchFish({ touchFish }) {
       <div className="px-3">
         <button
           onClick={handleClick}
-          className={cn("w-100", "btn", "btn-light")}
+          className={cn("w-100", "btn", "btn-light","bg")}
         >
           <img src={fish_brown} draggable="false" className="w-100"></img>
         </button>
