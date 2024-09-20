@@ -1,4 +1,13 @@
 @import "bootstrap/scss/bootstrap";
+@font-face {
+  font-family: iansui;
+  src: url('../../res/fonts/Iansui-Regular.ttf');
+}
+
+* {
+  font-family: iansui;
+}
+
 #winCtrl-bar {
   -webkit-app-region: drag;
   height: 38px;
