@@ -23,7 +23,7 @@ function Sidebar(props) {
   return (
     <>
       <div
-        className="offcanvas offcanvas-start"
+        className="offcanvas offcanvas-start bg"
         tabIndex={-1}
         id="sidebar"
         aria-labelledby="offcanvasExampleLabel"
@@ -45,7 +45,7 @@ function Sidebar(props) {
                   className={cn(
                     "list-group-item",
                     "list-group-item-action",
-                    
+                    "bg",
                     activeItem == index ? "active" : null
                   )}
                   onClick={() => handleClick(index)}
