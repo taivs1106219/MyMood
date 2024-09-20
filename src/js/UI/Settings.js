@@ -26,11 +26,14 @@ const front_colors = [
 
 function Settings({ config, dataPath }) {
   const [username, setUsername] = useState("");
+  const [showRestartAlert, setShowRestartAlert] = useState(false);
+
   function handleClick() {
     api.send("write-file", [
       dataPath + "/config.json",
       JSON.stringify(config, null, 2),
     ]);
+    setShowRestartAlert(true);
     api.send("write-file", [dataPath + "/theme.css", bg_css(config.bg_color)]);
   }
   useEffect(() => {
@@ -67,6 +70,17 @@ function Settings({ config, dataPath }) {
             ></input>
           </div>
           <div className="w-100">
+            {showRestartAlert ? (
+              <div className="alert alert-info alert-dismissible" role="alert">
+                重啟以套用變更
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
+            ) : null}
             <div className={cn("input-group", "d-flex", "mb-3")} role="group">
               <span className="input-group-text">背景顏色</span>
               {bg_colors.map((e) => {
