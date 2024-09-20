@@ -6,7 +6,7 @@ import cn from "classnames";
 const sidebarItems = [
   "首頁",
   "心情日記",
-  "折線圖",
+  "答題",
   "我的寵物",
   "❀（沒有然後了）",
   "AI君の建議",
