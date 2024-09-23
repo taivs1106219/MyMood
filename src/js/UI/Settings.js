@@ -56,6 +56,17 @@ function Settings({ config, dataPath }) {
       </div>
       <div>
         <div className="container">
+          {showRestartAlert ? (
+            <div className="alert alert-info alert-dismissible" role="alert">
+              重啟以套用變更
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
+            </div>
+          ) : null}
           <div className={cn("input-group", "flex-nowrap", "mb-3")}>
             <span className="input-group-text" id="addon-wrapping">
               輸入用戶名
@@ -70,17 +81,31 @@ function Settings({ config, dataPath }) {
             ></input>
           </div>
           <div className="w-100">
-            {showRestartAlert ? (
-              <div className="alert alert-info alert-dismissible" role="alert">
-                重啟以套用變更
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="alert"
-                  aria-label="Close"
-                ></button>
+            <div className="card mb-3">
+              <div className="card-body py-2 px-2 row">
+                <div className="col-12">
+                  <div class="form-check form-switch d-flex flex-row-reverse justify-content-between ps-1">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="flexSwitchCheckReverse"
+                    ></input>
+                    <label
+                      class="form-check-label flex-fill"
+                      for="flexSwitchCheckReverse"
+                    >
+                      深色模式
+                    </label>
+                  </div>
+                </div>
+                <div className="col-12 ">
+                  <p className="text-warning ps-1 mb-0">
+                    此設定開啟時，其他主題將不會生效
+                  </p>
+                </div>
               </div>
-            ) : null}
+            </div>
+
             <div className={cn("input-group", "d-flex", "mb-3")} role="group">
               <span className="input-group-text">背景顏色</span>
               {bg_colors.map((e) => {
