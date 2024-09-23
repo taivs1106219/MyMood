@@ -3,9 +3,8 @@ import MenuButton from "./MenuButton";
 import zanghu from "../../../res/images/zanghu.jpg";
 import cn from "classnames";
 import MoodEditor from "./MoodEditor";
-import { data } from "autoprefixer";
 
-function Homepage({ page, userdata, dataPath }) {
+function Homepage({ page, userdata, dataPath, config }) {
   const today = new Date();
 
   const chartData = {
@@ -39,6 +38,18 @@ function Homepage({ page, userdata, dataPath }) {
       },
     },
   };
+  if (config.darkmode) {
+    chartData.options.scales.y.grid = { color: "rgb(255,255,255)" };
+    chartData.options.scales.x = {
+      grid: {
+        color: "rgb(255,255,255)",
+      },
+    };
+    console.log(chartData.data.datasets[0].borderColor)
+    console.log(chartData.data.datasets[0])
+    chartData.data.datasets[0].borderColor="rgb(13,202,240)";
+    console.log();
+  }
   const firstDay = new Date(today);
   firstDay.setDate(firstDay.getDate() - 5);
   for (let i = 0; i < 5; i++) {
@@ -100,7 +111,7 @@ function Homepage({ page, userdata, dataPath }) {
           </div>
         </div>
         <div className="row">
-          <div className="card bg-light">
+          <div className="card">
             <div className="card-body ">
               {/* <h1 className="display-1">折綫圖</h1> */}
               <img

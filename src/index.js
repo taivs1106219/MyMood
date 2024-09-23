@@ -52,6 +52,7 @@ function App() {
     </>
   );
   function PageContent({ pagenum, touchFish }) {
+    console.log(pagenum);
     switch (pagenum) {
       case 1:
         return (
@@ -61,24 +62,23 @@ function App() {
             setEditorDate={setEditorDate}
           ></MoodCalendar>
         );
-        break;
       case 6:
         return <TouchFish touchFish={touchFish}></TouchFish>;
-        break;
       case 7:
         return <Settings config={config} dataPath={dataPath}></Settings>;
-        break;
       case 1000:
-        <MoodEditorPage setCurrentPage={setCurrentPage}></MoodEditorPage>;
+        return (
+          <MoodEditorPage setCurrentPage={setCurrentPage} date={editorDate} userdata={data} dataPath={dataPath}></MoodEditorPage>
+        );
       default:
         return (
           <Homepage
             page={{ currentPage, setCurrentPage }}
             userdata={userdata}
             dataPath={dataPath}
+            config={config}
           ></Homepage>
         );
-        break;
     }
   }
 }

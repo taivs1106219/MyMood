@@ -14,7 +14,7 @@ function MoodCalendar({ userdata, currentPage, setEditorDate }) {
           <MenuButton></MenuButton>
           <h2>心情日曆</h2>
         </div>
-        <div className="container" style={{overflowX:"none"}}>
+        <div className="container" style={{ overflowX: "none" }}>
           <div className="row mb-3 justify-content-center">
             <div className="col-8">
               <div className="input-group input-group-lg w-100">
@@ -24,7 +24,7 @@ function MoodCalendar({ userdata, currentPage, setEditorDate }) {
             </div>
           </div>
 
-          <div className="autoscroll" style={{overflowX:"hidden"}}>
+          <div className="autoscroll" style={{ overflowX: "hidden" }}>
             {[...Array(7).keys()].map((e, i) => {
               tmpDay.setDate(tmpDay.getDate() + 1);
               return (
@@ -59,7 +59,7 @@ function MoodNote({ date, userdata, currentPage, setEditorDate }) {
 
   function handleClick() {
     currentPage.setCurrentPage(1000);
-    setEditorDate(date)
+    setEditorDate(date);
   }
 
   return (
