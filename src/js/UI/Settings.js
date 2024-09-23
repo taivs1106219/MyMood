@@ -99,6 +99,7 @@ function Settings({ config, dataPath }) {
                       type="checkbox"
                       id="flexSwitchCheckReverse"
                       onChange={(e) => handleChange(e)}
+                      checked={config.darkmode}
                     ></input>
                     <label
                       class="form-check-label flex-fill"
