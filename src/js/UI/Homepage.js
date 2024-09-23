@@ -100,8 +100,8 @@ function Homepage({ page, userdata, dataPath }) {
           </div>
         </div>
         <div className="row">
-          <div className="card">
-            <div className="card-body">
+          <div className="card bg-light">
+            <div className="card-body ">
               {/* <h1 className="display-1">折綫圖</h1> */}
               <img
                 src={

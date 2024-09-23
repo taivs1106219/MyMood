@@ -36,6 +36,15 @@ function Settings({ config, dataPath }) {
     setShowRestartAlert(true);
     api.send("write-file", [dataPath + "/theme.css", bg_css(config.bg_color)]);
   }
+  function handleChange(e) {
+    console.log(e.target.checked);
+    setShowRestartAlert(true);
+    config.darkmode = e.target.checked;
+    api.send("write-file", [
+      dataPath + "/config.json",
+      JSON.stringify(config, null, 2),
+    ]);
+  }
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       console.log(username);
@@ -89,10 +98,11 @@ function Settings({ config, dataPath }) {
                       class="form-check-input"
                       type="checkbox"
                       id="flexSwitchCheckReverse"
+                      onChange={(e) => handleChange(e)}
                     ></input>
                     <label
                       class="form-check-label flex-fill"
-                      for="flexSwitchCheckReverse"
+                      htmlFor="flexSwitchCheckReverse"
                     >
                       深色模式
                     </label>

@@ -96,9 +96,13 @@ async function main() {
   //     }"></link>`),
   //   false
   // );
-  document.head.innerHTML += `<link rel="stylesheet" type="text/css" href="${
-    dataPath + "/theme.css"
-  }"></link>`;
+  if (config.darkmode == true) {
+    document.body.setAttribute("data-bs-theme", "dark");
+  } else {
+    document.head.innerHTML += `<link rel="stylesheet" type="text/css" href="${
+      dataPath + "/theme.css"
+    }"></link>`;
+  }
   root.render(<App />);
 }
 
