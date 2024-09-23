@@ -48,7 +48,14 @@ async function startApp() {
     await checkFileExists(path.join(dataPath, "theme.css"));
   } catch {
     try {
-      await fsPromise.writeFile(path.join(dataPath, "theme.css"), "");
+      await fsPromise.writeFile(
+        path.join(dataPath, "theme.css"),
+        `
+        body, .bg {
+          background-color: #ffffff;
+        }
+        `
+      );
       startApp();
     } catch {
       startApp;
