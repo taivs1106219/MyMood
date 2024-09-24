@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MenuButton from "./MenuButton";
-import zanghu from "../../../res/images/zanghu.jpg";
+import zanghu from "../../../res/images/zanghu.png";
 import cn from "classnames";
 import MoodEditor from "./MoodEditor";
 
@@ -81,7 +81,7 @@ function Homepage({ page, userdata, dataPath, config }) {
           <div className="col-6">
             <img
               src={zanghu}
-              className="p-2 rounded-circle"
+              className="p-2"
               style={{ width: "100%" }}
             ></img>
           </div>
