@@ -87,15 +87,6 @@ async function main() {
   dataPath = await api.invoke("get-datapath");
   config = JSON.parse(JSON.stringify(await api.invoke("get-config")));
   userdata = JSON.parse(JSON.stringify(await api.invoke("get-userdata")));
-  // import(dataPath+"/theme.css")
-  // document.addEventListener(
-  //   "DOMContentLoaded",
-  //   () =>
-  //     (document.head.innerHTML += `<link rel="stylesheet" type="text/css" href="${
-  //       dataPath + "/theme.css"
-  //     }"></link>`),
-  //   false
-  // );
   if (config.darkmode == true) {
     document.body.setAttribute("data-bs-theme", "dark");
   } else {
