@@ -15,21 +15,21 @@ export function Navbar(props) {
     <>
       <button
         id="close-btn"
-        className="winCtrl-btn border-0 bg"
+        className="winCtrl-btn border-0 btn"
         onClick={() => api.send("close-window")}
       >
         <icons.X_lg></icons.X_lg>
       </button>
       <button
         id="max-btn"
-        className="winCtrl-btn border-0 bg"
+        className="winCtrl-btn border-0 btn"
         onClick={() => api.send("maximize-window")}
       >
         <icons.App></icons.App>
       </button>
       <button
         id="min-btn"
-        className="winCtrl-btn border-0 bg"
+        className="winCtrl-btn border-0 btn"
         onClick={() => api.send("minimize-window")}
       >
         <icons.Dash_lg></icons.Dash_lg>
@@ -42,7 +42,11 @@ export function Navbar(props) {
           "align-items-center"
         )}
       >
-        <img src={config.darkmode?logo_white:logo_white} alt="MyMood" className="h-100"></img>
+        <img
+          src={config.darkmode ? logo_white : logo_black}
+          alt="MyMood"
+          className="h-100"
+        ></img>
       </div>
     </>
   );

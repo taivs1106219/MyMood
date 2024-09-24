@@ -103,7 +103,7 @@ function Homepage({ page, userdata, dataPath, config }) {
         <div className={cn("row", "mb-3", "justify-content-center")}>
           <div className="col-4">
             <button
-              className="btn btn-lg btn-info"
+              className="btn btn-info w-100"
               onClick={handleMCalendarClick}
             >
               查看心情日記
@@ -112,7 +112,7 @@ function Homepage({ page, userdata, dataPath, config }) {
         </div>
         <div className="row">
           <div className="card">
-            <div className="card-body ">
+            <div className="card-body">
               {/* <h1 className="display-1">折綫圖</h1> */}
               <img
                 src={

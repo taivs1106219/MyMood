@@ -27,6 +27,7 @@ const front_colors = [
 function Settings({ config, dataPath }) {
   const [username, setUsername] = useState("");
   const [showRestartAlert, setShowRestartAlert] = useState(false);
+  const [darkMode, setDarkMode] = useState(config.darkmode);
 
   function handleClick() {
     api.send("write-file", [
@@ -39,6 +40,7 @@ function Settings({ config, dataPath }) {
   function handleChange(e) {
     console.log(e.target.checked);
     setShowRestartAlert(true);
+    setDarkMode(e.target.checked)
     config.darkmode = e.target.checked;
     api.send("write-file", [
       dataPath + "/config.json",
@@ -99,7 +101,7 @@ function Settings({ config, dataPath }) {
                       type="checkbox"
                       id="flexSwitchCheckReverse"
                       onChange={(e) => handleChange(e)}
-                      checked={config.darkmode}
+                      checked={darkMode}
                     ></input>
                     <label
                       class="form-check-label flex-fill"
