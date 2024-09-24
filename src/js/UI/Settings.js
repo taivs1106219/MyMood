@@ -37,9 +37,13 @@ function Settings({ config, dataPath }) {
     setShowRestartAlert(true);
     api.send("write-file", [dataPath + "/theme.css", bg_css(config.bg_color)]);
   }
+  function handleRestartRequest() {
+    console.log("restarting")
+    api.send("restart-app");
+  }
   function handleChange(e) {
     setShowRestartAlert(true);
-    setDarkMode(e.target.checked)
+    setDarkMode(e.target.checked);
     config.darkmode = e.target.checked;
     api.send("write-file", [
       dataPath + "/config.json",
@@ -67,7 +71,10 @@ function Settings({ config, dataPath }) {
         <div className="container">
           {showRestartAlert ? (
             <div className="alert alert-info alert-dismissible" role="alert">
-              重啟以套用變更
+              <a onClick={handleRestartRequest} className="alert-link">
+                重新啟動&nbsp;APP
+              </a>
+              &nbsp;以套用變更
               <button
                 type="button"
                 className="btn-close"
