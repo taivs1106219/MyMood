@@ -5,7 +5,6 @@ import cn from "classnames";
 function MoodCalendar({ userdata, currentPage, setEditorDate }) {
   const [date, setDate] = useState(new Date());
   const tmpDay = new Date(date);
-  console.log(date);
   tmpDay.setDate(date.getDate() - date.getDay() - 1);
   return (
     <>

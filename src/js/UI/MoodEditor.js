@@ -23,16 +23,6 @@ function MoodEditor({ date, userdata, dataPath }) {
       : ""
   );
 
-  // Object.assign(
-  //   {
-  //     [dateToday]: {
-  //       moodVal: null,
-  //       notes: null,
-  //     },
-  //   },
-  //   userdata
-  // );
-
   if (dataModded) {
     userdata[dateToday] = {};
 

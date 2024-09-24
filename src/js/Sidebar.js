@@ -63,7 +63,6 @@ function Sidebar(props) {
   function handleClick(index) {
     setActiveItem(index);
     page.setCurrentPage(index);
-    console.log(page.getCurrentPage);
   }
 }
 

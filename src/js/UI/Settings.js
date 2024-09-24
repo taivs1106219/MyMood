@@ -38,7 +38,6 @@ function Settings({ config, dataPath }) {
     api.send("write-file", [dataPath + "/theme.css", bg_css(config.bg_color)]);
   }
   function handleChange(e) {
-    console.log(e.target.checked);
     setShowRestartAlert(true);
     setDarkMode(e.target.checked)
     config.darkmode = e.target.checked;
@@ -49,7 +48,6 @@ function Settings({ config, dataPath }) {
   }
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      console.log(username);
       config.nickname = username;
       api.send("write-file", [
         dataPath + "/config.json",

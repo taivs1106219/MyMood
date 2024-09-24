@@ -45,10 +45,7 @@ function Homepage({ page, userdata, dataPath, config }) {
         color: "rgb(255,255,255)",
       },
     };
-    console.log(chartData.data.datasets[0].borderColor)
-    console.log(chartData.data.datasets[0])
     chartData.data.datasets[0].borderColor="rgb(13,202,240)";
-    console.log();
   }
   const firstDay = new Date(today);
   firstDay.setDate(firstDay.getDate() - 5);
@@ -73,10 +70,6 @@ function Homepage({ page, userdata, dataPath, config }) {
         : userdata[currentDateString].moodVal;
     // 設置心情制5
   }
-  console.log(firstDay);
-  console.log(
-    "https://quickchart.io/chart?c=" + encodeURI(JSON.stringify(chartData))
-  );
   return (
     <div className="autoscroll" id="main-content">
       <div className="d-flex">

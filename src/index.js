@@ -30,8 +30,6 @@ function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const [touchFish, setTouchFish] = useState(0);
 
-  // document.body.style.backgroundColor = config.bg_color;
-  console.log(dataPath);
   return (
     <>
       <div id="winCtrl-bar" className={cn("d-flex", "flex-row-reverse")}>
@@ -52,7 +50,6 @@ function App() {
     </>
   );
   function PageContent({ pagenum, touchFish }) {
-    console.log(pagenum);
     switch (pagenum) {
       case 1:
         return (
