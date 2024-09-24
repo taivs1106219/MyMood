@@ -2,9 +2,11 @@ import classNames from "classnames";
 import React from "react";
 
 import icons from "../../res/icons/icons";
-import logo_black from"../../res/images/logo_black.png"
+import logo_black from "../../res/images/logo_black.png";
+import logo_white from "../../res/images/logo_white.png";
 
 export function Navbar(props) {
+  const config = props.config
   function handleClick() {
     api.send("get-devices-v2", "adb");
     api.send("get-devices-v2", "fb");
@@ -40,7 +42,7 @@ export function Navbar(props) {
           "align-items-center"
         )}
       >
-        <img src={logo_black} alt="MyMood" className="h-100"></img>
+        <img src={config.darkmode?logo_white:logo_white} alt="MyMood" className="h-100"></img>
       </div>
     </>
   );

@@ -35,7 +35,7 @@ function App() {
   return (
     <>
       <div id="winCtrl-bar" className={cn("d-flex", "flex-row-reverse")}>
-        <Navbar></Navbar>
+        <Navbar config={config}></Navbar>
       </div>
 
       <PageContent
