@@ -17,6 +17,7 @@ import Settings from "./js/UI/Settings";
 import { data } from "autoprefixer";
 import MoodEditor from "./js/UI/MoodEditor";
 import MoodEditorPage from "./js/UI/MoodEditorPage";
+import MyPet from "./js/UI/MyPet";
 
 document.body.innerHTML = '<div id="app"></div>';
 
@@ -59,9 +60,11 @@ function App() {
             setEditorDate={setEditorDate}
           ></MoodCalendar>
         );
-      case 6:
-        return <TouchFish touchFish={touchFish}></TouchFish>;
+      case 3:
+        return <MyPet></MyPet>
       case 7:
+        return <TouchFish touchFish={touchFish}></TouchFish>;
+      case 8:
         return <Settings config={config} dataPath={dataPath}></Settings>;
       case 1000:
         return (
