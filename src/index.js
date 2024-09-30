@@ -25,6 +25,7 @@ const root = createRoot(document.getElementById("app"));
 
 let userdata = {};
 let config = {};
+let petData = {};
 let dataPath = "";
 function App() {
   const [editorDate, setEditorDate] = useState(0);
@@ -61,14 +62,19 @@ function App() {
           ></MoodCalendar>
         );
       case 3:
-        return <MyPet></MyPet>
+        return <MyPet petData={petData} dataPath={dataPath}></MyPet>;
       case 7:
         return <TouchFish touchFish={touchFish}></TouchFish>;
       case 8:
         return <Settings config={config} dataPath={dataPath}></Settings>;
       case 1000:
         return (
-          <MoodEditorPage setCurrentPage={setCurrentPage} date={editorDate} userdata={data} dataPath={dataPath}></MoodEditorPage>
+          <MoodEditorPage
+            setCurrentPage={setCurrentPage}
+            date={editorDate}
+            userdata={data}
+            dataPath={dataPath}
+          ></MoodEditorPage>
         );
       default:
         return (
@@ -87,6 +93,7 @@ async function main() {
   dataPath = await api.invoke("get-datapath");
   config = JSON.parse(JSON.stringify(await api.invoke("get-config")));
   userdata = JSON.parse(JSON.stringify(await api.invoke("get-userdata")));
+  petData = JSON.parse(JSON.stringify(await api.invoke("get-petdata")));
   if (config.darkmode == true) {
     document.body.setAttribute("data-bs-theme", "dark");
   } else {

@@ -6,6 +6,7 @@ const default_configs = require("./default_configs");
 const { mkdir } = require("fs");
 let config;
 let userdata;
+let petData;
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 600,
@@ -31,10 +32,10 @@ const createWindow = () => {
   ipcMain.on("minimize-window", () => {
     win.minimize();
   });
-  ipcMain.on("restart-app",()=>{
+  ipcMain.on("restart-app", () => {
     app.relaunch();
     app.quit();
-  })
+  });
 };
 
 // app.whenReady().then(() => {
@@ -62,8 +63,14 @@ async function startApp() {
       );
       startApp();
     } catch {
-      startApp;
+      startApp();
     }
+  }
+  try {
+    await checkFileExists(path.join(dataPath, "petData.json"));
+    petData = require(path.join(dataPath, "petData.json"));
+  } catch {
+    petData = {};
   }
   try {
     await checkFileExists(dataPath);
@@ -99,6 +106,9 @@ ipcMain.handle("get-userdata", async () => {
 });
 ipcMain.handle("get-datapath", async () => {
   return dataPath;
+});
+ipcMain.handle("get-petdata", async () => {
+  return petData;
 });
 ipcMain.on("write-file", (e, [path, data]) => {
   fsPromise.writeFile(path, data);
