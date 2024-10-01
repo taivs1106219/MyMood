@@ -25,7 +25,7 @@ const front_colors = [
 ];
 
 function Settings({ config, dataPath }) {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(config.nickname);
   const [showRestartAlert, setShowRestartAlert] = useState(false);
   const [darkMode, setDarkMode] = useState(config.darkmode);
 
@@ -93,6 +93,7 @@ function Settings({ config, dataPath }) {
               placeholder="Username"
               aria-label="Username"
               aria-describedby="addon-wrapping"
+              value={username}
               onChange={(e) => setUsername(e.target.value)}
             ></input>
           </div>
