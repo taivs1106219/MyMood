@@ -26,6 +26,7 @@ let userdata = {};
 let config = {};
 let petData = {};
 let dataPath = "";
+let missions={}
 function App() {
   const [editorDate, setEditorDate] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
@@ -73,6 +74,7 @@ function App() {
             date={editorDate}
             userdata={userdata}
             dataPath={dataPath}
+            missions={missions}
           ></MoodEditorPage>
         );
       default:
@@ -82,6 +84,7 @@ function App() {
             userdata={userdata}
             dataPath={dataPath}
             config={config}
+            missions={missions}
           ></Homepage>
         );
     }
@@ -93,6 +96,7 @@ async function main() {
   config = JSON.parse(JSON.stringify(await api.invoke("get-config")));
   userdata = JSON.parse(JSON.stringify(await api.invoke("get-userdata")));
   petData = JSON.parse(JSON.stringify(await api.invoke("get-petdata")));
+  missions = JSON.parse(JSON.stringify(await api.invoke("get-missions")));
   if (config.darkmode == true) {
     document.body.setAttribute("data-bs-theme", "dark");
   } else {

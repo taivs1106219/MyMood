@@ -4,7 +4,7 @@ import zanghu from "../../../res/images/zanghu.png";
 import cn from "classnames";
 import MoodEditor from "./MoodEditor";
 
-function Homepage({ page, userdata, dataPath, config }) {
+function Homepage({ page, userdata, dataPath, config, missions }) {
   const today = new Date();
 
   const chartData = {
@@ -45,7 +45,7 @@ function Homepage({ page, userdata, dataPath, config }) {
         color: "rgb(255,255,255)",
       },
     };
-    chartData.data.datasets[0].borderColor="rgb(13,202,240)";
+    chartData.data.datasets[0].borderColor = "rgb(13,202,240)";
   }
   const firstDay = new Date(today);
   firstDay.setDate(firstDay.getDate() - 5);
@@ -70,6 +70,36 @@ function Homepage({ page, userdata, dataPath, config }) {
         : userdata[currentDateString].moodVal;
     // 設置心情制5
   }
+  const dateNum = Number(
+    `${today.getFullYear()}${
+      today.getMonth() + 1 > 9
+        ? today.getMonth() + 1
+        : "0" + (today.getMonth() + 1)
+    }${today.getDate() + 1 > 9 ? today.getDate() : "0" + today.getDate()}`
+  );
+
+  if (userdata.SiLiao == undefined) {
+    Object.assign(userdata, { SiLiao: 0 });
+  }
+  if (missions[dateNum] == undefined) {
+    Object.assign(missions, {
+      [dateNum]: { loggedIn: true, moodEdited: false },
+    });
+    userdata.SiLiao += 5;
+  }
+
+  console.log(userdata)
+
+  api.send("write-file", [
+    dataPath + "/userdata.json",
+    JSON.stringify(userdata, null, 2),
+  ]);
+
+  api.send("write-file", [
+    dataPath + "/missions.json",
+    JSON.stringify(missions, null, 2),
+  ]);
+
   return (
     <div className="autoscroll" id="main-content">
       <div className="d-flex">
@@ -79,11 +109,7 @@ function Homepage({ page, userdata, dataPath, config }) {
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-6">
-            <img
-              src={zanghu}
-              className="p-2"
-              style={{ width: "100%" }}
-            ></img>
+            <img src={zanghu} className="p-2" style={{ width: "100%" }}></img>
           </div>
         </div>
         <div className="row mb-3">
@@ -91,6 +117,7 @@ function Homepage({ page, userdata, dataPath, config }) {
             date={today}
             userdata={userdata}
             dataPath={dataPath}
+            missions={missions}
           ></MoodEditor>
         </div>
         <div className={cn("row", "mb-3", "justify-content-center")}>

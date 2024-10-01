@@ -7,6 +7,8 @@ const { mkdir } = require("fs");
 let config;
 let userdata;
 let petData;
+let missions;
+
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 600,
@@ -94,6 +96,13 @@ async function startApp() {
   } catch {
     userdata = {};
   }
+  try {
+    await checkFileExists(path.join(dataPath, "missions.json"));
+    missions = require(path.join(dataPath, "missions.json"));
+  } catch {
+    missions = {};
+  }
+
   await app.whenReady();
   createWindow();
 }
@@ -109,6 +118,9 @@ ipcMain.handle("get-datapath", async () => {
 });
 ipcMain.handle("get-petdata", async () => {
   return petData;
+});
+ipcMain.handle("get-missions", async () => {
+  return missions;
 });
 ipcMain.on("write-file", (e, [path, data]) => {
   fsPromise.writeFile(path, data);

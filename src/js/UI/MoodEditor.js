@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-function MoodEditor({ date, userdata, dataPath }) {
-  const dateToday = Number(
+function MoodEditor({ date, userdata, dataPath, missions }) {
+  const dateCurrentEditing = Number(
     `${date.getFullYear()}${
       date.getMonth() + 1 > 9
         ? date.getMonth() + 1
@@ -9,30 +9,40 @@ function MoodEditor({ date, userdata, dataPath }) {
     }${date.getDate() + 1 > 9 ? date.getDate() : "0" + date.getDate()}`
   );
 
+  const today = new Date();
+  const todayNum = Number(
+    `${today.getFullYear()}${
+      today.getMonth() + 1 > 9
+        ? today.getMonth() + 1
+        : "0" + (today.getMonth() + 1)
+    }${today.getDate() + 1 > 9 ? today.getDate() : "0" + today.getDate()}`
+  );
   console.log(userdata);
 
   const [dataModded, setDataModded] = useState(false);
 
   const [moodVal, setMoodVal] = useState(
-    Object.hasOwn(userdata, dateToday.toString())
-      ? userdata[dateToday].moodVal
+    Object.hasOwn(userdata, dateCurrentEditing.toString())
+      ? userdata[dateCurrentEditing].moodVal
       : 3
   );
 
   const [notes, setNotes] = useState(
-    Object.hasOwn(userdata, dateToday.toString())
-      ? userdata[dateToday].notes
+    Object.hasOwn(userdata, dateCurrentEditing.toString())
+      ? userdata[dateCurrentEditing].notes
       : ""
   );
 
   if (dataModded) {
     Object.assign(userdata, {
-      [dateToday]: { moodVal: Number(moodVal), notes: notes },
+      [dateCurrentEditing]: {
+        moodVal: Number(moodVal),
+        notes: notes,
+        loggedIn: true,
+      },
     });
     // userdata[dateToday].moodVal = Number(moodVal);
     // userdata[dateToday].notes = notes;
-
-    console.log(userdata)
 
     api.send("write-file", [
       dataPath + "/userdata.json",
@@ -52,14 +62,29 @@ function MoodEditor({ date, userdata, dataPath }) {
     setDataModded(true);
     setMoodVal(e.target.value);
   }
+
+  function handleNoteChange(e) {
+    if (todayNum == dateCurrentEditing) {
+      if (!missions[todayNum].moodEdited) {
+        missions[todayNum].moodEdited = true;
+        userdata.SiLiao += 10;
+        api.send("write-file", [
+          dataPath + "/missions.json",
+          JSON.stringify(missions, null, 2),
+        ]);
+      }
+    }
+    setNotes(e.target.value);
+    setDataModded(true);
+  }
   return (
     <div className="card">
       <div className="card-body">
         <div className="mb-2">
           <label htmlFor="customRange1" className="form-label">
             我的心情指數：
-            {Object.hasOwn(userdata, dateToday.toString())
-              ? userdata[dateToday].moodVal
+            {Object.hasOwn(userdata, dateCurrentEditing.toString())
+              ? userdata[dateCurrentEditing].moodVal
               : 3}
           </label>
           <input
@@ -68,8 +93,8 @@ function MoodEditor({ date, userdata, dataPath }) {
             min={1}
             max={5}
             value={
-              Object.hasOwn(userdata, dateToday.toString())
-                ? userdata[dateToday].moodVal
+              Object.hasOwn(userdata, dateCurrentEditing.toString())
+                ? userdata[dateCurrentEditing].moodVal
                 : 3
             }
             id="customRange1"
@@ -87,14 +112,11 @@ function MoodEditor({ date, userdata, dataPath }) {
               aria-label="Username"
               aria-describedby="basic-addon1"
               value={
-                Object.hasOwn(userdata, dateToday.toString())
-                  ? userdata[dateToday].notes
+                Object.hasOwn(userdata, dateCurrentEditing.toString())
+                  ? userdata[dateCurrentEditing].notes
                   : ""
               }
-              onChange={(e) => {
-                setNotes(e.target.value);
-                setDataModded(true);
-              }}
+              onChange={(e) => handleNoteChange(e)}
             ></textarea>
           </div>
         </div>
