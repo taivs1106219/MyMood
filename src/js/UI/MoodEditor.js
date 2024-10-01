@@ -6,8 +6,10 @@ function MoodEditor({ date, userdata, dataPath }) {
       date.getMonth() + 1 > 9
         ? date.getMonth() + 1
         : "0" + (date.getMonth() + 1)
-    }${date.getDate()}`
+    }${date.getDate() + 1 > 9 ? date.getDate() : "0" + date.getDate()}`
   );
+
+  console.log(userdata);
 
   const [dataModded, setDataModded] = useState(false);
 
@@ -24,10 +26,13 @@ function MoodEditor({ date, userdata, dataPath }) {
   );
 
   if (dataModded) {
-    userdata[dateToday] = {};
+    Object.assign(userdata, {
+      [dateToday]: { moodVal: Number(moodVal), notes: notes },
+    });
+    // userdata[dateToday].moodVal = Number(moodVal);
+    // userdata[dateToday].notes = notes;
 
-    userdata[dateToday].moodVal = moodVal;
-    userdata[dateToday].notes = notes;
+    console.log(userdata)
 
     api.send("write-file", [
       dataPath + "/userdata.json",
