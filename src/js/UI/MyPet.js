@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import MenuButton from "./MenuButton";
 import zanghu from "../../../res/images/zanghu.png";
 
-function MyPet({ petData, dataPath }) {
+function MyPet({ petData, dataPath, config }) {
   const [stateForUpdating, setStateForUpdating] = useState(0);
+  const [msgShown, setMsgShown] = useState(
+    `${config.nickname == "" ? "" : config.nickname + "，"}你好呀~~`
+  );
   let foodVal = 0;
   if (petData.lastFed != undefined) {
     foodVal = Math.floor(
@@ -38,11 +41,17 @@ function MyPet({ petData, dataPath }) {
         <MenuButton></MenuButton>
 
         <div className="container">
-          <div className="row w-100 justify-content-center mb-3">
-            <div className="col col-9 justify-content-center text-center">
-              飽食度
+          <div
+            className="w-100 row justify-content-center mb-3"
+            onClick={(e) => handlePetClick(e)}
+          >
+            <div className="col col-9">
+              <img className="w-100" src={zanghu}></img>
             </div>
-            <div className="col col-9 justify-content-center text-center">
+          </div>
+          <div className="d-flex w-100 justify-content-center mb-3">
+            <div className="justify-content-center text-center">飽食度</div>
+            <div className="flex-fill justify-content-center text-center">
               <div
                 className="progress px-0"
                 role="progressbar"
@@ -57,15 +66,7 @@ function MyPet({ petData, dataPath }) {
               </div>
             </div>
           </div>
-          <div
-            className="w-100 row justify-content-center mb-3"
-            onClick={(e) => handlePetClick(e)}
-          >
-            <div className="col col-9">
-              <img className="w-100" src={zanghu}></img>
-            </div>
-          </div>
-          <div className="row row-cols-3 w-100">
+          <div className="row row-cols-3 w-100 mb-3">
             <div className="col justify-content-center text-center">
               <button className="btn btn-info">加水</button>
             </div>
@@ -76,6 +77,11 @@ function MyPet({ petData, dataPath }) {
             </div>
             <div className="col justify-content-center text-center">
               <button className="btn btn-info">開發中</button>
+            </div>
+          </div>
+          <div className="">
+            <div className="card">
+              <div className="card-body">{msgShown}</div>
             </div>
           </div>
         </div>
