@@ -1,19 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MenuButton from "./MenuButton";
 import zanghu from "../../../res/images/zanghu.png";
 
 function MyPet({ petData, dataPath }) {
+  const [stateForUpdating, setStateForUpdating] = useState(0);
+  let foodVal = 0;
+  if (petData.lastFed != undefined) {
+    foodVal = Math.floor(
+      (1 - (Date.now() - petData.lastFed) / (1000 * 60 * 60 * 12)) * 100
+    );
+    // 飽食度每12小時歸零
+  }
+
   function handlePetClick() {
     console.log("pet clicked");
   }
+
   function handleFeedClick() {
-    console.log(dataPath);
     petData.lastFed = Date.now();
     api.send("write-file", [
       dataPath + "/petData.json",
       JSON.stringify(petData, null, 2),
     ]);
+    setStateForUpdating(stateForUpdating ^ 1);
   }
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setStateForUpdating(stateForUpdating ^ 1);
+    }, 10000);
+
+    return () => clearInterval(intervalId);
+  });
   return (
     <>
       <div className="" id="main-content" style={{ overflowX: "hidden" }}>
@@ -29,19 +47,23 @@ function MyPet({ petData, dataPath }) {
                 className="progress px-0"
                 role="progressbar"
                 aria-label="Basic example"
-                aria-valuenow="0"
+                aria-valuenow={`${foodVal}`}
                 aria-valuemin="0"
                 aria-valuemax="100"
               >
-                <div className="progress-bar" style={{ width: "100%" }}></div>
+                <div className="progress-bar" style={{ width: `${foodVal}%` }}>
+                  {foodVal}%
+                </div>
               </div>
             </div>
           </div>
           <div
-            className="w-100 row justify-content-center"
+            className="w-100 row justify-content-center mb-3"
             onClick={(e) => handlePetClick(e)}
           >
-            <img className="w-100" src={zanghu}></img>
+            <div className="col col-9">
+              <img className="w-100" src={zanghu}></img>
+            </div>
           </div>
           <div className="row row-cols-3 w-100">
             <div className="col justify-content-center text-center">
