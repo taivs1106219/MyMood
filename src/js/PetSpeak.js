@@ -1,8 +1,13 @@
 function touch() {
-  const says = ["呼嚕呼嚕～", "叮叮叮叮"];
-  return says[Math.floor(Math.random() * (says.length + 1))];
+  const says = ["呼嚕呼嚕～"];
+  return says[Math.floor(Math.random() * says.length)];
 }
 
-const petSpeak = { touch: touch() };
+function eat() {
+  const says = ["好ㄘ~", "（嚼嚼嚼", "還要還要~"];
+  return says[Math.floor(Math.random() * says.length)];
+}
 
-export default petSpeak;
+const PetSpeak = { touch: () => touch(), eat: () => eat() };
+
+export default PetSpeak;

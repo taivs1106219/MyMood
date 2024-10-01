@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MenuButton from "./MenuButton";
 import zanghu from "../../../res/images/zanghu.png";
+import PetSpeak from "../PetSpeak";
 
 function MyPet({ petData, dataPath, config }) {
   const [stateForUpdating, setStateForUpdating] = useState(0);
@@ -16,7 +17,7 @@ function MyPet({ petData, dataPath, config }) {
   }
 
   function handlePetClick() {
-    console.log("pet clicked");
+    setMsgShown(PetSpeak.touch())
   }
 
   function handleFeedClick() {
@@ -26,6 +27,7 @@ function MyPet({ petData, dataPath, config }) {
       JSON.stringify(petData, null, 2),
     ]);
     setStateForUpdating(stateForUpdating ^ 1);
+    setMsgShown(PetSpeak.eat())
   }
 
   useEffect(() => {
