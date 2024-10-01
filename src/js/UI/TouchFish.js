@@ -9,20 +9,22 @@ function TouchFish({ touchFish }) {
       <div className={cn("d-flex", "pe-3", "user-select-none")}>
         <MenuButton></MenuButton>
         <p className="flex-fill h2">心情不好？來摸魚吧！</p>
-        <p
-          className={cn("flex-fill", "text-end", "h2")}
-          style={{ fontVariantNumeric: "tabular-nums" }}
-        >
-          您已經摸魚 {touchFish.touchFish} 下
-        </p>
       </div>
       <div className="px-3">
         <button
           onClick={handleClick}
-          className={cn("w-100", "btn", "btn-light","bg")}
+          className={cn("w-100", "btn", "btn-light", "bg")}
         >
           <img src={fish_brown} draggable="false" className="w-100"></img>
         </button>
+      </div>
+      <div className="d-flex">
+        <p
+          className={cn("flex-fill", "text-end", "h2","text-center")}
+          style={{ fontVariantNumeric: "tabular-nums" }}
+        >
+          您已經摸魚 {touchFish.touchFish} 下
+        </p>
       </div>
     </div>
   );
