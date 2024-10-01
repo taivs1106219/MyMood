@@ -14,7 +14,6 @@ import Homepage from "./js/UI/Homepage";
 import MoodCalendar from "./js/UI/MoodCalendar";
 import TouchFish from "./js/UI/TouchFish";
 import Settings from "./js/UI/Settings";
-import { data } from "autoprefixer";
 import MoodEditor from "./js/UI/MoodEditor";
 import MoodEditorPage from "./js/UI/MoodEditorPage";
 import MyPet from "./js/UI/MyPet";
@@ -62,7 +61,7 @@ function App() {
           ></MoodCalendar>
         );
       case 3:
-        return <MyPet petData={petData} dataPath={dataPath}></MyPet>;
+        return <MyPet petData={petData} dataPath={dataPath} config={config}></MyPet>;
       case 7:
         return <TouchFish touchFish={touchFish}></TouchFish>;
       case 8:
@@ -72,7 +71,7 @@ function App() {
           <MoodEditorPage
             setCurrentPage={setCurrentPage}
             date={editorDate}
-            userdata={data}
+            userdata={userdata}
             dataPath={dataPath}
           ></MoodEditorPage>
         );
