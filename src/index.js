@@ -17,6 +17,7 @@ import Settings from "./js/UI/Settings";
 import MoodEditor from "./js/UI/MoodEditor";
 import MoodEditorPage from "./js/UI/MoodEditorPage";
 import MyPet from "./js/UI/MyPet";
+import Missions from "./js/UI/Missions";
 
 document.body.innerHTML = '<div id="app"></div>';
 
@@ -26,7 +27,7 @@ let userdata = {};
 let config = {};
 let petData = {};
 let dataPath = "";
-let missions={}
+let missions = {};
 function App() {
   const [editorDate, setEditorDate] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
@@ -62,7 +63,11 @@ function App() {
           ></MoodCalendar>
         );
       case 3:
-        return <MyPet petData={petData} dataPath={dataPath} config={config}></MyPet>;
+        return (
+          <MyPet petData={petData} dataPath={dataPath} config={config}></MyPet>
+        );
+      case 4:
+        return <Missions missions={missions}></Missions>;
       case 7:
         return <TouchFish touchFish={touchFish}></TouchFish>;
       case 8:
