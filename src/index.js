@@ -67,9 +67,21 @@ function App() {
           <MyPet petData={petData} dataPath={dataPath} config={config}></MyPet>
         );
       case 4:
-        return <Missions missions={missions}></Missions>;
+        return (
+          <Missions
+            missions={missions}
+            setCurrentPage={setCurrentPage}
+          ></Missions>
+        );
       case 7:
-        return <TouchFish touchFish={touchFish}></TouchFish>;
+        return (
+          <TouchFish
+            touchFish={touchFish}
+            missions={missions}
+            userdata={userdata}
+            dataPath={dataPath}
+          ></TouchFish>
+        );
       case 8:
         return <Settings config={config} dataPath={dataPath}></Settings>;
       case 1000:

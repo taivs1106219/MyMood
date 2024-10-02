@@ -9,7 +9,7 @@ const p_classes = ["d-inline-block", "mb-0"];
 
 const span_classes = ["badge", "rounded-pill"];
 
-function Missions({ missions }) {
+function Missions({ missions, setCurrentPage }) {
   const today = new Date();
   const todayNum = Number(
     `${today.getFullYear()}${
@@ -18,6 +18,12 @@ function Missions({ missions }) {
         : "0" + (today.getMonth() + 1)
     }${today.getDate() + 1 > 9 ? today.getDate() : "0" + today.getDate()}`
   );
+
+  function handleMoodEditClick(){
+    setCurrentPage(0)
+  }function handleTouchFishClick() {
+    setCurrentPage(7);
+  }
   return (
     <div id="main-content" className="autoscroll">
       <div className="d-flex">
@@ -27,14 +33,18 @@ function Missions({ missions }) {
       <div className="container">
         <ul className="list-group">
           <li className={cn(...li_classes)}>
-            <p className={cn(...p_classes, "col-8")}>每日開啟APP</p>
+            <p className={cn(...p_classes, "col-8", "ps-0")}>每日開啟APP</p>
             <p className={cn(...p_classes, "col-2", "mb-0")}>
               <img src={feed} style={{ height: "1rem" }}></img>+5&nbsp;
             </p>
             <StatusBadge completed={missions[todayNum].loggedIn}></StatusBadge>
           </li>
-          <li className={cn(...li_classes)}>
-            <p className={cn(...p_classes, "col-8")}>填寫心情筆記</p>
+          <li
+            className={cn(...li_classes, "list-group-item-action", "w-auto")}
+            style={{ width: "auto" }}
+            onClick={handleMoodEditClick}
+          >
+            <p className={cn(...p_classes, "col-8", "ps-0")}>填寫心情筆記</p>
             <p className={cn(...p_classes, "col-2", "mb-0")}>
               <img src={feed} style={{ height: "1rem" }}></img>+10
             </p>
@@ -42,12 +52,16 @@ function Missions({ missions }) {
               completed={missions[todayNum].moodEdited}
             ></StatusBadge>
           </li>
-          <li className={cn(...li_classes)}>
-            <p className={cn(...p_classes, "col-8")}>摸魚500次</p>
+          <li
+            className={cn(...li_classes, "list-group-item-action", "w-auto")}
+            style={{ width: "auto" }}
+            onClick={handleTouchFishClick}
+          >
+            <p className={cn(...p_classes, "col-8", "ps-0")}>摸魚150次</p>
             <p className={cn(...p_classes, "col-2", "mb-0")}>
               <img src={feed} style={{ height: "1rem" }}></img>+5
             </p>
-            <StatusBadge completed={false}></StatusBadge>
+            <StatusBadge completed={missions[todayNum].fishTouched}></StatusBadge>
           </li>
         </ul>
       </div>
