@@ -7,12 +7,18 @@ function MyPet({ petData, dataPath, config }) {
   const [msgShown, setMsgShown] = useState(
     `${config.nickname == "" ? "" : config.nickname + "，"}你好呀~~`
   );
-  let foodVal = 0;
+  let foodVal = 100;
   if (petData.lastFed != undefined) {
     foodVal = Math.floor(
       (1 - (Date.now() - petData.lastFed) / (1000 * 60 * 60 * 12)) * 100
     );
     // 飽食度每12小時歸零
+  }else{
+    petData.lastFed = Date.now();
+    api.send("write-file", [
+      dataPath + "/petData.json",
+      JSON.stringify(petData, null, 2),
+    ]);
   }
 
   function handlePetClick() {
