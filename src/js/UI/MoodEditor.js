@@ -68,6 +68,11 @@ function MoodEditor({ date, userdata, dataPath, missions }) {
       if (!missions[todayNum].moodEdited) {
         missions[todayNum].moodEdited = true;
         userdata.SiLiao += 10;
+
+        api.send("write-file", [
+          dataPath + "/userdata.json",
+          JSON.stringify(userdata, null, 2),
+        ]);
         api.send("write-file", [
           dataPath + "/missions.json",
           JSON.stringify(missions, null, 2),
