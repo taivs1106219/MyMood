@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MenuButton from "./MenuButton";
 import zanghu from "../../../res/images/zanghu.png";
+import PetSpeak from "../PetSpeak";
 
 function MyPet({ petData, dataPath, config }) {
   const [stateForUpdating, setStateForUpdating] = useState(0);
@@ -13,7 +14,7 @@ function MyPet({ petData, dataPath, config }) {
       (1 - (Date.now() - petData.lastFed) / (1000 * 60 * 60 * 12)) * 100
     );
     // 飽食度每12小時歸零
-  }else{
+  } else {
     petData.lastFed = Date.now();
     api.send("write-file", [
       dataPath + "/petData.json",
@@ -22,7 +23,7 @@ function MyPet({ petData, dataPath, config }) {
   }
 
   function handlePetClick() {
-    console.log("pet clicked");
+    setMsgShown(PetSpeak.touch());
   }
 
   function handleFeedClick() {
@@ -31,6 +32,7 @@ function MyPet({ petData, dataPath, config }) {
       dataPath + "/petData.json",
       JSON.stringify(petData, null, 2),
     ]);
+    setMsgShown(PetSpeak.feed());
     setStateForUpdating(stateForUpdating ^ 1);
   }
 
