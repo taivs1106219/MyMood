@@ -32,6 +32,7 @@ function App() {
   const [editorDate, setEditorDate] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [touchFish, setTouchFish] = useState(0);
+  const [touchFishMission, setTouchFishMission] = useState(0);
 
   return (
     <>
@@ -42,6 +43,7 @@ function App() {
       <PageContent
         pagenum={currentPage}
         touchFish={{ touchFish, setTouchFish }}
+        touchFishMission={{touchFishMission,setTouchFishMission}}
       ></PageContent>
 
       <Sidebar
@@ -76,6 +78,7 @@ function App() {
           <Missions
             missions={missions}
             setCurrentPage={setCurrentPage}
+            userdata={userdata}
           ></Missions>
         );
       case 7:
@@ -85,6 +88,7 @@ function App() {
             missions={missions}
             userdata={userdata}
             dataPath={dataPath}
+            touchFishMission={touchFishMission}
           ></TouchFish>
         );
       case 8:

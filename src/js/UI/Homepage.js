@@ -3,8 +3,11 @@ import MenuButton from "./MenuButton";
 import zanghu from "../../../res/images/zanghu.png";
 import cn from "classnames";
 import MoodEditor from "./MoodEditor";
+import MissionCompletedAlert from "./MissionCompleted";
 
 function Homepage({ page, userdata, dataPath, config, missions }) {
+  const [showMissionCompleted, setShowMissionCompleted] = useState(0);
+
   const today = new Date();
 
   const chartData = {
@@ -86,9 +89,10 @@ function Homepage({ page, userdata, dataPath, config, missions }) {
       [dateNum]: { loggedIn: true, moodEdited: false },
     });
     userdata.SiLiao += 7;
+    setShowMissionCompleted(1);
   }
 
-  console.log(userdata)
+  console.log(userdata);
 
   api.send("write-file", [
     dataPath + "/userdata.json",
@@ -107,6 +111,12 @@ function Homepage({ page, userdata, dataPath, config, missions }) {
         <h2>首頁</h2>
       </div>
       <div className="container">
+        {showMissionCompleted ? (
+          <MissionCompletedAlert
+            missionName="每日開啟APP"
+            feedsGet="7"
+          ></MissionCompletedAlert>
+        ) : null}
         <div className="row justify-content-center">
           <div className="col-6">
             <img src={zanghu} className="p-2" style={{ width: "100%" }}></img>

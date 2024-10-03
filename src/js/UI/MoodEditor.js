@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import MissionCompletedAlert from "./MissionCompleted";
 
 function MoodEditor({ date, userdata, dataPath, missions }) {
+  const [showMissionCompleted, setShowMissionCompleted] = useState(0);
+
   const dateCurrentEditing = Number(
     `${date.getFullYear()}${
       date.getMonth() + 1 > 9
@@ -77,6 +80,7 @@ function MoodEditor({ date, userdata, dataPath, missions }) {
           dataPath + "/missions.json",
           JSON.stringify(missions, null, 2),
         ]);
+        setShowMissionCompleted(1);
       }
     }
     setNotes(e.target.value);
@@ -84,6 +88,12 @@ function MoodEditor({ date, userdata, dataPath, missions }) {
   }
   return (
     <div className="card">
+      {showMissionCompleted ? (
+        <MissionCompletedAlert
+          missionName="填寫心情筆記"
+          feedsGet="14"
+        ></MissionCompletedAlert>
+      ) : null}
       <div className="card-body">
         <div className="mb-2">
           <label htmlFor="customRange1" className="form-label">

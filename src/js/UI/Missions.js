@@ -9,7 +9,7 @@ const p_classes = ["d-inline-block", "mb-0"];
 
 const span_classes = ["badge", "rounded-pill"];
 
-function Missions({ missions, setCurrentPage }) {
+function Missions({ missions, setCurrentPage, userdata }) {
   const today = new Date();
   const todayNum = Number(
     `${today.getFullYear()}${
@@ -19,16 +19,20 @@ function Missions({ missions, setCurrentPage }) {
     }${today.getDate() + 1 > 9 ? today.getDate() : "0" + today.getDate()}`
   );
 
-  function handleMoodEditClick(){
-    setCurrentPage(0)
-  }function handleTouchFishClick() {
+  function handleMoodEditClick() {
+    setCurrentPage(0);
+  }
+  function handleTouchFishClick() {
     setCurrentPage(7);
   }
   return (
     <div id="main-content" className="autoscroll">
-      <div className="d-flex">
+      <div className="d-flex flex w-100">
         <MenuButton></MenuButton>
-        <h2>每日任務</h2>
+        <h2 className="flex-fill">每日任務</h2>
+        <p className="d-inline-block mb-0 me-2">
+          <img style={{ height: "1rem" }} src={feed}></img>飼料：{userdata.SiLiao}
+        </p>
       </div>
       <div className="container">
         <ul className="list-group">
@@ -61,7 +65,9 @@ function Missions({ missions, setCurrentPage }) {
             <p className={cn(...p_classes, "col-2", "mb-0")}>
               <img src={feed} style={{ height: "1rem" }}></img>+6
             </p>
-            <StatusBadge completed={missions[todayNum].fishTouched}></StatusBadge>
+            <StatusBadge
+              completed={missions[todayNum].fishTouched}
+            ></StatusBadge>
           </li>
         </ul>
       </div>

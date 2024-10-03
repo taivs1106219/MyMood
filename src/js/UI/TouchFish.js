@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import fish_brown from "../../../res/images/fish_brown.png";
 import cn from "classnames";
 import MenuButton from "./MenuButton";
+import MissionCompletedAlert from "./MissionCompleted";
 
-function TouchFish({ touchFish, missions, userdata, dataPath }) {
+function TouchFish({ touchFish, missions, userdata, dataPath ,touchFishMission}) {
+  // const [showMissionCompleted, setShowMissionCompleted] = useState(0);
+  // console.log(showMissionCompleted);
   const today = new Date();
   const todayNum = Number(
     `${today.getFullYear()}${
@@ -14,7 +17,6 @@ function TouchFish({ touchFish, missions, userdata, dataPath }) {
   );
   if (missions[todayNum].fishTouched == undefined) {
     Object.assign(missions[todayNum], { fishTouched: false });
-    console.log(missions);
     api.send("write-file", [
       dataPath + "/missions.json",
       JSON.stringify(missions, null, 2),
@@ -33,6 +35,7 @@ function TouchFish({ touchFish, missions, userdata, dataPath }) {
         dataPath + "/missions.json",
         JSON.stringify(missions, null, 2),
       ]);
+      touchFishMission.setTouchFishMission(1);
     }
   }
   return (
@@ -41,6 +44,12 @@ function TouchFish({ touchFish, missions, userdata, dataPath }) {
         <MenuButton></MenuButton>
         <p className="flex-fill h2">心情不好？來摸魚吧！</p>
       </div>
+      {touchFishMission.touchFishMission ? (
+        <MissionCompletedAlert
+          missionName="摸魚150下"
+          feedsGet={6}
+        ></MissionCompletedAlert>
+      ) : null}
       <div className="px-3">
         <button
           onClick={handleClick}
