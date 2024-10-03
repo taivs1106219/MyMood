@@ -64,7 +64,12 @@ function App() {
         );
       case 3:
         return (
-          <MyPet petData={petData} dataPath={dataPath} config={config}></MyPet>
+          <MyPet
+            petData={petData}
+            dataPath={dataPath}
+            config={config}
+            userdata={userdata}
+          ></MyPet>
         );
       case 4:
         return (

@@ -85,7 +85,7 @@ function Homepage({ page, userdata, dataPath, config, missions }) {
     Object.assign(missions, {
       [dateNum]: { loggedIn: true, moodEdited: false },
     });
-    userdata.SiLiao += 5;
+    userdata.SiLiao += 7;
   }
 
   console.log(userdata)

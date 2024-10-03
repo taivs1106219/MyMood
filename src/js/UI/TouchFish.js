@@ -23,7 +23,7 @@ function TouchFish({ touchFish, missions, userdata, dataPath }) {
   if (touchFish.touchFish >= 150) {
     if (!missions[todayNum].fishTouched) {
       missions[todayNum].fishTouched = true;
-      userdata.SiLiao += 5;
+      userdata.SiLiao += 6;
 
       api.send("write-file", [
         dataPath + "/userdata.json",

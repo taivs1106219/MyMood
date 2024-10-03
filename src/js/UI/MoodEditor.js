@@ -67,7 +67,7 @@ function MoodEditor({ date, userdata, dataPath, missions }) {
     if (todayNum == dateCurrentEditing) {
       if (!missions[todayNum].moodEdited) {
         missions[todayNum].moodEdited = true;
-        userdata.SiLiao += 10;
+        userdata.SiLiao += 14;
 
         api.send("write-file", [
           dataPath + "/userdata.json",

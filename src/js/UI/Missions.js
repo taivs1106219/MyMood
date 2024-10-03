@@ -35,7 +35,7 @@ function Missions({ missions, setCurrentPage }) {
           <li className={cn(...li_classes)}>
             <p className={cn(...p_classes, "col-8", "ps-0")}>每日開啟APP</p>
             <p className={cn(...p_classes, "col-2", "mb-0")}>
-              <img src={feed} style={{ height: "1rem" }}></img>+5&nbsp;
+              <img src={feed} style={{ height: "1rem" }}></img>+7&nbsp;
             </p>
             <StatusBadge completed={missions[todayNum].loggedIn}></StatusBadge>
           </li>
@@ -46,7 +46,7 @@ function Missions({ missions, setCurrentPage }) {
           >
             <p className={cn(...p_classes, "col-8", "ps-0")}>填寫心情筆記</p>
             <p className={cn(...p_classes, "col-2", "mb-0")}>
-              <img src={feed} style={{ height: "1rem" }}></img>+10
+              <img src={feed} style={{ height: "1rem" }}></img>+14
             </p>
             <StatusBadge
               completed={missions[todayNum].moodEdited}
@@ -59,7 +59,7 @@ function Missions({ missions, setCurrentPage }) {
           >
             <p className={cn(...p_classes, "col-8", "ps-0")}>摸魚150次</p>
             <p className={cn(...p_classes, "col-2", "mb-0")}>
-              <img src={feed} style={{ height: "1rem" }}></img>+5
+              <img src={feed} style={{ height: "1rem" }}></img>+6
             </p>
             <StatusBadge completed={missions[todayNum].fishTouched}></StatusBadge>
           </li>
