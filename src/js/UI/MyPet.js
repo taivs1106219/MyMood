@@ -5,9 +5,7 @@ import PetSpeak from "../PetSpeak";
 
 function MyPet({ petData, dataPath, config }) {
   const [stateForUpdating, setStateForUpdating] = useState(0);
-  const [msgShown, setMsgShown] = useState(
-    `${config.nickname == "" ? "" : config.nickname + "，"}你好呀~~`
-  );
+  const [msgShown, setMsgShown] = useState("");
   let foodVal = 100;
   if (petData.lastFed != undefined) {
     foodVal = Math.floor(
@@ -89,7 +87,7 @@ function MyPet({ petData, dataPath, config }) {
           </div>
           <div className="">
             <div className="card">
-              <div className="card-body">{msgShown}</div>
+              <div className="card-body">{PetSpeak.welcome(config.nickname)}</div>
             </div>
           </div>
         </div>

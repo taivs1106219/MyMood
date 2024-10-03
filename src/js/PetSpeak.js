@@ -8,6 +8,12 @@ function feed() {
   return says[Math.floor(Math.random() * says.length)];
 }
 
-const PetSpeak = { touch: () => touch(), feed: () => feed() };
+function welcome(nickname) {
+  const userCalling = !nickname ? "" : nickname + "，";
+
+  const says = [`${userCalling}你好呀～`, `${userCalling}雷猴哇～`];
+  return says[Math.floor(Math.random() * says.length)];
+}
+const PetSpeak = { touch: () => touch(), feed: () => feed(),welcome:()=>welcome()};
 
 export default PetSpeak;
