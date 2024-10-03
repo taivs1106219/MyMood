@@ -33,7 +33,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const [touchFish, setTouchFish] = useState(0);
   const [touchFishMission, setTouchFishMission] = useState(0);
-
+  
   return (
     <>
       <div id="winCtrl-bar" className={cn("d-flex", "flex-row-reverse")}>
@@ -54,7 +54,7 @@ function App() {
       ></Sidebar>
     </>
   );
-  function PageContent({ pagenum, touchFish }) {
+  function PageContent({ pagenum, touchFish,touchFishMission }) {
     switch (pagenum) {
       case 1:
         return (

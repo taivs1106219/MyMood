@@ -6,7 +6,7 @@ import MissionCompletedAlert from "./MissionCompleted";
 
 function TouchFish({ touchFish, missions, userdata, dataPath ,touchFishMission}) {
   // const [showMissionCompleted, setShowMissionCompleted] = useState(0);
-  // console.log(showMissionCompleted);
+  console.log(touchFishMission);
   const today = new Date();
   const todayNum = Number(
     `${today.getFullYear()}${
