@@ -21,6 +21,10 @@ function MyPet({ petData, dataPath, config, userdata }) {
       JSON.stringify(petData, null, 2),
     ]);
   }
+  console.log(foodVal)
+  if (foodVal < 0) {
+    foodVal = 0;
+  }
 
   function handlePetClick() {
     setMsgShown(PetSpeak.touch());
@@ -28,10 +32,20 @@ function MyPet({ petData, dataPath, config, userdata }) {
 
   function handleFeedClick() {
     // 20飼料=24小時，1飼料=1.2小時
-    petData.lastFed =
-      1.2 * 60 * 60 * 1000 + petData.lastFed > Date.now()
-        ? Date.now()
-        : 1.2 * 60 * 60 * 1000 + petData.lastFed;
+    // petData.lastFed =
+    //   1.2 * 60 * 60 * 1000 + petData.lastFed > Date.now()
+    //     ? Date.now()
+    //     : 1.2 * 60 * 60 * 1000 + petData.lastFed;
+    // console.log(foodVal<0)
+    if (foodVal ==0) {
+      petData.lastFed = Date.now() - 1000 * 60 * 60 * 12;
+      petData.lastFed = 1.2 * 60 * 60 * 1000 + petData.lastFed;
+    } else {
+      petData.lastFed =
+        1.2 * 60 * 60 * 1000 + petData.lastFed > Date.now()
+          ? Date.now()
+          : 1.2 * 60 * 60 * 1000 + petData.lastFed;
+    }
     userdata.SiLiao -= 1;
     setFeeds(feeds - 1);
 
