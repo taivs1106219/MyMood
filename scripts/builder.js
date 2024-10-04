@@ -3,6 +3,7 @@ const cp = require("child_process");
 const { stderr } = require("node:process");
 // const util = require("node:util");
 // const exec = util.promisify(cp.exec);
+let execName=process.platform=="win32"?"npx.cmd":"npx"
 
 const cp_spawn = (command, arguments) => {
   return new Promise((resolve, reject) => {
