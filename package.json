@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "main.js",
   "scripts": {
-    "start": "webpack --mode=development && electron ."
+    "start": "webpack --watch --mode=development && electron ."
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "classnames": "^2.5.1",
     "css-loader": "^7.1.2",
     "electron": "^32.0.1",
+    "electron-builder": "^25.1.7",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.0",
     "postcss-loader": "^8.1.1",
@@ -39,5 +40,58 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3"
+  },
+  "build": {
+    "appId": "io.github.taivs1106219.MyMood",
+    "directories": {
+      "output": "out"
+    },
+    "generateUpdatesFilesForAllChannels": true,
+    "productName": "MyMood",
+    "files": [
+      "main.js",
+      "package.json",
+      "preload.js",
+      "default_configs.js",
+      "res",
+      "dist"
+    ],
+    "nsis": {
+      "oneClick": false
+    },
+    "win": {
+      "artifactName": "${productName}-${os}-${arch}.${ext}",
+      "extraFiles": [
+        "platform-tools-win"
+      ],
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "publish": [
+        {
+          "provider": "github",
+          "owner": "platron-pt",
+          "repo": "platron"
+        }
+      ]
+    },
+    "linux": {
+      "extraFiles": "platform-tools-linux",
+      "artifactName": "${productName}-${os}-${arch}.${ext}",
+      "target": [
+        {
+          "target": "tar.xz",
+          "arch": "x64"
+        }
+      ],
+      "publish": [
+        "github"
+      ]
+    }
   }
 }
