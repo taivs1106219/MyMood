@@ -61,6 +61,7 @@
     },
     "win": {
       "artifactName": "${productName}-${os}-${arch}.${ext}",
+      "icon":"./res/images/icon.png",
       "extraFiles": [
         "platform-tools-win"
       ],
