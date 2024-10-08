@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MenuButton from "./MenuButton";
 import zanghu from "../../../res/images/zanghu.png";
 import PetSpeak from "../PetSpeak";
-import PetSpeak from "../PetSpeak";
+// import PetSpeak from "../PetSpeak";
 import feed from "../../../res/images/feed.png";
 
 function MyPet({ petData, dataPath, config, userdata }) {
