@@ -8,7 +8,7 @@ import feed from "../../../res/images/feed.png";
 function MyPet({ petData, dataPath, config, userdata }) {
   const [stateForUpdating, setStateForUpdating] = useState(0);
   const [feeds, setFeeds] = useState(userdata.SiLiao);
-  const [msgShown, setMsgShown] = useState("");
+  const [msgShown, setMsgShown] = useState(PetSpeak.welcome(config.nickname));
   let foodVal = 100;
   if (petData.lastFed != undefined) {
     foodVal = Math.floor(
@@ -29,6 +29,10 @@ function MyPet({ petData, dataPath, config, userdata }) {
 
   function handlePetClick() {
     setMsgShown(PetSpeak.touch());
+  }
+
+  function handleWaterClick() {
+    setMsgShown(PetSpeak.water())
   }
 
   function handleFeedClick() {
@@ -60,7 +64,6 @@ function MyPet({ petData, dataPath, config, userdata }) {
     ]);
     setMsgShown(PetSpeak.feed());
     setStateForUpdating(stateForUpdating ^ 1);
-    setMsgShown(PetSpeak.eat())
   }
 
   useEffect(() => {
@@ -110,7 +113,7 @@ function MyPet({ petData, dataPath, config, userdata }) {
             </div>
             <div className="col justify-content-center text-center"></div>
             <div className="col justify-content-center text-center">
-              <button className="btn btn-info">加水</button>
+              <button className="btn btn-info" onClick={handleWaterClick}>加水</button>
             </div>
             <div className="col justify-content-center text-center">
               <button className="btn btn-info" onClick={handleFeedClick}>
@@ -124,7 +127,7 @@ function MyPet({ petData, dataPath, config, userdata }) {
           <div className="">
             <div className="card">
               <div className="card-body">
-                {PetSpeak.welcome(config.nickname)}
+                {msgShown}
               </div>
             </div>
           </div>

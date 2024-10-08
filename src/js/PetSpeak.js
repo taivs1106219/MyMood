@@ -4,7 +4,7 @@ function touch() {
 }
 
 function feed() {
-  const says = ["好ㄘ～", "（嚼嚼嚼"];
+  const says = ["好ㄘ～", "（嚼嚼嚼", "（吧唧吧唧"];
   return says[Math.floor(Math.random() * says.length)];
 }
 
@@ -14,6 +14,16 @@ function welcome(nickname) {
   const says = [`${userCalling}你好呀～`, `${userCalling}雷猴哇～`];
   return says[Math.floor(Math.random() * says.length)];
 }
-const PetSpeak = { touch: () => touch(), feed: () => feed(),welcome:()=>welcome()};
+
+function water() {
+  const says = ["咕嚕咕嚕"];
+  return says[Math.floor(Math.random() * says.length)];
+}
+const PetSpeak = {
+  touch: () => touch(),
+  feed: () => feed(),
+  welcome: () => welcome(),
+  water: () => water(),
+};
 
 export default PetSpeak;
