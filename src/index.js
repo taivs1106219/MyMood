@@ -17,6 +17,7 @@ import Settings from "./js/UI/Settings";
 import MoodEditor from "./js/UI/MoodEditor";
 import MoodEditorPage from "./js/UI/MoodEditorPage";
 import MyPet from "./js/UI/MyPet";
+import Missions from "./js/UI/Missions";
 
 document.body.innerHTML = '<div id="app"></div>';
 
@@ -26,12 +27,13 @@ let userdata = {};
 let config = {};
 let petData = {};
 let dataPath = "";
-let missions={}
+let missions = {};
 function App() {
   const [editorDate, setEditorDate] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [touchFish, setTouchFish] = useState(0);
-
+  const [touchFishMission, setTouchFishMission] = useState(0);
+  
   return (
     <>
       <div id="winCtrl-bar" className={cn("d-flex", "flex-row-reverse")}>
@@ -41,6 +43,7 @@ function App() {
       <PageContent
         pagenum={currentPage}
         touchFish={{ touchFish, setTouchFish }}
+        touchFishMission={{touchFishMission,setTouchFishMission}}
       ></PageContent>
 
       <Sidebar
@@ -51,7 +54,7 @@ function App() {
       ></Sidebar>
     </>
   );
-  function PageContent({ pagenum, touchFish }) {
+  function PageContent({ pagenum, touchFish,touchFishMission }) {
     switch (pagenum) {
       case 1:
         return (
@@ -62,9 +65,32 @@ function App() {
           ></MoodCalendar>
         );
       case 3:
-        return <MyPet petData={petData} dataPath={dataPath} config={config}></MyPet>;
+        return (
+          <MyPet
+            petData={petData}
+            dataPath={dataPath}
+            config={config}
+            userdata={userdata}
+          ></MyPet>
+        );
+      case 4:
+        return (
+          <Missions
+            missions={missions}
+            setCurrentPage={setCurrentPage}
+            userdata={userdata}
+          ></Missions>
+        );
       case 7:
-        return <TouchFish touchFish={touchFish}></TouchFish>;
+        return (
+          <TouchFish
+            touchFish={touchFish}
+            missions={missions}
+            userdata={userdata}
+            dataPath={dataPath}
+            touchFishMission={touchFishMission}
+          ></TouchFish>
+        );
       case 8:
         return <Settings config={config} dataPath={dataPath}></Settings>;
       case 1000:
