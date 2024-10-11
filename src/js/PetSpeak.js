@@ -9,6 +9,7 @@ function feed() {
 }
 
 function welcome(nickname) {
+  console.log(nickname)
   const userCalling = !nickname ? "" : nickname + "，";
 
   const says = [`${userCalling}你好呀～`, `${userCalling}雷猴哇～`];
@@ -22,7 +23,7 @@ function water() {
 const PetSpeak = {
   touch: () => touch(),
   feed: () => feed(),
-  welcome: () => welcome(),
+  welcome: (nickname) => welcome(nickname),
   water: () => water(),
 };
 

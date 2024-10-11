@@ -8,6 +8,7 @@ import feed from "../../../res/images/feed.png";
 function MyPet({ petData, dataPath, config, userdata }) {
   const [stateForUpdating, setStateForUpdating] = useState(0);
   const [feeds, setFeeds] = useState(userdata.SiLiao);
+  console.log(config.nickname)
   const [msgShown, setMsgShown] = useState(PetSpeak.welcome(config.nickname));
   let foodVal = 100;
   if (petData.lastFed != undefined) {
