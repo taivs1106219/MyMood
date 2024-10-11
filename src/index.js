@@ -18,6 +18,7 @@ import MoodEditor from "./js/UI/MoodEditor";
 import MoodEditorPage from "./js/UI/MoodEditorPage";
 import MyPet from "./js/UI/MyPet";
 import Missions from "./js/UI/Missions";
+import Examination from "./js/UI/Examination";
 
 document.body.innerHTML = '<div id="app"></div>';
 
@@ -64,6 +65,8 @@ function App() {
             setEditorDate={setEditorDate}
           ></MoodCalendar>
         );
+      case 2:
+        return<Examination></Examination>
       case 3:
         return (
           <MyPet
