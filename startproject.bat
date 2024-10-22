@@ -1,3 +1,3 @@
 git pull
-npx webpack --mode development
-npx electron .
+npx.cmd webpack --mode development
+npx.cmd electron .
