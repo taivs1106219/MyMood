@@ -1,2 +1,3 @@
 git pull
-npm start
+npx webpack --mode development
+npx electron .
