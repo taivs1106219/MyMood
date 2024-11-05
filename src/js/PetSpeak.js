@@ -1,5 +1,5 @@
 function touch() {
-  const says = ["呼嚕呼嚕～"];
+  const says = ["呼嚕呼嚕～","嘶~啊對對對對，再下去一點"];
   return says[Math.floor(Math.random() * says.length)];
 }
 
@@ -12,7 +12,7 @@ function welcome(nickname) {
   console.log(nickname)
   const userCalling = !nickname ? "" : nickname + "，";
 
-  const says = [`${userCalling}你好呀～`, `${userCalling}雷猴哇～`];
+  const says = [`${userCalling}你好呀～`, `${userCalling}雷猴哇～`,"（舔舔"];
   return says[Math.floor(Math.random() * says.length)];
 }
 
