@@ -1,6 +1,7 @@
 import React, { useState, useRef, useLayoutEffect } from "react";
 import MenuButton from "./MenuButton";
 import cn from "classnames";
+import getDateNum from "../getDateNum";
 
 function MoodCalendar({ userdata, currentPage, setEditorDate }) {
   const [date, setDate] = useState(new Date());
@@ -46,13 +47,7 @@ function MoodCalendar({ userdata, currentPage, setEditorDate }) {
   );
 }
 function MoodNote({ date, userdata, currentPage, setEditorDate }) {
-  const dateToday = Number(
-    `${date.getFullYear()}${
-      date.getMonth() + 1 > 9
-        ? date.getMonth() + 1
-        : "0" + (date.getMonth() + 1)
-    }${date.getDate()}`
-  );
+  const dateToday = getDateNum(date)
 
   const todayFilled = Object.hasOwn(userdata, dateToday.toString());
 

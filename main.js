@@ -8,6 +8,7 @@ let config;
 let userdata;
 let petData;
 let missions;
+let examinationData;
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -102,6 +103,12 @@ async function startApp() {
   } catch {
     missions = {};
   }
+  try {
+    await checkFileExists(path.join(dataPath, "examinationData.json"));
+    examinationData = require(path.join(dataPath, "examinationData.json"));
+  } catch {
+    examinationData = {};
+  }
 
   await app.whenReady();
   createWindow();
@@ -121,6 +128,9 @@ ipcMain.handle("get-petdata", async () => {
 });
 ipcMain.handle("get-missions", async () => {
   return missions;
+});
+ipcMain.handle("get-examinationData", async () => {
+  return examinationData;
 });
 ipcMain.on("write-file", (e, [path, data]) => {
   fsPromise.writeFile(path, data);

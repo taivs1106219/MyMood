@@ -2,6 +2,7 @@ import React from "react";
 import MenuButton from "./MenuButton";
 import cn from "classnames";
 import feed from "../../../res/images/feed.png";
+import getDateNum from "../getDateNum";
 
 const li_classes = ["list-group-item", "row"];
 
@@ -10,14 +11,7 @@ const p_classes = ["d-inline-block", "mb-0"];
 const span_classes = ["badge", "rounded-pill"];
 
 function Missions({ missions, setCurrentPage, userdata }) {
-  const today = new Date();
-  const todayNum = Number(
-    `${today.getFullYear()}${
-      today.getMonth() + 1 > 9
-        ? today.getMonth() + 1
-        : "0" + (today.getMonth() + 1)
-    }${today.getDate() + 1 > 9 ? today.getDate() : "0" + today.getDate()}`
-  );
+  const todayNum = getDateNum(new Date());
 
   function handleMoodEditClick() {
     setCurrentPage(0);
@@ -31,7 +25,8 @@ function Missions({ missions, setCurrentPage, userdata }) {
         <MenuButton></MenuButton>
         <h2 className="flex-fill">每日任務</h2>
         <p className="d-inline-block mb-0 me-2">
-          <img style={{ height: "1rem" }} src={feed}></img>飼料：{userdata.SiLiao}
+          <img style={{ height: "1rem" }} src={feed}></img>飼料：
+          {userdata.SiLiao}
         </p>
       </div>
       <div className="container">

@@ -1,16 +1,16 @@
 import React from "react";
 import icons from "../../../res/icons/icons";
 import feed from "../../../res/images/feed.png";
+import getDateNum from "../getDateNum";
 
-function MissionCompletedAlert({ missionName, feedsGet, missionId, missions,dataPath }) {
-  const today = new Date();
-  const todayNum = Number(
-    `${today.getFullYear()}${
-      today.getMonth() + 1 > 9
-        ? today.getMonth() + 1
-        : "0" + (today.getMonth() + 1)
-    }${today.getDate() + 1 > 9 ? today.getDate() : "0" + today.getDate()}`
-  );
+function MissionCompletedAlert({
+  missionName,
+  feedsGet,
+  missionId,
+  missions,
+  dataPath,
+}) {
+  const todayNum = getDateNum(new Date());
   switch (missionId) {
     case 2:
       missions[todayNum].ftCompletedShown = true;

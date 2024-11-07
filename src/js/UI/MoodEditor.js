@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MissionCompletedAlert from "./MissionCompleted";
+import getDateNum from "../getDateNum";
 
 function MoodEditor({ date, userdata, dataPath, missions }) {
   const [showMissionCompleted, setShowMissionCompleted] = useState(0);
@@ -12,14 +13,7 @@ function MoodEditor({ date, userdata, dataPath, missions }) {
     }${date.getDate() + 1 > 9 ? date.getDate() : "0" + date.getDate()}`
   );
 
-  const today = new Date();
-  const todayNum = Number(
-    `${today.getFullYear()}${
-      today.getMonth() + 1 > 9
-        ? today.getMonth() + 1
-        : "0" + (today.getMonth() + 1)
-    }${today.getDate() + 1 > 9 ? today.getDate() : "0" + today.getDate()}`
-  );
+  const todayNum = getDateNum(new Date());
   console.log(userdata);
 
   const [dataModded, setDataModded] = useState(false);

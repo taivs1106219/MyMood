@@ -3,6 +3,7 @@ import fish_brown from "../../../res/images/fish_brown.png";
 import cn from "classnames";
 import MenuButton from "./MenuButton";
 import MissionCompletedAlert from "./MissionCompleted";
+import getDateNum from "../getDateNum";
 
 function TouchFish({
   touchFish,
@@ -13,14 +14,7 @@ function TouchFish({
 }) {
   // const [showMissionCompleted, setShowMissionCompleted] = useState(0);
   console.log(touchFishMission);
-  const today = new Date();
-  const todayNum = Number(
-    `${today.getFullYear()}${
-      today.getMonth() + 1 > 9
-        ? today.getMonth() + 1
-        : "0" + (today.getMonth() + 1)
-    }${today.getDate() + 1 > 9 ? today.getDate() : "0" + today.getDate()}`
-  );
+  const todayNum = getDateNum(new Date())
   if (missions[todayNum].fishTouched == undefined) {
     Object.assign(missions[todayNum], {
       fishTouched: false,

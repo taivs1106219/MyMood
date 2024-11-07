@@ -29,12 +29,14 @@ let config = {};
 let petData = {};
 let dataPath = "";
 let missions = {};
+let examinationData = {};
+
 function App() {
   const [editorDate, setEditorDate] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [touchFish, setTouchFish] = useState(0);
   const [touchFishMission, setTouchFishMission] = useState(0);
-  
+
   return (
     <>
       <div id="winCtrl-bar" className={cn("d-flex", "flex-row-reverse")}>
@@ -44,7 +46,7 @@ function App() {
       <PageContent
         pagenum={currentPage}
         touchFish={{ touchFish, setTouchFish }}
-        touchFishMission={{touchFishMission,setTouchFishMission}}
+        touchFishMission={{ touchFishMission, setTouchFishMission }}
       ></PageContent>
 
       <Sidebar
@@ -55,7 +57,7 @@ function App() {
       ></Sidebar>
     </>
   );
-  function PageContent({ pagenum, touchFish,touchFishMission }) {
+  function PageContent({ pagenum, touchFish, touchFishMission }) {
     switch (pagenum) {
       case 1:
         return (
@@ -66,7 +68,7 @@ function App() {
           ></MoodCalendar>
         );
       case 2:
-        return<Examination></Examination>
+        return <Examination examinationData={examinationData}dataPath={dataPath}></Examination>;
       case 3:
         return (
           <MyPet
@@ -126,6 +128,10 @@ async function main() {
   userdata = JSON.parse(JSON.stringify(await api.invoke("get-userdata")));
   petData = JSON.parse(JSON.stringify(await api.invoke("get-petdata")));
   missions = JSON.parse(JSON.stringify(await api.invoke("get-missions")));
+  examinationData = JSON.parse(
+    JSON.stringify(await api.invoke("get-examinationData"))
+  );
+
   if (config.darkmode == true) {
     document.body.setAttribute("data-bs-theme", "dark");
   } else {
