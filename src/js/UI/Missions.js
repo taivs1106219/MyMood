@@ -30,39 +30,49 @@ function Missions({ missions, setCurrentPage, userdata }) {
         </p>
       </div>
       <div className="container">
-        <ul className="list-group">
+        <ul className="list-group w-100">
           <li className={cn(...li_classes)}>
-            <p className={cn(...p_classes, "col-8", "ps-0")}>每日開啟APP</p>
-            <p className={cn(...p_classes, "col-2", "mb-0")}>
-              <img src={feed} style={{ height: "1rem" }}></img>+7&nbsp;
-            </p>
-            <StatusBadge completed={missions[todayNum].loggedIn}></StatusBadge>
+            <div className="d-flex">
+              <p className={cn(...p_classes, "me-auto", "ps-0")}>每日開啟APP</p>
+              <p className={cn(...p_classes, "mb-0", "me-2")}>
+                <img src={feed} style={{ height: "1rem" }}></img>+7
+              </p>
+              <StatusBadge
+                completed={missions[todayNum].loggedIn}
+              ></StatusBadge>
+            </div>
           </li>
           <li
             className={cn(...li_classes, "list-group-item-action", "w-auto")}
             style={{ width: "auto" }}
             onClick={handleMoodEditClick}
           >
-            <p className={cn(...p_classes, "col-8", "ps-0")}>填寫心情筆記</p>
-            <p className={cn(...p_classes, "col-2", "mb-0")}>
-              <img src={feed} style={{ height: "1rem" }}></img>+14
-            </p>
-            <StatusBadge
-              completed={missions[todayNum].moodEdited}
-            ></StatusBadge>
+            <div className="d-flex">
+              <p className={cn(...p_classes, "me-auto", "ps-0")}>
+                填寫心情筆記
+              </p>
+              <p className={cn(...p_classes, "mb-0", "me-2")}>
+                <img src={feed} style={{ height: "1rem" }}></img>+14
+              </p>
+              <StatusBadge
+                completed={missions[todayNum].moodEdited}
+              ></StatusBadge>
+            </div>
           </li>
           <li
             className={cn(...li_classes, "list-group-item-action", "w-auto")}
             style={{ width: "auto" }}
             onClick={handleTouchFishClick}
           >
-            <p className={cn(...p_classes, "col-8", "ps-0")}>摸魚150次</p>
-            <p className={cn(...p_classes, "col-2", "mb-0")}>
-              <img src={feed} style={{ height: "1rem" }}></img>+6
-            </p>
-            <StatusBadge
-              completed={missions[todayNum].fishTouched}
-            ></StatusBadge>
+            <div className="d-flex">
+              <p className={cn(...p_classes, "me-auto", "ps-0")}>摸魚150次</p>
+              <p className={cn(...p_classes, "mb-0", "me-2")}>
+                <img src={feed} style={{ height: "1rem" }}></img>+6
+              </p>
+              <StatusBadge
+                completed={missions[todayNum].fishTouched}
+              ></StatusBadge>
+            </div>
           </li>
         </ul>
       </div>
@@ -77,7 +87,6 @@ function StatusBadge({ completed }) {
       className={cn(
         ...span_classes,
         `text-bg-${completed ? "success" : "warning"}`,
-        "col-2"
       )}
     >
       {completed ? "已完成" : "進行中"}
