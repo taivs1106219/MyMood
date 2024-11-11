@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useState, useEffect, useref, useRef } from "react";
+import getDateNum from "../../getDateNum";
 
-function Yn({ question }) {
+function Yn({
+  question,
+  examinationData,
+  currentQuestionOrder,
+  dataPath,
+  answerStatus,
+  setAnswerStatus,
+}) {
+  const dateNum = getDateNum(new Date());
+
+  function handleClick(val) {
+    const tempArray = [...answerStatus];
+    tempArray[currentQuestionOrder - 1] = val;
+    setAnswerStatus(tempArray);
+  }
+
+  const checkStatus = [4, 0].map((x) =>
+    answerStatus[currentQuestionOrder - 1] == x ? "checked" : ""
+  );
+
   return (
     <>
       <h5>{question}</h5>
@@ -9,7 +29,9 @@ function Yn({ question }) {
           className="form-check-input"
           type="radio"
           name="flexRadioDefault"
-          id="n2"
+          id="y"
+          onClick={() => handleClick(4)}
+          checked={checkStatus[0]}
         ></input>
         <label className="form-check-label" htmlFor="y">
           是
@@ -20,7 +42,9 @@ function Yn({ question }) {
           className="form-check-input"
           type="radio"
           name="flexRadioDefault"
-          id="n2"
+          id="n"
+          onClick={() => handleClick(0)}
+          checked={checkStatus[1]}
         ></input>
         <label className="form-check-label" htmlFor="n">
           否

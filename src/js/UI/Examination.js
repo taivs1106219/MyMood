@@ -4,21 +4,34 @@ import getDateNum from "../getDateNum";
 import quesions from "../../../res/json/questions.json";
 import QuestionCard from "./Examinations/question";
 import icons from "../../../res/icons/icons";
+import cn from "classnames";
 
 function Examination({ examinationData, dataPath }) {
+  const dateNum = getDateNum(new Date());
   const [currentQuestion, setCurrentQuestion] = useState([0, 0]);
   const [currentQuestionOrder, setCurrentQuestionOrder] = useState(1);
+  const [answerStatus, setAnswerStatus] = useState([2, 2, 4, 4, 4, 4]);
+  const [submitted, setSubmitted] = useState(
+    !!examinationData[dateNum].answers.length
+  );
 
-  const dateNum = getDateNum(new Date());
+  let score = 0;
+
+  if (submitted) {
+    examinationData[dateNum].answers.forEach((element) => {
+      score += element;
+    });
+  }
+
+  console.log(answerStatus);
+
   if (!(dateNum in examinationData)) {
     Object.assign(examinationData, {
-      [dateNum]: { quesions: { p1: [], p2: [], p3: [] } },
+      [dateNum]: {
+        quesions: { p1: [], p2: [], p3: [] },
+        answers: [],
+      },
     });
-    // for (let i = 0; i < 2; i++) {
-    //   examinationData[dateNum].quesions.p1.push(
-    //     Math.floor(Math.random() * quesions.depress.select.length)
-    //   );
-    // }
 
     while (examinationData[dateNum].quesions.p1.length < 2) {
       const qNum = Math.floor(Math.random() * quesions.depress.select.length);
@@ -26,14 +39,14 @@ function Examination({ examinationData, dataPath }) {
         examinationData[dateNum].quesions.p1.push(qNum);
       }
     }
-    
+
     while (examinationData[dateNum].quesions.p2.length < 2) {
       const qNum = Math.floor(Math.random() * quesions.depress.select.length);
       if (!examinationData[dateNum].quesions.p2.includes(qNum)) {
         examinationData[dateNum].quesions.p2.push(qNum);
       }
     }
-    
+
     while (examinationData[dateNum].quesions.p3.length < 2) {
       const qNum = Math.floor(Math.random() * quesions.depress.select.length);
       if (!examinationData[dateNum].quesions.p3.includes(qNum)) {
@@ -44,9 +57,9 @@ function Examination({ examinationData, dataPath }) {
       dataPath + "/examinationData.json",
       JSON.stringify(examinationData, null, 2),
     ]);
-    console.log(examinationData);
+    // console.log(examinationData);
   }
-  console.log(dateNum);
+  // console.log(dateNum);
 
   function order2text(order, questionList) {
     return questionList[order];
@@ -78,14 +91,26 @@ function Examination({ examinationData, dataPath }) {
     if (currentQuestionOrder + d < 1) {
       newQuestionOrder = 1;
     }
-    setCurrentQuestionOrder(newQuestionOrder);
+
     renderQuestion(newQuestionOrder);
+  }
+
+  function handleSubmitClick() {
+    if (!submitted) {
+      examinationData[dateNum].answers = answerStatus;
+    }
+    console.log(examinationData);
+    api.send("write-file", [
+      dataPath + "/examinationData.json",
+      JSON.stringify(examinationData, null, 2),
+    ]);
+    setSubmitted(true);
   }
 
   function renderQuestion(newQuestionOrder) {
     let currentQuestionField1 = 0;
     let currentQuestionField2 = 0;
-    console.log(newQuestionOrder);
+    // console.log(newQuestionOrder);
     switch (newQuestionOrder) {
       case 1:
       case 2:
@@ -102,12 +127,12 @@ function Examination({ examinationData, dataPath }) {
     }
 
     currentQuestionField2 = newQuestionOrder % 2 ^ 1;
-
+    setCurrentQuestionOrder(newQuestionOrder);
     setCurrentQuestion([currentQuestionField1, currentQuestionField2]);
-    console.log(newQuestionOrder, [
-      currentQuestionField1,
-      currentQuestionField2,
-    ]);
+    // console.log(newQuestionOrder, [
+    //   currentQuestionField1,
+    //   currentQuestionField2,
+    // ]);
   }
 
   return (
@@ -117,11 +142,16 @@ function Examination({ examinationData, dataPath }) {
         <h2>心理測驗</h2>
       </div>
       <div className="container">
-        <div className="card">
+        <div className="card mb-3">
           <div className="card-body">
             <QuestionCard
               type={currentQuestion[0]}
               question={questionText}
+              examinationData={examinationData}
+              currentQuestionOrder={currentQuestionOrder}
+              answerStatus={answerStatus}
+              setAnswerStatus={setAnswerStatus}
+              dataPath={dataPath}
             ></QuestionCard>
           </div>
           <div className="card-footer">
@@ -142,8 +172,52 @@ function Examination({ examinationData, dataPath }) {
             </div>
           </div>
         </div>
+        <div className="w-100 d-flex flex-column ">
+          <div className="d-flex w-100 justify-content-center">
+            <button
+              className={cn(
+                "btn",
+                "btn-primary",
+                "mb-2",
+                submitted ? "disabled" : ""
+              )}
+              onClick={handleSubmitClick}
+            >
+              提交
+            </button>
+          </div>
+          <div className="d-flex w-100 justify-content-center">
+            <p className="h6">
+              <ins>當日提交後，不可再次提交</ins>
+            </p>
+          </div>
+          {submitted ? <ScoreCard score={score}></ScoreCard> : null}
+        </div>
       </div>
     </div>
+  );
+}
+
+function ScoreCard({ score }) {
+  let pressureLevel=""
+
+  if(score<8){
+    pressureLevel="LOW"
+  }else if(score<16){
+    pressureLevel="MID"
+  }else{
+    pressureLevel="HIGH"
+  }
+  
+  return (
+    <>
+      <div className="d-flex w-100 justify-content-center">
+        <p>您的分數：{score}分</p>
+      </div>
+      <div className="d-flex w-100 justify-content-center">
+        <p>精神壓力水平：{pressureLevel}</p>
+      </div>
+    </>
   );
 }
 
