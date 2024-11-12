@@ -119,7 +119,7 @@ function Settings({ config, dataPath }) {
                 </div>
                 <div className="col-12 ">
                   <p className="text-warning ps-1 mb-0">
-                    此設定開啟時，其他主題將不會生效
+                    <ins>此設定開啟時，其他主題將不會生效</ins>
                   </p>
                 </div>
               </div>
