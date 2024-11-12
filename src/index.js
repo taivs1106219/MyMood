@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,  createContext } from "react";
 import { createRoot } from "react-dom/client";
 
 import "../src/scss/style.scss";
@@ -23,6 +23,7 @@ import Examination from "./js/UI/Examination";
 document.body.innerHTML = '<div id="app"></div>';
 
 const root = createRoot(document.getElementById("app"));
+const ThemeContext = createContext(null);
 
 let userdata = {};
 let config = {};
@@ -36,9 +37,10 @@ function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const [touchFish, setTouchFish] = useState(0);
   const [touchFishMission, setTouchFishMission] = useState(0);
+  const [darkmode, setDarkmode] = useState(config.darkmode);
 
   return (
-    <>
+    <ThemeContext.Provider darkmode={darkmode}>
       <div id="winCtrl-bar" className={cn("d-flex", "flex-row-reverse")}>
         <Navbar config={config}></Navbar>
       </div>
@@ -55,7 +57,7 @@ function App() {
           setCurrentPage: setCurrentPage,
         }}
       ></Sidebar>
-    </>
+    </ThemeContext.Provider>
   );
   function PageContent({ pagenum, touchFish, touchFishMission }) {
     switch (pagenum) {
@@ -68,7 +70,12 @@ function App() {
           ></MoodCalendar>
         );
       case 2:
-        return <Examination examinationData={examinationData}dataPath={dataPath}></Examination>;
+        return (
+          <Examination
+            examinationData={examinationData}
+            dataPath={dataPath}
+          ></Examination>
+        );
       case 3:
         return (
           <MyPet
@@ -94,6 +101,8 @@ function App() {
             userdata={userdata}
             dataPath={dataPath}
             touchFishMission={touchFishMission}
+            ThemeContext={ThemeContext}
+            config={config}
           ></TouchFish>
         );
       case 8:
