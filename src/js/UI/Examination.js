@@ -11,19 +11,6 @@ function Examination({ examinationData, dataPath }) {
   const [currentQuestion, setCurrentQuestion] = useState([0, 0]);
   const [currentQuestionOrder, setCurrentQuestionOrder] = useState(1);
   const [answerStatus, setAnswerStatus] = useState([2, 2, 4, 4, 4, 4]);
-  const [submitted, setSubmitted] = useState(
-    !!examinationData[dateNum].answers.length
-  );
-
-  let score = 0;
-
-  if (submitted) {
-    examinationData[dateNum].answers.forEach((element) => {
-      score += element;
-    });
-  }
-
-  console.log(answerStatus);
 
   if (!(dateNum in examinationData)) {
     Object.assign(examinationData, {
@@ -59,6 +46,22 @@ function Examination({ examinationData, dataPath }) {
     ]);
     // console.log(examinationData);
   }
+
+  const [submitted, setSubmitted] = useState(
+    !!examinationData[dateNum].answers.length
+  );
+
+  let score = 0;
+
+  if (submitted) {
+    examinationData[dateNum].answers.forEach((element) => {
+      score += element;
+    });
+  }
+
+  console.log(answerStatus);
+
+  
   // console.log(dateNum);
 
   function order2text(order, questionList) {
