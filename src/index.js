@@ -97,6 +97,8 @@ function App() {
       case 5:
         return (
           <AskAI
+          userdata={userdata}
+          examinationData={examinationData}
           ></AskAI>
         );
       case 7:
