@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import MenuButton from "./MenuButton";
 import getDateNum from "../getDateNum";
 import quesions from "../../../res/json/questions.json";
 import QuestionCard from "./Examinations/question";
 import icons from "../../../res/icons/icons";
 import cn from "classnames";
+import summary from "./Examinations/summary";
+import SummaryCard from "./Examinations/SummaryCard";
 
-function Examination({ examinationData, dataPath }) {
+function Examination({ examinationData, dataPath, ThemeContext }) {
+  const darkmode = useContext(ThemeContext);
+
   const dateNum = getDateNum(new Date());
   const [currentQuestion, setCurrentQuestion] = useState([0, 0]);
   const [currentQuestionOrder, setCurrentQuestionOrder] = useState(1);
@@ -61,7 +65,6 @@ function Examination({ examinationData, dataPath }) {
 
   console.log(answerStatus);
 
-  
   // console.log(dateNum);
 
   function order2text(order, questionList) {
@@ -132,10 +135,6 @@ function Examination({ examinationData, dataPath }) {
     currentQuestionField2 = newQuestionOrder % 2 ^ 1;
     setCurrentQuestionOrder(newQuestionOrder);
     setCurrentQuestion([currentQuestionField1, currentQuestionField2]);
-    // console.log(newQuestionOrder, [
-    //   currentQuestionField1,
-    //   currentQuestionField2,
-    // ]);
   }
 
   return (
@@ -145,7 +144,7 @@ function Examination({ examinationData, dataPath }) {
         <h2>心理測驗</h2>
       </div>
       <div className="container">
-        <div className="card mb-3">
+        <div className={cn("card", "mb-3", submitted ? "d-none" : "")}>
           <div className="card-body">
             <QuestionCard
               type={currentQuestion[0]}
@@ -160,14 +159,22 @@ function Examination({ examinationData, dataPath }) {
           <div className="card-footer">
             <div className="d-flex justify-content-center">
               <button
-                className="btn btn-outline-light btn-sm"
+                className={cn(
+                  "btn",
+                  "btn-sm",
+                  "btn-outline-" + darkmode ? "light" : "dark"
+                )}
                 onClick={() => handleClick(-1)}
               >
                 <icons.Chevron_left></icons.Chevron_left>
               </button>
               <p className="h3 mx-2">{currentQuestionOrder}/6</p>
               <button
-                className="btn btn-outline-light btn-sm"
+                className={cn(
+                  "btn",
+                  "btn-sm",
+                  "btn-outline-" + darkmode ? "light" : "dark"
+                )}
                 onClick={() => handleClick(1)}
               >
                 <icons.Chevron_right></icons.Chevron_right>
@@ -175,7 +182,14 @@ function Examination({ examinationData, dataPath }) {
             </div>
           </div>
         </div>
-        <div className="w-100 d-flex flex-column ">
+        <div
+          className={cn(
+            "w-100",
+            "d-flex",
+            "flex-column",
+            submitted ? "d-none" : ""
+          )}
+        >
           <div className="d-flex w-100 justify-content-center">
             <button
               className={cn(
@@ -194,7 +208,10 @@ function Examination({ examinationData, dataPath }) {
               <ins>當日提交後，不可再次提交</ins>
             </p>
           </div>
-          {submitted ? <ScoreCard score={score}></ScoreCard> : null}
+          {/* {submitted ? <ScoreCard score={score}></ScoreCard> : null} */}
+        </div>
+        <div className={cn("w-100", "d-flex", "flex-column")}>
+          {submitted ? <SummaryCard score={score}></SummaryCard> : null}
         </div>
       </div>
     </div>
@@ -202,21 +219,21 @@ function Examination({ examinationData, dataPath }) {
 }
 
 function ScoreCard({ score }) {
-  let pressureLevel=""
+  let pressureLevel = "";
 
-  if(score<8){
-    pressureLevel="LOW"
-  }else if(score<16){
-    pressureLevel="MID"
-  }else{
-    pressureLevel="HIGH"
+  if (score < 8) {
+    pressureLevel = "LOW";
+  } else if (score < 16) {
+    pressureLevel = "MID";
+  } else {
+    pressureLevel = "HIGH";
   }
-  
+
   return (
     <>
-      <div className="d-flex w-100 justify-content-center">
+      {/* <div className="d-flex w-100 justify-content-center">
         <p>您的分數：{score}分</p>
-      </div>
+      </div> */}
       <div className="d-flex w-100 justify-content-center">
         <p>精神壓力水平：{pressureLevel}</p>
       </div>

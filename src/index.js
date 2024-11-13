@@ -75,6 +75,7 @@ function App() {
           <Examination
             examinationData={examinationData}
             dataPath={dataPath}
+            ThemeContext={ThemeContext}
           ></Examination>
         );
       case 3:
