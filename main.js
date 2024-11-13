@@ -9,6 +9,7 @@ let userdata;
 let petData;
 let missions;
 let examinationData;
+const OpenAI = require("openai");
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -21,6 +22,42 @@ const createWindow = () => {
   });
 
   win.loadFile("dist/index.html");
+
+  ipcMain.on("ask-gpt", async (e, [apiKey, score]) => {
+    try {
+      const openai = new OpenAI({ apiKey: apiKey });
+
+      const completion = await openai.chat.completions.create({
+        messages: [
+          {
+            role: "system",
+            content: `用戶在先前的心理測驗測驗獲得${
+              24 - score
+            }分，滿分為24分。分數越高表示用戶的心理狀況越好，而分數越低表示用戶的心理狀況越差，。請給用戶一些關於心理測驗得分的建議，請勿在回應中提到用戶的得分。`,
+          },
+          { role: "user", content: "請一定要回應完整的句子" },
+          { role: "user", content: "請把回應的字數限制在150字以内" },
+
+          {
+            role: "user",
+            content: `我在先前的心理測驗測驗獲得${
+              24 - score
+            }分，滿分為24分。分數越高表示我的心理狀況越好，而分數越低表示我的心理狀況越差，。請給我一些關於心理測驗得分的建議，請勿在回應中提到我的得分。`,
+          },
+        ],
+        model: "gpt-4o",
+        stream: true,
+      });
+
+      for await (const chunk of completion) {
+        if (chunk.choices[0].delta.content != undefined) {
+          win.webContents.send("gpt-result", chunk.choices[0].delta.content);
+        }
+      }
+    } catch (e) {
+      win.webContents.send("gpt-result", e);
+    }
+  });
 
   ipcMain.on("close-window", () => {
     win.close();

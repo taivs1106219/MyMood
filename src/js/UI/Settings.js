@@ -25,9 +25,18 @@ const front_colors = [
 ];
 
 function Settings({ config, dataPath }) {
+  if (config.openai_key == undefined) {
+    Object.assign(config, { openai_key: "" });
+    api.send("write-file", [
+      dataPath + "/config.json",
+      JSON.stringify(config, null, 2),
+    ]);
+  }
+
   const [username, setUsername] = useState(config.nickname);
   const [showRestartAlert, setShowRestartAlert] = useState(false);
   const [darkMode, setDarkMode] = useState(config.darkmode);
+  const [OAIKey, setOAIKey] = useState(config.openai_key);
 
   function handleClick() {
     api.send("write-file", [
@@ -38,7 +47,7 @@ function Settings({ config, dataPath }) {
     api.send("write-file", [dataPath + "/theme.css", bg_css(config.bg_color)]);
   }
   function handleRestartRequest() {
-    console.log("restarting")
+    console.log("restarting");
     api.send("restart-app");
   }
   function handleChange(e) {
@@ -61,6 +70,19 @@ function Settings({ config, dataPath }) {
 
     return () => clearTimeout(delayDebounceFn);
   }, [username]);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      config.openai_key = OAIKey;
+      api.send("write-file", [
+        dataPath + "/config.json",
+        JSON.stringify(config, null, 2),
+      ]);
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [OAIKey]);
+
   return (
     <>
       <div className="d-flex">
@@ -143,7 +165,7 @@ function Settings({ config, dataPath }) {
                 );
               })}
             </div>
-            <div className="input-group d-flex" role="group">
+            <div className="input-group d-flex mb-3" role="group">
               <span className="input-group-text">強調色</span>
               {front_colors.map((e) => {
                 return (
@@ -164,6 +186,25 @@ function Settings({ config, dataPath }) {
                   ></input>
                 );
               })}
+            </div>
+            <div className="card">
+              <div className="card-body">
+                <p className="mb-2">
+                  OpenAI API Key<br></br>
+                  <ins>僅用於 AI 建議</ins>
+                </p>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="填入 OpenAI 的 API Key"
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                    value={OAIKey}
+                    onChange={(e) => setOAIKey(e.target.value)}
+                  ></input>
+                </div>
+              </div>
             </div>
           </div>
         </div>

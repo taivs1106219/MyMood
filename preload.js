@@ -5,4 +5,9 @@ contextBridge.exposeInMainWorld("api", {
   invoke: (channel, args) => {
     return ipcRenderer.invoke(channel, args);
   },
+  handle: (channel, callback) =>
+    ipcRenderer.on(channel, (event, args) => callback(args)),
+  removeIPCListener: (channel) => {
+    ipcRenderer.removeAllListeners(channel);
+  },
 });

@@ -1,79 +1,65 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MenuButton from "./MenuButton";
 import getDateNum from "../getDateNum";
+// import OpenAI from "openai";
 
-function AskAI({ userdata, examinationData }) {
+function AskAI({ userdata, examinationData, config }) {
   const [suggestion, setSuggestion] = useState("");
   const [hasAnalyzed, setHasAnalyzed] = useState(false);
   const currentDate = getDateNum(new Date());
-  const answers = examinationData[currentDate] ? examinationData[currentDate].answers : "無數據";
+  const dateNum = getDateNum(new Date());
 
-  const handleAnalyze = () => {
-    if (hasAnalyzed) {
-      setSuggestion("今天已經分析過了，請明天再試。");
-      return;
-    }
-
-    if (answers === "無數據") {
-      setSuggestion("無法獲取當前日期的數據。");
-      return;
-    }
-
-    const raw = JSON.stringify({
-      "model": "gpt-4",
-      "messages": [
-        {
-          "role": "user",
-          "content": `我今天的心情為 ${answers}，滿分為 24，分數越高心情越差，請幫我依照當前的心情，給我一些建議`
-        }
-      ],
-      "stream": false
+  useEffect(() => {
+    api.handle("gpt-result", (res) => {
+      setSuggestion(suggestion + res);
     });
-
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer sk-DWskRGTLRJpv7RXiFVm7XCSHTI8HpT7Ira8qpsSKHKFXCAVC");
-    myHeaders.append("Content-Type", "application/json");
-
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
-
-    fetch("https://chatapi.littlewheat.com/v1/chat/completions", requestOptions)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
+    return () => api.removeIPCListener("gpt-result");
+  });
+  const handleAnalyze = () => {
+    setSuggestion("")
+    if (config.openai_key == "") {
+      setSuggestion("未填寫OpenAI API Key！請申請後在設定中填寫");
+    } else {
+      if (
+        examinationData[dateNum] == undefined ||
+        examinationData[dateNum].answers.length == 0
+      ) {
+        setSuggestion("請先作答再來看建議哦~");
+      } else {
+        let score = 0;
+        for (let x of examinationData[dateNum].answers) {
+          console.log(x);
+          score += x;
         }
-        return response.json();
-      })
-      .then(result => {
-        console.log('API回應:', result);  // 調試
-        const aiResponse = result.choices[0].message.content;
-        setSuggestion(aiResponse);
-        setHasAnalyzed(true);
-      })
-      .catch(error => {
-        console.error('錯誤:', error);
-        setSuggestion("抱歉，無法獲取建議。");
-      });
+        console.log(score);
+        api.send("ask-gpt", [config.openai_key, score]);
+      }
+    }
   };
 
   return (
-    <div >
+    <div>
       <div className="d-flex">
         <MenuButton />
         <h2>AI的建議</h2>
-      </div >
-      <button button type="button" class="btn btn-primary" onClick={handleAnalyze}>請AI分析</button>
-      <div>
-        <h3>{suggestion}</h3>
+      </div>
+      <div className="container">
+        <div>
+          <p>{suggestion}</p>
+        </div>
+        <div className="d-flex justify-content-center w-100">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handleAnalyze}
+          >
+            查看AI的建議
+          </button>
+        </div>
+        
       </div>
     </div>
   );
 }
 
 export default AskAI;
-
-

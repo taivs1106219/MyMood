@@ -3,6 +3,7 @@ const default_config = {
   bg_color: "#ffffff",
   front_color: "",
   fish: "brown",
+  openai_key:""
 };
 
 module.exports = default_config;

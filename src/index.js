@@ -100,6 +100,7 @@ function App() {
           <AskAI
           userdata={userdata}
           examinationData={examinationData}
+          config={config}
           ></AskAI>
         );
       case 7:
