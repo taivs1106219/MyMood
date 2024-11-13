@@ -19,6 +19,7 @@ import MoodEditorPage from "./js/UI/MoodEditorPage";
 import MyPet from "./js/UI/MyPet";
 import Missions from "./js/UI/Missions";
 import Examination from "./js/UI/Examination";
+import AskAI from "./js/UI/AskAI";
 
 document.body.innerHTML = '<div id="app"></div>';
 
@@ -92,6 +93,11 @@ function App() {
             setCurrentPage={setCurrentPage}
             userdata={userdata}
           ></Missions>
+        );
+      case 5:
+        return (
+          <AskAI
+          ></AskAI>
         );
       case 7:
         return (
