@@ -20,6 +20,7 @@ import MyPet from "./js/UI/MyPet";
 import Missions from "./js/UI/Missions";
 import Examination from "./js/UI/Examination";
 import AskAI from "./js/UI/AskAI";
+import getDateNum from "./js/getDateNum";
 
 document.body.innerHTML = '<div id="app"></div>';
 

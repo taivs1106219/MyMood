@@ -3,6 +3,7 @@ import cn from "classnames";
 
 import MenuButton from "./MenuButton";
 import bg_css from "../../scss/themes/background";
+import BackupModal from "./Backup/BackupModal";
 
 const bg_colors = [
   "#ffffff",
@@ -59,6 +60,7 @@ function Settings({ config, dataPath }) {
       JSON.stringify(config, null, 2),
     ]);
   }
+
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       config.nickname = username;
@@ -187,7 +189,7 @@ function Settings({ config, dataPath }) {
                 );
               })}
             </div>
-            <div className="card">
+            <div className="card mb-3">
               <div className="card-body">
                 <p className="mb-2">
                   OpenAI API Key<br></br>
@@ -206,9 +208,43 @@ function Settings({ config, dataPath }) {
                 </div>
               </div>
             </div>
+            <div className="card">
+              <div className="card-body">
+                <div className="d-flex flex-column">
+                  <p className="h3">匯出/匯入資料</p>
+                  <div className="w-100 d-flex">
+                    <button
+                      className={cn(
+                        "flex-grow-1",
+                        "btn",
+                        "btn-primary",
+                        "me-1"
+                      )}
+                      data-bs-toggle="modal"
+                      data-bs-target="#backup-modal"
+                    >
+                      匯出
+                    </button>
+                    <button
+                      className={cn(
+                        "flex-grow-1",
+                        "btn",
+                        "btn-secondary",
+                        "ms-1"
+                      )}
+                    >
+                      匯入
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <BackupModal.BackupModal
+      ></BackupModal.BackupModal>
+      <BackupModal.BackupSuccessModal></BackupModal.BackupSuccessModal>
     </>
   );
 }

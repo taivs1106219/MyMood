@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, webUtils, dialog } = require("electron");
 const path = require("path");
 const os = require("node:os");
 const fsPromise = require("node:fs/promises");
@@ -10,6 +10,9 @@ let petData;
 let missions;
 let examinationData;
 const OpenAI = require("openai");
+const archiver = require("archiver");
+const { createWriteStream } = require("fs");
+const getDateNum = require("./src/js/getDateNum");
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -58,6 +61,16 @@ const createWindow = () => {
       win.webContents.send("gpt-result", e);
     }
   });
+  ipcMain.handle("open-folder", async (data) => {
+    const { canceled, filePaths } = await dialog.showOpenDialog(win, {
+      properties: ["openDirectory"],
+    });
+    if (canceled) {
+      return "";
+    } else {
+      return filePaths[0];
+    }
+  });
 
   ipcMain.on("close-window", () => {
     win.close();
@@ -75,6 +88,21 @@ const createWindow = () => {
   ipcMain.on("restart-app", () => {
     app.relaunch();
     app.quit();
+  });ipcMain.on("create-backup", (e, destination) => {
+    const archive = archiver("tar");
+    const output = createWriteStream(
+      destination + "/MyMoodExport_" + getDateNum(new Date()) + ".mmconf"
+    );
+    output.on("close", function () {
+      win.webContents.send("export-completed");
+    });
+    archive.on("error", function (err) {
+      throw err;
+    });
+
+    archive.pipe(output);
+    archive.directory(dataPath, ".mymood");
+    archive.finalize();
   });
 };
 
@@ -169,6 +197,7 @@ ipcMain.handle("get-missions", async () => {
 ipcMain.handle("get-examinationData", async () => {
   return examinationData;
 });
+
 ipcMain.on("write-file", (e, [path, data]) => {
   fsPromise.writeFile(path, data);
 });

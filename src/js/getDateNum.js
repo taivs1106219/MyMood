@@ -9,5 +9,5 @@ function getDateNum(date) {
   );
   return todayNum;
 }
-
-export default getDateNum;
+module.exports=getDateNum
+module.exports.default=getDateNum;
