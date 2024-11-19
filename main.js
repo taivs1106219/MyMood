@@ -13,6 +13,8 @@ const OpenAI = require("openai");
 const archiver = require("archiver");
 const { createWriteStream } = require("fs");
 const getDateNum = require("./src/js/getDateNum");
+const tar = require("tar");
+const { finished } = require("stream");
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -61,9 +63,20 @@ const createWindow = () => {
       win.webContents.send("gpt-result", e);
     }
   });
-  ipcMain.handle("open-folder", async (data) => {
+  ipcMain.handle("open-folder", async () => {
     const { canceled, filePaths } = await dialog.showOpenDialog(win, {
       properties: ["openDirectory"],
+    });
+    if (canceled) {
+      return "";
+    } else {
+      return filePaths[0];
+    }
+  });
+  ipcMain.handle("open-file", async () => {
+    const { canceled, filePaths } = await dialog.showOpenDialog(win, {
+      properties: ["openFile"],
+      filters: [{ name: "MyMood 設定檔", extensions: ["mmconf"] }],
     });
     if (canceled) {
       return "";
@@ -88,7 +101,8 @@ const createWindow = () => {
   ipcMain.on("restart-app", () => {
     app.relaunch();
     app.quit();
-  });ipcMain.on("create-backup", (e, destination) => {
+  });
+  ipcMain.on("create-backup", (e, destination) => {
     const archive = archiver("tar");
     const output = createWriteStream(
       destination + "/MyMoodExport_" + getDateNum(new Date()) + ".mmconf"
@@ -101,8 +115,20 @@ const createWindow = () => {
     });
 
     archive.pipe(output);
-    archive.directory(dataPath, ".mymood");
+    archive.directory(dataPath, ".mymood_new");
     archive.finalize();
+  });
+  ipcMain.on("import-config", (e, fileName) => {
+    tar.x(
+      {
+        f: fileName,
+        C: path.join(dataPath, "..")
+      },
+      [],
+      (e) => {
+        win.webContents.send("import-completed");
+      }
+    );
   });
 };
 
@@ -117,6 +143,19 @@ function checkFileExists(path, callback) {
 const dataPath = path.join(os.homedir(), ".mymood");
 
 async function startApp() {
+  console.log(path.join(dataPath, "..", ".mymood_new"));
+  try {
+    await checkFileExists(path.join(dataPath, "..", ".mymood_new"));
+    console.log("new config exists!");
+    await fsPromise.rm(dataPath, { recursive: true });
+    await fsPromise.rename(
+      path.join(dataPath, "..", ".mymood_new"),
+      path.join(dataPath, "..", ".mymood")
+    );
+  } catch {
+    // pass
+  }
+
   try {
     await checkFileExists(path.join(dataPath, "theme.css"));
   } catch {

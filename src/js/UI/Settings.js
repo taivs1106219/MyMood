@@ -4,6 +4,7 @@ import cn from "classnames";
 import MenuButton from "./MenuButton";
 import bg_css from "../../scss/themes/background";
 import BackupModal from "./Backup/BackupModal";
+import ImportModal from "./Backup/ImportModal";
 
 const bg_colors = [
   "#ffffff",
@@ -232,6 +233,8 @@ function Settings({ config, dataPath }) {
                         "btn-secondary",
                         "ms-1"
                       )}
+                      data-bs-toggle="modal"
+                      data-bs-target="#import-modal"
                     >
                       匯入
                     </button>
@@ -242,9 +245,10 @@ function Settings({ config, dataPath }) {
           </div>
         </div>
       </div>
-      <BackupModal.BackupModal
-      ></BackupModal.BackupModal>
+      <BackupModal.BackupModal></BackupModal.BackupModal>
       <BackupModal.BackupSuccessModal></BackupModal.BackupSuccessModal>
+      <ImportModal.ImportModal></ImportModal.ImportModal>
+      <ImportModal.ImportSuccessModal></ImportModal.ImportSuccessModal>
     </>
   );
 }
