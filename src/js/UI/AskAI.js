@@ -1,13 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MenuButton from "./MenuButton";
 import getDateNum from "../getDateNum";
 // import OpenAI from "openai";
+import cn from "classnames";
 
-function AskAI({ userdata, examinationData, config }) {
+function AskAI({ userdata, examinationData, config, ThemeContext }) {
   const [suggestion, setSuggestion] = useState("");
   const [hasAnalyzed, setHasAnalyzed] = useState(false);
   const currentDate = getDateNum(new Date());
   const dateNum = getDateNum(new Date());
+
+  const darkmode = useContext(ThemeContext);
+  let theme = "";
+  if (darkmode) {
+    theme = "dark";
+  } else {
+    theme = "light";
+  }
 
   useEffect(() => {
     api.handle("gpt-result", (res) => {
@@ -16,7 +25,7 @@ function AskAI({ userdata, examinationData, config }) {
     return () => api.removeIPCListener("gpt-result");
   });
   const handleAnalyze = () => {
-    setSuggestion("")
+    setSuggestion("");
     if (config.openai_key == "") {
       setSuggestion("未填寫OpenAI API Key！請申請後在設定中填寫");
     } else {
@@ -44,8 +53,10 @@ function AskAI({ userdata, examinationData, config }) {
         <h2>AI的建議</h2>
       </div>
       <div className="container">
-        <div>
-          <p>{suggestion}</p>
+        <div className={cn("card","mb-3")}>
+          <div className={cn("card-body", "bg-" + theme + "-subtle")}>
+            {suggestion}
+          </div>
         </div>
         <div className="d-flex justify-content-center w-100">
           <button
@@ -56,7 +67,6 @@ function AskAI({ userdata, examinationData, config }) {
             查看AI的建議
           </button>
         </div>
-        
       </div>
     </div>
   );

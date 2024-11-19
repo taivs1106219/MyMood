@@ -1,4 +1,4 @@
-import React, { useEffect, useState,  createContext } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { createRoot } from "react-dom/client";
 
 import "../src/scss/style.scss";
@@ -98,11 +98,14 @@ function App() {
         );
       case 5:
         return (
-          <AskAI
-          userdata={userdata}
-          examinationData={examinationData}
-          config={config}
-          ></AskAI>
+          <ThemeContext.Provider darkmode={darkmode}>
+            <AskAI
+            ThemeContext={ThemeContext}
+              userdata={userdata}
+              examinationData={examinationData}
+              config={config}
+            ></AskAI>
+          </ThemeContext.Provider>
         );
       case 7:
         return (
