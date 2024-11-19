@@ -40,7 +40,7 @@ function ImportModal() {
             <div className="d-flex flex-column">
               <div>
                 <button
-                  className="btn btn-primary rounded-pill"
+                  className="btn btn-primary rounded-pill mb-2"
                   onClick={handleSelectFolder}
                 >
                   <icons.Files></icons.Files>選擇檔案
