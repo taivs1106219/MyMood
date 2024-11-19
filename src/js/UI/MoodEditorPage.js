@@ -13,7 +13,7 @@ function MoodEditorPage({ date, userdata, dataPath,setCurrentPage,missions }) {
         dataPath={dataPath}
         missions={missions}
       ></MoodEditor>
-      <button className="btn btn-secondary" onClick={handleClick}>返回</button>
+      <button className="btn btn-secondary rounded-pill" onClick={handleClick}>返回</button>
     </div>
   );
 }

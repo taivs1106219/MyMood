@@ -28,7 +28,7 @@ function ImportModal() {
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">選擇欲匯出的位置</h5>
+            <h5 className="modal-title">選擇欲匯入的檔案</h5>
             <button
               type="button"
               className="btn-close"
@@ -40,7 +40,7 @@ function ImportModal() {
             <div className="d-flex flex-column">
               <div>
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-primary rounded-pill"
                   onClick={handleSelectFolder}
                 >
                   <icons.Files></icons.Files>選擇檔案
@@ -55,14 +55,14 @@ function ImportModal() {
           <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-secondary rounded-pill"
               data-bs-dismiss="modal"
             >
               取消
             </button>
             <button
               type="button"
-              className="btn btn-primary"
+              className="btn btn-primary rounded-pill"
               onClick={handleConfirm}
               data-bs-dismiss="modal"
             >
@@ -107,7 +107,7 @@ function ImportSuccessModal() {
           <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-primary"
+              className="btn btn-primary rounded-pill"
               data-bs-dismiss="modal"
             >
               確定

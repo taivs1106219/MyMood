@@ -219,7 +219,8 @@ function Settings({ config, dataPath }) {
                         "flex-grow-1",
                         "btn",
                         "btn-primary",
-                        "me-1"
+                        "me-1",
+                        "rounded-pill"
                       )}
                       data-bs-toggle="modal"
                       data-bs-target="#backup-modal"
@@ -231,7 +232,8 @@ function Settings({ config, dataPath }) {
                         "flex-grow-1",
                         "btn",
                         "btn-secondary",
-                        "ms-1"
+                        "ms-1",
+                        "rounded-pill"
                       )}
                       data-bs-toggle="modal"
                       data-bs-target="#import-modal"

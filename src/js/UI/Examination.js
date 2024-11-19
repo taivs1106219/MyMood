@@ -194,6 +194,7 @@ function Examination({ examinationData, dataPath, ThemeContext }) {
             <button
               className={cn(
                 "btn",
+                "rounded-pill",
                 "btn-primary",
                 "mb-2",
                 submitted ? "disabled" : ""

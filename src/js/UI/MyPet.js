@@ -114,15 +114,15 @@ function MyPet({ petData, dataPath, config, userdata }) {
             </div>
             <div className="col justify-content-center text-center"></div>
             <div className="col justify-content-center text-center">
-              <button className="btn btn-info" onClick={handleWaterClick}>加水</button>
+              <button className="btn btn-info rounded-pill" onClick={handleWaterClick}>加水</button>
             </div>
             <div className="col justify-content-center text-center">
-              <button className="btn btn-info" onClick={handleFeedClick}>
+              <button className="btn btn-info rounded-pill" onClick={handleFeedClick}>
                 餵食
               </button>
             </div>
             <div className="col justify-content-center text-center">
-              <button className="btn btn-warning">施工中</button>
+              <button className="btn btn-warning rounded-pill">施工中</button>
             </div>
           </div>
           <div className="">

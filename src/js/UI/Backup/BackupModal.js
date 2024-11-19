@@ -39,7 +39,7 @@ function BackupModal() {
             <div className="d-flex flex-column">
               <div>
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-primary rounded-pill"
                   onClick={handleSelectFolder}
                 >
                   <icons.Files></icons.Files>選擇路徑
@@ -54,14 +54,14 @@ function BackupModal() {
           <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-secondary rounded-pill"
               data-bs-dismiss="modal"
             >
               取消
             </button>
             <button
               type="button"
-              className="btn btn-primary"
+              className="btn btn-primary rounded-pill"
               onClick={handleConfirm}
               data-bs-dismiss="modal"
             >
@@ -99,7 +99,7 @@ function BackupSuccessModal() {
           <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-primary"
+              className="btn btn-primary rounded-pill"
               data-bs-dismiss="modal"
             >
               確定

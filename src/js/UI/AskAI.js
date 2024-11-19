@@ -50,7 +50,7 @@ function AskAI({ userdata, examinationData, config }) {
         <div className="d-flex justify-content-center w-100">
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-primary rounded-pill"
             onClick={handleAnalyze}
           >
             查看AI的建議

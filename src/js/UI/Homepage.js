@@ -133,7 +133,7 @@ function Homepage({ page, userdata, dataPath, config, missions }) {
         <div className={cn("row", "mb-3", "justify-content-center")}>
           <div className="col-4">
             <button
-              className="btn btn-info w-100"
+              className="btn btn-info w-100 rounded-pill"
               onClick={handleMCalendarClick}
             >
               查看心情日記
