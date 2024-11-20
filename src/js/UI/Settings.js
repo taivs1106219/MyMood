@@ -35,7 +35,24 @@ function Settings({ config, dataPath }) {
     ]);
   }
 
+  if (config.realname == undefined) {
+    Object.assign(config, { realname: "" });
+    api.send("write-file", [
+      dataPath + "/config.json",
+      JSON.stringify(config, null, 2),
+    ]);
+  }
+  if (config.contact_email == undefined) {
+    Object.assign(config, { contact_email: "" });
+    api.send("write-file", [
+      dataPath + "/config.json",
+      JSON.stringify(config, null, 2),
+    ]);
+  }
+
   const [username, setUsername] = useState(config.nickname);
+  const [realname, setRealname] = useState(config.realname);
+  const [email, setEmail] = useState(config.contact_email);
   const [showRestartAlert, setShowRestartAlert] = useState(false);
   const [darkMode, setDarkMode] = useState(config.darkmode);
   const [OAIKey, setOAIKey] = useState(config.openai_key);
@@ -82,9 +99,28 @@ function Settings({ config, dataPath }) {
         JSON.stringify(config, null, 2),
       ]);
     }, 500);
-
     return () => clearTimeout(delayDebounceFn);
   }, [OAIKey]);
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      config.realname = realname;
+      api.send("write-file", [
+        dataPath + "/config.json",
+        JSON.stringify(config, null, 2),
+      ]);
+    }, 500);
+    return () => clearTimeout(delayDebounceFn);
+  }, [realname]);
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      config.contact_email = email;
+      api.send("write-file", [
+        dataPath + "/config.json",
+        JSON.stringify(config, null, 2),
+      ]);
+    }, 500);
+    return () => clearTimeout(delayDebounceFn);
+  }, [email]);
 
   return (
     <>
@@ -110,7 +146,7 @@ function Settings({ config, dataPath }) {
           ) : null}
           <div className={cn("input-group", "flex-nowrap", "mb-3")}>
             <span className="input-group-text" id="addon-wrapping">
-              輸入用戶名
+              用戶暱稱
             </span>
             <input
               type="text"
@@ -120,6 +156,34 @@ function Settings({ config, dataPath }) {
               aria-describedby="addon-wrapping"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+            ></input>
+          </div>
+          <div className={cn("input-group", "flex-nowrap", "mb-3")}>
+            <span className="input-group-text" id="addon-wrapping">
+              用戶真實姓名
+            </span>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="您的真實姓名"
+              aria-label="您的真實姓名"
+              aria-describedby="addon-wrapping"
+              value={realname}
+              onChange={(e) => setRealname(e.target.value)}
+            ></input>
+          </div>
+          <div className={cn("input-group", "flex-nowrap", "mb-3")}>
+            <span className="input-group-text" id="addon-wrapping">
+              緊急聯絡電話號碼
+            </span>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="請包含區碼（例：+886 0987654321）"
+              aria-label="聯絡用電話號碼"
+              aria-describedby="addon-wrapping"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             ></input>
           </div>
           <div className="w-100">

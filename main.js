@@ -122,7 +122,7 @@ const createWindow = () => {
     tar.x(
       {
         f: fileName,
-        C: path.join(dataPath, "..")
+        C: path.join(dataPath, ".."),
       },
       [],
       (e) => {
@@ -239,6 +239,21 @@ ipcMain.handle("get-examinationData", async () => {
 
 ipcMain.on("write-file", (e, [path, data]) => {
   fsPromise.writeFile(path, data);
+});
+
+ipcMain.on("send-mail", async (e, [mail, realname, score]) => {
+  const accountSid = config.twilio.accountSid;
+  const authToken = config.twilio.authToken;
+  const msgbody=`您好，用戶${realname}在 MyMood 心理測試中獲得 ${score}/24 分。精神壓力水平屬於高，建議關心該用戶近期情緒是否異常，並提供適當協助。`
+
+  const client = require("twilio")(accountSid, authToken);
+  client.messages
+    .create({
+      body:msgbody,
+      messagingServiceSid: config.twilio.messagingServiceSid,
+      to: mail,
+    })
+    .then((message) => console.log(message.sid));
 });
 
 startApp();

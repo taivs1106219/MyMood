@@ -8,7 +8,12 @@ import cn from "classnames";
 import summary from "./Examinations/summary";
 import SummaryCard from "./Examinations/SummaryCard";
 
-function Examination({ examinationData, dataPath, ThemeContext }) {
+function Examination({
+  examinationData,
+  dataPath,
+  ThemeContext,
+  setCurrentPage,
+}) {
   const darkmode = useContext(ThemeContext);
 
   const dateNum = getDateNum(new Date());
@@ -212,7 +217,7 @@ function Examination({ examinationData, dataPath, ThemeContext }) {
           {/* {submitted ? <ScoreCard score={score}></ScoreCard> : null} */}
         </div>
         <div className={cn("w-100", "d-flex", "flex-column")}>
-          {submitted ? <SummaryCard score={score}></SummaryCard> : null}
+          {submitted ? <SummaryCard setCurrentPage={setCurrentPage} score={score}></SummaryCard> : null}
         </div>
       </div>
     </div>

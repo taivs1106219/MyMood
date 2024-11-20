@@ -77,6 +77,7 @@ function App() {
             examinationData={examinationData}
             dataPath={dataPath}
             ThemeContext={ThemeContext}
+            setCurrentPage={setCurrentPage}
           ></Examination>
         );
       case 3:
