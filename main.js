@@ -250,7 +250,7 @@ ipcMain.on("send-mail", async (e, [mail, realname, score]) => {
   client.messages
     .create({
       body:msgbody,
-      messagingServiceSid: config.twilio.messagingServiceSid,
+      messagingServiceSid: config.twilio.messagingServiceId,
       to: mail,
     })
     .then((message) => console.log(message.sid));
