@@ -33,6 +33,7 @@ let petData = {};
 let dataPath = "";
 let missions = {};
 let examinationData = {};
+let gptResults
 
 function App() {
   const [editorDate, setEditorDate] = useState(0);
@@ -105,6 +106,8 @@ function App() {
               userdata={userdata}
               examinationData={examinationData}
               config={config}
+              gptResults={gptResults}
+              dataPath={dataPath}
             ></AskAI>
           </ThemeContext.Provider>
         );
@@ -155,6 +158,7 @@ async function main() {
   examinationData = JSON.parse(
     JSON.stringify(await api.invoke("get-examinationData"))
   );
+  gptResults=JSON.parse(JSON.stringify(await api.invoke("get-gptResults")))
 
   if (config.darkmode == true) {
     document.body.setAttribute("data-bs-theme", "dark");

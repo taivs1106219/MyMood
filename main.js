@@ -4,17 +4,19 @@ const os = require("node:os");
 const fsPromise = require("node:fs/promises");
 const default_configs = require("./default_configs");
 const { mkdir } = require("fs");
-let config;
-let userdata;
-let petData;
-let missions;
-let examinationData;
 const OpenAI = require("openai");
 const archiver = require("archiver");
 const { createWriteStream } = require("fs");
 const getDateNum = require("./src/js/getDateNum");
 const tar = require("tar");
 const { finished } = require("stream");
+
+let config;
+let userdata;
+let petData;
+let missions;
+let examinationData;
+let gptResults;
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -213,6 +215,12 @@ async function startApp() {
   } catch {
     examinationData = {};
   }
+  try {
+    await checkFileExists(path.join(dataPath, "gptResults.json"));
+    gptResults = require(path.join(dataPath, "gptResults.json"));
+  } catch {
+    gptResults = [];
+  }
 
   await app.whenReady();
   createWindow();
@@ -236,6 +244,9 @@ ipcMain.handle("get-missions", async () => {
 ipcMain.handle("get-examinationData", async () => {
   return examinationData;
 });
+ipcMain.handle("get-gptResults", async () => {
+  return gptResults;
+});
 
 ipcMain.on("write-file", (e, [path, data]) => {
   fsPromise.writeFile(path, data);
@@ -244,12 +255,12 @@ ipcMain.on("write-file", (e, [path, data]) => {
 ipcMain.on("send-mail", async (e, [mail, realname, score]) => {
   const accountSid = config.twilio.accountSid;
   const authToken = config.twilio.authToken;
-  const msgbody=`您好，用戶${realname}在 MyMood 心理測試中獲得 ${score}/24 分。精神壓力水平屬於高，建議關心該用戶近期情緒是否異常，並提供適當協助。`
+  const msgbody = `您好，用戶${realname}在 MyMood 心理測試中獲得 ${score}/24 分。精神壓力水平屬於高，建議關心該用戶近期情緒是否異常，並提供適當協助。`;
 
   const client = require("twilio")(accountSid, authToken);
   client.messages
     .create({
-      body:msgbody,
+      body: msgbody,
       messagingServiceSid: config.twilio.messagingServiceId,
       to: mail,
     })
