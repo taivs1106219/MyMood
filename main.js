@@ -42,8 +42,8 @@ const createWindow = () => {
               24 - score
             }分，滿分為24分。分數越高表示用戶的心理狀況越好，而分數越低表示用戶的心理狀況越差，。請給用戶一些關於心理測驗得分的建議，請勿在回應中提到用戶的得分。`,
           },
-          { role: "user", content: "請一定要回應完整的句子" },
-          { role: "user", content: "請把回應的字數限制在150字以内" },
+          { role: "system", content: "要回應完整的句子" },
+          { role: "system", content: "請把回應的字數限制在150字以内" },
 
           {
             role: "user",

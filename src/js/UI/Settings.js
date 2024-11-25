@@ -232,7 +232,7 @@ function Settings({ config, dataPath }) {
                 );
               })}
             </div>
-            <div className="input-group d-flex mb-3" role="group">
+            {/* <div className="input-group d-flex mb-3" role="group">
               <span className="input-group-text">強調色</span>
               {front_colors.map((e) => {
                 return (
@@ -253,7 +253,7 @@ function Settings({ config, dataPath }) {
                   ></input>
                 );
               })}
-            </div>
+            </div> */}
             <div className="card mb-3">
               <div className="card-body">
                 <p className="mb-2">

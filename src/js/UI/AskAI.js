@@ -5,6 +5,8 @@ import getDateNum from "../getDateNum";
 import cn from "classnames";
 import icons from "../../../res/icons/icons";
 import GptHistory from "./AskAI/GptHistory";
+import view_AiSuggestions from "../../../res/images/buttons_v2/view_AiSuggestions.png"
+import view_GptHistory from "../../../res/images/buttons_v2/view_GptHistory.png"
 
 function AskAI({
   userdata,
@@ -47,7 +49,22 @@ function AskAI({
   }, [aiResult]);
 
   const handleAnalyze = () => {
-    setAiResult([[getDateNum(new Date()), ""], ...aiResult]);
+    const newDate = getDateNum(new Date()).toString();
+    let newDateString = "";
+    for (let i = 0; i < 4; i++) {
+      newDateString += newDate[i];
+    }
+    console.log(newDateString);
+    newDateString += "-";
+    for (let i = 4; i < 6; i++) {
+      newDateString += newDate[i];
+    }
+    newDateString += "-";
+    for (let i = 6; i < 8; i++) {
+      newDateString += newDate[i];
+    }
+
+    setAiResult([[newDateString, ""], ...aiResult]);
     setSuggestion("");
     if (config.openai_key == "") {
       setSuggestion("未填寫OpenAI API Key！請申請後在設定中填寫");
@@ -60,10 +77,8 @@ function AskAI({
       } else {
         let score = 0;
         for (let x of examinationData[dateNum].answers) {
-          console.log(x);
           score += x;
         }
-        console.log(score);
         api.send("ask-gpt", [config.openai_key, score]);
       }
     }
@@ -83,15 +98,6 @@ function AskAI({
           <div className={cn("card", "mb-3")}>
             <div className={cn("card-body", "bg-" + theme + "-subtle")}>
               <div className="d-flex flex-column">
-                <div className="mb-3 d-flex justify-content-end">
-                  <button
-                    className="btn btn-info btn-sm rounded-pill"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modal-gpt-history"
-                  >
-                    查看歷史記錄<icons.Clock_history></icons.Clock_history>
-                  </button>
-                </div>
                 <p>{suggestion}</p>
               </div>
             </div>
@@ -99,10 +105,17 @@ function AskAI({
           <div className="d-flex justify-content-center w-100">
             <button
               type="button"
-              className="btn btn-primary rounded-pill"
+              className="btn btn-primary me-1 rounded-pill"
               onClick={handleAnalyze}
             >
               查看AI的建議
+            </button>
+            <button
+              className="btn btn-info ms-1 rounded-pill"
+              data-bs-toggle="modal"
+              data-bs-target="#modal-gpt-history"
+            >
+              查看歷史記錄<icons.Clock_history></icons.Clock_history>
             </button>
           </div>
         </div>

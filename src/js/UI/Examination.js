@@ -7,6 +7,7 @@ import icons from "../../../res/icons/icons";
 import cn from "classnames";
 import summary from "./Examinations/summary";
 import SummaryCard from "./Examinations/SummaryCard";
+import zanghu_button_v2 from "../../../res/images/buttons_v2/zanghu_button.png"
 
 function Examination({
   examinationData,

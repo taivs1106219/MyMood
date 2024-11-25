@@ -4,7 +4,7 @@ import zanghu from "../../../res/images/zanghu.png";
 import cn from "classnames";
 import MoodEditor from "./MoodEditor";
 import MissionCompletedAlert from "./MissionCompleted";
-import view_MoodNote from "../../../res/images/buttons/view_MoodNote.png";
+import view_MoodNote from "../../../res/images/buttons_v2/view_MoodNote.png";
 
 function Homepage({ page, userdata, dataPath, config, missions }) {
   const [showMissionCompleted, setShowMissionCompleted] = useState(0);
@@ -132,7 +132,7 @@ function Homepage({ page, userdata, dataPath, config, missions }) {
           ></MoodEditor>
         </div>
         <div className={cn("row", "mb-3", "justify-content-center")}>
-          <div className="col-6">
+          <div className="col-5">
             <button
               className="btn w-100 rounded-pill"
               onClick={handleMCalendarClick}
