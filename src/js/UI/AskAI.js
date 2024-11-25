@@ -120,7 +120,7 @@ function AskAI({
           </div>
         </div>
       </div>
-      <GptHistory aiResult={aiResult}></GptHistory>
+      <GptHistory aiResult={aiResult} setAiResult={setAiResult}></GptHistory>
     </>
   );
 }

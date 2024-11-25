@@ -7,6 +7,10 @@ function HistoryCard({ dateString, resultText, index, aiResult, setAiResult }) {
     newArray.splice(index,1)
     console.log(newArray)
     setAiResult(newArray)
+    api.send("write-file", [
+      dataPath + "/gptResults.json",
+      JSON.stringify(aiResult, null, 2),
+    ]);
   }
   return (
     <div className="card mb-3">
