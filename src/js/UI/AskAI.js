@@ -5,7 +5,7 @@ import getDateNum from "../getDateNum";
 import cn from "classnames";
 import icons from "../../../res/icons/icons";
 import GptHistory from "./AskAI/GptHistory";
-import view_AiSuggestions from "../../../res/images/buttons_v2/view_AiSuggestions.png"
+// import view_AiSuggestions from "../../../res/images/buttons_v2/view_AiSuggestions.png"
 import view_GptHistory from "../../../res/images/buttons_v2/view_GptHistory.png"
 
 function AskAI({
