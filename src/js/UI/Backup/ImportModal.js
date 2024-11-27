@@ -5,15 +5,15 @@ import * as bootstrap from "bootstrap";
 function ImportModal() {
   const [destination, setDestination] = useState("");
 
- useEffect(() => {
-   api.handle("import-completed", () => {
-     const successModal = new bootstrap.Modal(
-       document.getElementById("modal-import-success")
-     );
-     successModal.show();
-   });
-   return () => api.removeIPCListener("import-completed");
- });
+  useEffect(() => {
+    api.handle("import-completed", () => {
+      const successModal = new bootstrap.Modal(
+        document.getElementById("modal-import-success")
+      );
+      successModal.show();
+    });
+    return () => api.removeIPCListener("import-completed");
+  });
 
   async function handleSelectFolder(e) {
     setDestination(await api.invoke("open-file"));
@@ -102,7 +102,10 @@ function ImportSuccessModal() {
             />
           </div>
           <div className="modal-body">
-            匯入成功，請立即<a href="#" onClick={handleRestartClick}>重啓APP</a>
+            匯入成功，請立即
+            <a href="#" onClick={handleRestartClick}>
+              重啓APP
+            </a>
           </div>
           <div className="modal-footer">
             <button
@@ -121,6 +124,5 @@ function ImportSuccessModal() {
 
 export default {
   ImportModal: ImportModal,
-  ImportSuccessModal,
-  ImportSuccessModal,
+  ImportSuccessModal: ImportSuccessModal,
 };
