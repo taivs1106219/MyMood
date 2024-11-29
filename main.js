@@ -158,21 +158,40 @@ async function startApp() {
     // pass
   }
 
-  try {
-    await checkFileExists(path.join(dataPath, "theme.css"));
-  } catch {
+  let checkpoint = 0;
+
+  while (checkpoint < 1) {
     try {
-      await fsPromise.writeFile(
-        path.join(dataPath, "theme.css"),
-        `
+      await checkFileExists(dataPath);
+      checkpoint += 1;
+    } catch {
+      try {
+        await fsPromise.mkdir(dataPath);
+        checkpoint += 1;
+      } catch {
+        // pass
+      }
+    }
+  }
+
+  while (checkpoint < 2) {
+    try {
+      await checkFileExists(path.join(dataPath, "theme.css"));
+      checkpoint += 1;
+    } catch {
+      try {
+        await fsPromise.writeFile(
+          path.join(dataPath, "theme.css"),
+          `
         body, .bg {
           background-color: #ffffff;
         }
         `
-      );
-      startApp();
-    } catch {
-      startApp();
+        );
+        checkpoint += 1;
+      } catch {
+        // pass
+      }
     }
   }
   try {
@@ -181,16 +200,7 @@ async function startApp() {
   } catch {
     petData = {};
   }
-  try {
-    await checkFileExists(dataPath);
-  } catch {
-    try {
-      await fsPromise.mkdir(dataPath);
-      startApp();
-    } catch {
-      startApp();
-    }
-  }
+
   try {
     await checkFileExists(path.join(dataPath, "config.json"));
     config = require(path.join(dataPath, "config.json"));
