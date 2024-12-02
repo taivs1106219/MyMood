@@ -20,8 +20,8 @@ let gptResults;
 
 const createWindow = () => {
   const win = new BrowserWindow({
-    width: 600,
-    height: 800,
+    width: 900,
+    height: 1200,
     frame: false,
     webPreferences: {
       preload: path.join(__dirname, "./preload.js"),

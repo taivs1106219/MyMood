@@ -5,9 +5,15 @@ import cn from "classnames";
 import MoodEditor from "./MoodEditor";
 import MissionCompletedAlert from "./MissionCompleted";
 import view_MoodNote from "../../../res/images/buttons_v2/view_MoodNote.png";
+import MainModal from "./SetupWizard/MainModal";
 
 function Homepage({ page, userdata, dataPath, config, missions }) {
   const [showMissionCompleted, setShowMissionCompleted] = useState(0);
+  const [showSetupWizard, setShowSetupWizard] = useState(false);
+
+  // if (!config.setupCompleted && !showSetupWizard) {
+  //   setShowSetupWizard(true);
+  // }
 
   const today = new Date();
 
@@ -111,6 +117,7 @@ function Homepage({ page, userdata, dataPath, config, missions }) {
         <MenuButton></MenuButton>
         <h2>首頁</h2>
       </div>
+      <button onClick={() => setShowSetupWizard(true)}>測試</button>
       <div className="container">
         {showMissionCompleted ? (
           <MissionCompletedAlert
@@ -137,7 +144,11 @@ function Homepage({ page, userdata, dataPath, config, missions }) {
               className="btn w-100 rounded-pill"
               onClick={handleMCalendarClick}
             >
-              <img className="w-100" src={view_MoodNote} alt="查看心情日記"></img>
+              <img
+                className="w-100"
+                src={view_MoodNote}
+                alt="查看心情日記"
+              ></img>
             </button>
           </div>
         </div>
@@ -157,6 +168,14 @@ function Homepage({ page, userdata, dataPath, config, missions }) {
           </div>
         </div>
       </div>
+      <MainModal
+        showSetupWizard={{
+          get: () => {
+            return showSetupWizard;
+          },
+          set: setShowSetupWizard,
+        }}
+      ></MainModal>
     </div>
   );
   function handleMCalendarClick() {
