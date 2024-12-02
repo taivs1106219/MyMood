@@ -4,13 +4,20 @@ import * as bootstrap from "bootstrap";
 
 function BackupModal() {
   const [destination, setDestination] = useState("");
+  const [deleteMoodNote, setDeleteMoodNote] = useState(0);
+  const [deleteNickname, setDeleteNickname] = useState(0);
+
+  const exportConfig = {
+    deleteMoodNote: deleteMoodNote,
+    deleteNickname: deleteNickname,
+  };
 
   async function handleSelectFolder(e) {
     setDestination(await api.invoke("open-folder"));
   }
   function handleConfirm() {
     if (destination != "") {
-      api.send("create-backup", destination);
+      api.send("create-backup", [destination, JSON.stringify(exportConfig)]);
     }
   }
   useEffect(() => {
@@ -48,6 +55,39 @@ function BackupModal() {
               </div>
               <div className="text-warning">
                 <ins>*請選擇路徑後再按確定</ins>
+              </div>
+            </div>
+            匯入心理師端時：
+            <div className="ms-2">
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value={deleteMoodNote}
+                  id="deleteMoodNote"
+                  onClick={() => setDeleteMoodNote(deleteMoodNote ^ 1)}
+                />
+                <label
+                  className="form-check-label user-select-none"
+                  htmlFor="deleteMoodNote"
+                >
+                  刪除心情日記
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value={deleteNickname}
+                  id="deleteNickname"
+                  onClick={() => setDeleteNickname(deleteNickname ^ 1)}
+                />
+                <label
+                  className="form-check-label user-select-none"
+                  htmlFor="deleteNickname"
+                >
+                  刪除用戶昵稱
+                </label>
               </div>
             </div>
           </div>

@@ -104,7 +104,7 @@ const createWindow = () => {
     app.relaunch();
     app.quit();
   });
-  ipcMain.on("create-backup", (e, destination) => {
+  ipcMain.on("create-backup", (e, [destination, config]) => {
     const archive = archiver("tar");
     const output = createWriteStream(
       destination + "/MyMoodExport_" + getDateNum(new Date()) + ".mmconf"
@@ -115,6 +115,7 @@ const createWindow = () => {
     archive.on("error", function (err) {
       throw err;
     });
+    archive.append(config, { name: ".mymood_new/psyConfig.json" });
 
     archive.pipe(output);
     archive.directory(dataPath, ".mymood_new");
