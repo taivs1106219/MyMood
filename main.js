@@ -155,8 +155,10 @@ async function startApp() {
       path.join(dataPath, "..", ".mymood_new"),
       path.join(dataPath, "..", ".mymood")
     );
-  } catch {
+    await fsPromise.rm(path.join(dataPath,"psyConfig.json"))
+  } catch(e) {
     // pass
+    console.log(e)
   }
 
   let checkpoint = 0;
