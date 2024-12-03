@@ -10,7 +10,7 @@ function P201({ contentControl }) {
 
   function handleClick() {
     api.send("import-config", destination);
-    contentControl.set(103);
+    contentControl.set(202);
   }
 
   return (
