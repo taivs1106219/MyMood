@@ -1,13 +1,14 @@
 const os = require("node:os");
 const cp = require("child_process");
 const { stderr } = require("node:process");
+const { shell } = require("electron");
 // const util = require("node:util");
 // const exec = util.promisify(cp.exec);
-let npx=process.platform=="win32"?"npx.cmd":"npx"
+let npx = process.platform == "win32" ? "npx.cmd" : "npx";
 
-const cp_spawn = (command, arguments) => {
+const cp_spawn = (command, arguments,options) => {
   return new Promise((resolve, reject) => {
-    const process = cp.spawn(command, arguments);
+    const process = cp.spawn(command, arguments,options);
     process.stdout.on("data", (data) => {
       console.log(`${data}`);
     });
@@ -28,8 +29,8 @@ const cp_spawn = (command, arguments) => {
 };
 
 async function main() {
-  await cp_spawn(npx, ["webpack", "--mode", "development"]);
-  await cp_spawn(npx, ["electron-builder"]);
+  await cp_spawn(npx, ["webpack", "--mode", "development"],{shell:true});
+  await cp_spawn(npx, ["electron-builder"],{shell:true});
 }
 
 main();

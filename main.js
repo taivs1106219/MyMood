@@ -7,7 +7,7 @@ const { mkdir } = require("fs");
 const OpenAI = require("openai");
 const archiver = require("archiver");
 const { createWriteStream } = require("fs");
-const getDateNum = require("./src/js/getDateNum");
+const getDateNum = require(path.join(__dirname,"src","js","getDateNum.js"));
 const tar = require("tar");
 const { finished } = require("stream");
 
