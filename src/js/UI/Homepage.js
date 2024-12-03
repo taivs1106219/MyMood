@@ -11,9 +11,9 @@ function Homepage({ page, userdata, dataPath, config, missions }) {
   const [showMissionCompleted, setShowMissionCompleted] = useState(0);
   const [showSetupWizard, setShowSetupWizard] = useState(false);
 
-  // if (!config.setupCompleted && !showSetupWizard) {
-  //   setShowSetupWizard(true);
-  // }
+  if (!config.setupCompleted && !showSetupWizard) {
+    setShowSetupWizard(true);
+  }
 
   const today = new Date();
 
@@ -117,7 +117,7 @@ function Homepage({ page, userdata, dataPath, config, missions }) {
         <MenuButton></MenuButton>
         <h2>首頁</h2>
       </div>
-      <button onClick={() => setShowSetupWizard(true)}>測試</button>
+      {/* <button onClick={() => setShowSetupWizard(true)}>測試</button> */}
       <div className="container">
         {showMissionCompleted ? (
           <MissionCompletedAlert
@@ -175,6 +175,8 @@ function Homepage({ page, userdata, dataPath, config, missions }) {
           },
           set: setShowSetupWizard,
         }}
+        config={config}
+        dataPath={dataPath}
       ></MainModal>
     </div>
   );

@@ -38,3 +38,7 @@ body {
 .autoscroll {
   overflow-y: auto;
 }
+.modal {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}

@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import zanghu from "../../../../res/images/zanghu.png";
 function P000({contentControl}) {
   return (
-    <div className="d-flex flex-column align-items-center">
+    <div className="d-flex flex-column align-items-center justify-content-center">
       <img className="w-75 mb-4" src={zanghu} draggable="false"></img>
       <p className="h3 text-center">
         您好，歡迎使用 MyMood

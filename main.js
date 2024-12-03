@@ -20,8 +20,8 @@ let gptResults;
 
 const createWindow = () => {
   const win = new BrowserWindow({
-    width: 900,
-    height: 1200,
+    width: 750,
+    height: 1000,
     frame: false,
     webPreferences: {
       preload: path.join(__dirname, "./preload.js"),
@@ -128,7 +128,13 @@ const createWindow = () => {
         C: path.join(dataPath, ".."),
       },
       [],
-      (e) => {
+      async (e) => {
+        await fs.rm(path.join(dataPath, "psyConfig.json"));
+        const config = JSON.parse(
+          await fs.readFile(path.join(dataPath, "config.json"))
+        );
+        Object.assign(config, { setupCompleted: true });
+        fsPromise.writeFile(path.join(dataPath, "config.json"), config);
         win.webContents.send("import-completed");
       }
     );
@@ -155,10 +161,10 @@ async function startApp() {
       path.join(dataPath, "..", ".mymood_new"),
       path.join(dataPath, "..", ".mymood")
     );
-    await fsPromise.rm(path.join(dataPath,"psyConfig.json"))
-  } catch(e) {
+    await fsPromise.rm(path.join(dataPath, "psyConfig.json"));
+  } catch (e) {
     // pass
-    console.log(e)
+    console.log(e);
   }
 
   let checkpoint = 0;
