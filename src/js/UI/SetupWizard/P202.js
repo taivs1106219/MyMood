@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-function P103({ contentControl }) {
+function P202({ contentControl }) {
   return (
     <div className="d-flex flex-column align-items-center">
       <div className="w-100">
@@ -26,4 +26,4 @@ function P103({ contentControl }) {
   );
 }
 
-export default P103;
+export default P202;

@@ -5,8 +5,9 @@ import P000 from "./P000";
 import P001 from "./P001";
 import P101 from "./P101";
 import P102 from "./P102";
-import P202 from "./P103";
+import P103 from "./P103";
 import P201 from "./P201";
+import P202 from "./P202";
 
 function MainModal({ showSetupWizard, config, dataPath }) {
   const [contentControl, setContentControl] = useState(0);
@@ -37,11 +38,11 @@ function MainModal({ showSetupWizard, config, dataPath }) {
         );
       case 103:
         return (
-          <P202
+          <P103
             contentControl={contentControl}
             config={config}
             dataPath={dataPath}
-          ></P202>
+          ></P103>
         );
       case 201:
         return <P201 contentControl={contentControl}></P201>;

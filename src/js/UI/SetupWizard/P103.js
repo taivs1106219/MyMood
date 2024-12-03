@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-function P202({ contentControl, dataPath, config }) {
+function P103({ contentControl, dataPath, config }) {
   Object.assign(config, { setupCompleted: true });
   api.send("write-file", [
     dataPath + "/config.json",
@@ -24,7 +24,7 @@ function P202({ contentControl, dataPath, config }) {
         </div>
       </div>
       <div className="d-flex justify-content-start w-100">
-        <Button variant="secondary" onClick={() => contentControl.set(201)}>
+        <Button variant="secondary" onClick={() => contentControl.set(102)}>
           上一步
         </Button>
       </div>
@@ -32,4 +32,4 @@ function P202({ contentControl, dataPath, config }) {
   );
 }
 
-export default P202;
+export default P103;
