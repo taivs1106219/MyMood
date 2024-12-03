@@ -18,9 +18,9 @@ function P103({ contentControl }) {
         </div>
       </div>
       <div className="d-flex justify-content-start w-100">
-        <Button variant="secondary" onClick={() => contentControl.set(201)}>
+        {/* <Button variant="secondary" onClick={() => contentControl.set(201)}>
           上一步
-        </Button>
+        </Button> */}
       </div>
     </div>
   );
