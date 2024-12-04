@@ -7,7 +7,9 @@ import icons from "../../../res/icons/icons";
 import cn from "classnames";
 import summary from "./Examinations/summary";
 import SummaryCard from "./Examinations/SummaryCard";
-import zanghu_button_v2 from "../../../res/images/buttons_v2/zanghu_button.png"
+import zanghu_button_v2 from "../../../res/images/buttons_v2/zanghu_button.png";
+import { Toast,ToastContainer } from "react-bootstrap";
+
 
 function Examination({
   examinationData,
@@ -21,6 +23,7 @@ function Examination({
   const [currentQuestion, setCurrentQuestion] = useState([0, 0]);
   const [currentQuestionOrder, setCurrentQuestionOrder] = useState(1);
   const [answerStatus, setAnswerStatus] = useState([2, 2, 4, 4, 4, 4]);
+  const [showToast, setShowToast] = useState(false);
 
   if (!(dateNum in examinationData)) {
     Object.assign(examinationData, {
@@ -55,6 +58,10 @@ function Examination({
       JSON.stringify(examinationData, null, 2),
     ]);
     // console.log(examinationData);
+  }
+
+  function toggleToast() {
+    setShowToast(!showToast);
   }
 
   const [submitted, setSubmitted] = useState(
@@ -218,9 +225,30 @@ function Examination({
           {/* {submitted ? <ScoreCard score={score}></ScoreCard> : null} */}
         </div>
         <div className={cn("w-100", "d-flex", "flex-column")}>
-          {submitted ? <SummaryCard setCurrentPage={setCurrentPage} score={score}></SummaryCard> : null}
+          {submitted ? (
+            <SummaryCard
+              setCurrentPage={setCurrentPage}
+              score={score}
+              showToast={{
+                get: () => {
+                  return showToast;
+                },
+                set: setShowToast,
+              }}
+            ></SummaryCard>
+          ) : null}
         </div>
       </div>
+      <ToastContainer style={{zIndex:1}} className="p-3" position="middle-center">
+        <Toast show={showToast} onClose={toggleToast}>
+          <Toast.Header>
+            {/* <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" /> */}
+            <strong className="me-auto">簡訊傳送通知</strong>
+            <small></small>
+          </Toast.Header>
+          <Toast.Body>已傳送簡訊</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </div>
   );
 }
