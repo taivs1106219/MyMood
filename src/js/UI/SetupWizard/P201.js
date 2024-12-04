@@ -30,7 +30,7 @@ function P201({ contentControl }) {
         </div>
       </div>
       <div className="d-flex justify-content-between w-100">
-        <Button variant="secondary" onClick={() => contentControl.set(001)}>
+        <Button variant="secondary" onClick={() => contentControl.set(1)}>
           上一步
         </Button>
         <Button variant="primary" onClick={handleClick}>
