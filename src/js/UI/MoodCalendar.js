@@ -1,16 +1,24 @@
-import React, { useState, useRef, useLayoutEffect } from "react";
+import React, { useState, useRef, useLayoutEffect, useContext } from "react";
 import MenuButton from "./MenuButton";
 import cn from "classnames";
 import getDateNum from "../getDateNum";
 
-function MoodCalendar({ userdata, currentPage, setEditorDate }) {
+function MoodCalendar({ userdata, currentPage, setEditorDate, darkmode }) {
   const [date, setDate] = useState(new Date());
   const tmpDay = new Date(date);
+
+  console.log(darkmode)
+  let theme = "";
+  if (darkmode) {
+    theme = "dark";
+  } else {
+    theme = "light";
+  }
   tmpDay.setDate(date.getDate() - date.getDay() - 1);
   return (
     <>
       <div className="" id="main-content">
-        <div className="d-flex">
+        <div className={cn("d-flex", "sticky-top", "w-100", "bg-" + theme)}>
           <MenuButton></MenuButton>
           <h2>心情日曆</h2>
         </div>
@@ -47,7 +55,7 @@ function MoodCalendar({ userdata, currentPage, setEditorDate }) {
   );
 }
 function MoodNote({ date, userdata, currentPage, setEditorDate }) {
-  const dateToday = getDateNum(date)
+  const dateToday = getDateNum(date);
 
   const todayFilled = Object.hasOwn(userdata, dateToday.toString());
 
