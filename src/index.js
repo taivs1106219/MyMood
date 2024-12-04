@@ -111,7 +111,7 @@ function App() {
             ></AskAI>
           </ThemeContext.Provider>
         );
-      case 7:
+      case 6:
         return (
           <TouchFish
             touchFish={touchFish}
@@ -123,7 +123,7 @@ function App() {
             config={config}
           ></TouchFish>
         );
-      case 8:
+      case 7:
         return <Settings config={config} dataPath={dataPath}></Settings>;
       case 1000:
         return (
