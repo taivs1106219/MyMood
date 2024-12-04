@@ -6,7 +6,7 @@ import cn from "classnames";
 import icons from "../../../res/icons/icons";
 import GptHistory from "./AskAI/GptHistory";
 // import view_AiSuggestions from "../../../res/images/buttons_v2/view_AiSuggestions.png"
-import view_GptHistory from "../../../res/images/buttons_v2/view_GptHistory.png"
+import view_GptHistory from "../../../res/images/buttons_v2/view_GptHistory.png";
 
 function AskAI({
   userdata,
@@ -18,8 +18,6 @@ function AskAI({
 }) {
   const [suggestion, setSuggestion] = useState("");
   const dateNum = getDateNum(new Date());
-  const [aiResult, setAiResult] = useState(gptResults);
-
   const darkmode = useContext(ThemeContext);
   let theme = "";
   if (darkmode) {
@@ -30,10 +28,12 @@ function AskAI({
 
   useEffect(() => {
     api.handle("gpt-result", (res) => {
-      let tempArray = [...aiResult];
+      let tempArray = JSON.parse(JSON.stringify(gptResults.get()));
       tempArray[0][1] += res;
-      setAiResult(tempArray);
-      setSuggestion(suggestion + res);
+      console.log(tempArray[0][1])
+      setSuggestion(tempArray[0][1]);
+      
+      gptResults.set(tempArray)
     });
     return () => api.removeIPCListener("gpt-result");
   });
@@ -42,11 +42,11 @@ function AskAI({
     const delayDebounceFn = setTimeout(() => {
       api.send("write-file", [
         dataPath + "/gptResults.json",
-        JSON.stringify(aiResult, null, 2),
+        JSON.stringify(gptResults.get(), null, 2),
       ]);
     }, 50);
     return () => clearTimeout(delayDebounceFn);
-  }, [aiResult]);
+  }, [gptResults.get()]);
 
   const handleAnalyze = () => {
     const newDate = getDateNum(new Date()).toString();
@@ -63,8 +63,9 @@ function AskAI({
     for (let i = 6; i < 8; i++) {
       newDateString += newDate[i];
     }
-
-    setAiResult([[newDateString, ""], ...aiResult]);
+    const tempArray = JSON.parse(JSON.stringify(gptResults.get()))
+    tempArray.unshift([newDateString, ""]);
+    gptResults.set(tempArray);
     setSuggestion("");
     if (config.openai_key == "") {
       setSuggestion("未填寫OpenAI API Key！請申請後在設定中填寫");
@@ -98,7 +99,7 @@ function AskAI({
           <div className={cn("card", "mb-3")}>
             <div className={cn("card-body", "bg-" + theme + "-subtle")}>
               <div className="d-flex flex-column">
-                <p>{suggestion}</p>
+                <p>{gptResults.get().length?gptResults.get()[0][1]:""}</p>
               </div>
             </div>
           </div>
@@ -120,7 +121,7 @@ function AskAI({
           </div>
         </div>
       </div>
-      <GptHistory aiResult={aiResult} setAiResult={setAiResult}></GptHistory>
+      <GptHistory gptResults={gptResults}></GptHistory>
     </>
   );
 }

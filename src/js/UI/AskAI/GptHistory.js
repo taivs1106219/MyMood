@@ -1,7 +1,9 @@
 import React from "react";
 import HistoryCard from "./GptHistoryCard";
 
-function GptHistory({ aiResult, setAiResult }) {
+function GptHistory({ gptResults }) {
+  console.log(gptResults.get());
+
   return (
     <div
       className="modal fade"
@@ -24,14 +26,13 @@ function GptHistory({ aiResult, setAiResult }) {
             />
           </div>
           <div className="modal-body">
-            {!aiResult.length ? "暫無歷史建議" : null}
-            {aiResult.map(([dateString, resultText], index) => {
+            {!gptResults.get().length ? "暫無歷史建議" : null}
+            {gptResults.get().map(([dateString, resultText], index) => {
               return (
                 <HistoryCard
                   dateString={dateString}
                   resultText={resultText}
-                  aiResult={aiResult}
-                  setAiResult={setAiResult}
+                  gptResults={gptResults}
                   key={index}
                   index={index}
                 ></HistoryCard>

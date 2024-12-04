@@ -41,7 +41,7 @@ function App() {
   const [touchFish, setTouchFish] = useState(0);
   const [touchFishMission, setTouchFishMission] = useState(0);
   const [darkmode, setDarkmode] = useState(config.darkmode);
-
+  const [gptResultState, setGptResultState] = useState(gptResults);
   return (
     <ThemeContext.Provider darkmode={darkmode}>
       <div id="winCtrl-bar" className={cn("d-flex", "flex-row-reverse")}>
@@ -107,7 +107,12 @@ function App() {
               userdata={userdata}
               examinationData={examinationData}
               config={config}
-              gptResults={gptResults}
+              gptResults={{
+                get: () => {
+                  return gptResultState;
+                },
+                set: setGptResultState,
+              }}
               dataPath={dataPath}
             ></AskAI>
           </ThemeContext.Provider>
