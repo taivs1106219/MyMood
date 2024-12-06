@@ -145,7 +145,7 @@ function Settings({ config, dataPath }) {
             </div>
           ) : null}
           <div className={cn("input-group", "flex-nowrap", "mb-3")}>
-            <span className="input-group-text" id="addon-wrapping">
+            <span className="input-group-text h4 mb-0" id="addon-wrapping">
               用戶暱稱
             </span>
             <input
@@ -159,7 +159,7 @@ function Settings({ config, dataPath }) {
             ></input>
           </div>
           <div className={cn("input-group", "flex-nowrap", "mb-3")}>
-            <span className="input-group-text" id="addon-wrapping">
+            <span className="input-group-text h4 mb-0" id="addon-wrapping">
               用戶真實姓名
             </span>
             <input
@@ -173,7 +173,7 @@ function Settings({ config, dataPath }) {
             ></input>
           </div>
           <div className={cn("input-group", "flex-nowrap", "mb-3")}>
-            <span className="input-group-text" id="addon-wrapping">
+            <span className="input-group-text h4 mb-0" id="addon-wrapping">
               緊急聯絡電話號碼
             </span>
             <input
@@ -199,7 +199,7 @@ function Settings({ config, dataPath }) {
                       checked={darkMode}
                     ></input>
                     <label
-                      class="form-check-label flex-fill"
+                      class="form-check-label flex-fill h4"
                       htmlFor="flexSwitchCheckReverse"
                     >
                       深色模式
@@ -215,7 +215,7 @@ function Settings({ config, dataPath }) {
             </div>
 
             <div className={cn("input-group", "d-flex", "mb-3")} role="group">
-              <span className="input-group-text">背景顏色</span>
+              <span className="input-group-text h4 mb-0">背景顏色</span>
               {bg_colors.map((e) => {
                 return (
                   <input
@@ -257,7 +257,8 @@ function Settings({ config, dataPath }) {
             <div className="card mb-3">
               <div className="card-body">
                 <p className="mb-2">
-                  OpenAI API Key<br></br>
+                  <span className="h4">OpenAI API Key</span>
+                  <br></br>
                   <ins>僅用於 AI 建議</ins>
                 </p>
                 <div class="input-group">
@@ -273,10 +274,10 @@ function Settings({ config, dataPath }) {
                 </div>
               </div>
             </div>
-            <div className="card">
+            <div className="card mb-3">
               <div className="card-body">
                 <div className="d-flex flex-column">
-                  <p className="h3">匯出/匯入資料</p>
+                  <p className="h4">匯出/匯入資料</p>
                   <div className="w-100 d-flex">
                     <button
                       className={cn(
@@ -306,6 +307,12 @@ function Settings({ config, dataPath }) {
                     </button>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="card">
+              <div className="card-body d-flex justify-content-between align-items-center">
+                <h4 className="mb-0">清除所有設定</h4>
+                <button className="btn btn-danger">清除</button>
               </div>
             </div>
           </div>
