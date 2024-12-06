@@ -7,7 +7,7 @@ const { mkdir } = require("fs");
 const OpenAI = require("openai");
 const archiver = require("archiver");
 const { createWriteStream } = require("fs");
-const getDateNum = require(path.join(__dirname,"src","js","getDateNum.js"));
+const getDateNum = require(path.join(__dirname, "src", "js", "getDateNum.js"));
 const tar = require("tar");
 const { finished } = require("stream");
 
@@ -138,6 +138,10 @@ const createWindow = () => {
         win.webContents.send("import-completed");
       }
     );
+  });
+  ipcMain.on("reset-configs", async () => {
+    await fsPromise.mkdir(path.join(dataPath, "..", ".mymood_new"));
+    app.quit()
   });
 };
 

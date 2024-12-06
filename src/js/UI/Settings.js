@@ -5,6 +5,7 @@ import MenuButton from "./MenuButton";
 import bg_css from "../../scss/themes/background";
 import BackupModal from "./Backup/BackupModal";
 import ImportModal from "./Backup/ImportModal";
+import ResetConfirm from "./Reset/ResetConfirm";
 
 const bg_colors = [
   "#ffffff",
@@ -56,6 +57,7 @@ function Settings({ config, dataPath }) {
   const [showRestartAlert, setShowRestartAlert] = useState(false);
   const [darkMode, setDarkMode] = useState(config.darkmode);
   const [OAIKey, setOAIKey] = useState(config.openai_key);
+  const [resetConfirm, setResetConfirm] = useState(false);
 
   function handleClick() {
     api.send("write-file", [
@@ -77,6 +79,10 @@ function Settings({ config, dataPath }) {
       dataPath + "/config.json",
       JSON.stringify(config, null, 2),
     ]);
+  }
+
+  function handleReset() {
+    setResetConfirm(true);
   }
 
   useEffect(() => {
@@ -312,7 +318,9 @@ function Settings({ config, dataPath }) {
             <div className="card">
               <div className="card-body d-flex justify-content-between align-items-center">
                 <h4 className="mb-0">清除所有設定</h4>
-                <button className="btn btn-danger">清除</button>
+                <button className="btn btn-danger" onClick={handleReset}>
+                  清除
+                </button>
               </div>
             </div>
           </div>
@@ -322,6 +330,14 @@ function Settings({ config, dataPath }) {
       <BackupModal.BackupSuccessModal></BackupModal.BackupSuccessModal>
       <ImportModal.ImportModal></ImportModal.ImportModal>
       <ImportModal.ImportSuccessModal></ImportModal.ImportSuccessModal>
+      <ResetConfirm
+        resetConfirm={{
+          get: () => {
+            return resetConfirm;
+          },
+          set: setResetConfirm,
+        }}
+      ></ResetConfirm>
     </>
   );
 }
