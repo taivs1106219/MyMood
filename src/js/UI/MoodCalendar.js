@@ -20,7 +20,7 @@ function MoodCalendar({ userdata, currentPage, setEditorDate, darkmode }) {
       <div className="" id="main-content">
         <div className={cn("d-flex", "sticky-top", "w-100", "bg-" + theme)}>
           <MenuButton></MenuButton>
-          <h2>心情日曆</h2>
+          <h2>心情日記</h2>
         </div>
         <div className="container" style={{ overflowX: "none" }}>
           <div className="row mb-3 justify-content-center">
