@@ -121,27 +121,43 @@ const createWindow = () => {
     archive.directory(dataPath, ".mymood_new");
     archive.finalize();
   });
-  ipcMain.on("import-config", (e, fileName) => {
-    tar.x(
-      {
+
+  ipcMain.on("import-config",  (e, fileName) => {
+    tar
+      .x({
         f: fileName,
         C: path.join(dataPath, ".."),
-      },
-      [],
-      async (e) => {
-        await fs.rm(path.join(dataPath, "psyConfig.json"));
-        const config = JSON.parse(
-          await fs.readFile(path.join(dataPath, "config.json"))
+      })
+      .then(async () => {
+        try {
+          await checkFileExists(
+            path.join(dataPath, "..", ".mymood_new", "psyConfig.json")
+          );
+          await fsPromise.rm(
+            path.join(dataPath, "..", ".mymood_new", "psyConfig.json")
+          );
+        } catch (e) {
+          // pass
+        }
+
+        const newConfig = JSON.parse(
+          await fsPromise.readFile(
+            path.join(dataPath, "..", ".mymood_new", "config.json")
+          )
         );
-        Object.assign(config, { setupCompleted: true });
-        fsPromise.writeFile(path.join(dataPath, "config.json"), config);
+        console.log(newConfig);
+        Object.assign(newConfig, { setupCompleted: true });
+        console.log(path.resolve());
+        fsPromise.writeFile(
+          path.join(dataPath, "..", ".mymood_new", "config.json"),
+          JSON.stringify(newConfig, null, 2)
+        );
         win.webContents.send("import-completed");
-      }
-    );
+      });
   });
   ipcMain.on("reset-configs", async () => {
     await fsPromise.mkdir(path.join(dataPath, "..", ".mymood_new"));
-    app.quit()
+    app.quit();
   });
 };
 
