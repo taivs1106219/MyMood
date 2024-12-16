@@ -1,7 +1,7 @@
 import React from "react";
 import summary from "./summary";
 
-function SummaryCard({ score, setCurrentPage,showToast }) {
+function SummaryCard({ score, setCurrentPage, showToast }) {
   let pressureLevel = "";
 
   let s_text = "";
@@ -12,15 +12,15 @@ function SummaryCard({ score, setCurrentPage,showToast }) {
 
   async function handleSendMailClick() {
     const config = await api.invoke("get-config");
-    console.log(config)
-    showToast.set(true)
+    console.log(config);
+    showToast.set(true);
     api.send("send-mail", [config.contact_email, config.realname, score]);
   }
 
   if (score < 8) {
     pressureLevel = "低";
     s_text = summary.low;
-  } else if (score < 16) {
+  } else if (score <= 16) {
     pressureLevel = "中";
     s_text = summary.mid;
   } else {
