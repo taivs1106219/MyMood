@@ -43,28 +43,31 @@ function MyPet({ petData, dataPath, config, userdata }) {
     //     ? Date.now()
     //     : 1.2 * 60 * 60 * 1000 + petData.lastFed;
     // console.log(foodVal<0)
-    if (foodVal ==0) {
-      petData.lastFed = Date.now() - 1000 * 60 * 60 * 12;
-      petData.lastFed = 1.2 * 60 * 60 * 1000 + petData.lastFed;
-    } else {
-      petData.lastFed =
-        1.2 * 60 * 60 * 1000 + petData.lastFed > Date.now()
-          ? Date.now()
-          : 1.2 * 60 * 60 * 1000 + petData.lastFed;
-    }
-    userdata.SiLiao -= 1;
-    setFeeds(feeds - 1);
+    if(feeds>0){
+      if (foodVal == 0) {
+        petData.lastFed = Date.now() - 1000 * 60 * 60 * 12;
+        petData.lastFed = 1.2 * 60 * 60 * 1000 + petData.lastFed;
+      } else {
+        petData.lastFed =
+          1.2 * 60 * 60 * 1000 + petData.lastFed > Date.now()
+            ? Date.now()
+            : 1.2 * 60 * 60 * 1000 + petData.lastFed;
+      }
+      userdata.SiLiao -= 1;
+      setFeeds(feeds - 1);
 
-    api.send("write-file", [
-      dataPath + "/petData.json",
-      JSON.stringify(petData, null, 2),
-    ]);
-    api.send("write-file", [
-      dataPath + "/userdata.json",
-      JSON.stringify(userdata, null, 2),
-    ]);
-    setMsgShown(PetSpeak.feed());
-    setStateForUpdating(stateForUpdating ^ 1);
+      api.send("write-file", [
+        dataPath + "/petData.json",
+        JSON.stringify(petData, null, 2),
+      ]);
+      api.send("write-file", [
+        dataPath + "/userdata.json",
+        JSON.stringify(userdata, null, 2),
+      ]);
+      setMsgShown(PetSpeak.feed());
+      setStateForUpdating(stateForUpdating ^ 1);
+    }
+    
   }
 
   useEffect(() => {
