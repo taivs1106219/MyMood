@@ -70,10 +70,15 @@ function Homepage({ page, userdata, dataPath, config, missions }) {
       tmpDate.getMonth() + 1 > 9
         ? tmpDate.getMonth() + 1
         : "0" + (tmpDate.getMonth() + 1)
-    }${tmpDate.getDate()}`;
+    }${
+      tmpDate.getDate()  > 9
+        ? tmpDate.getDate() 
+        : "0" + (tmpDate.getDate())
+    }`;
     // 日期字串
     chartData.data.labels[i] = currentDate + " 日";
     // 設置日期
+    console.log(currentDateString)
     chartData.data.datasets[0].data[i] =
       userdata[currentDateString] == undefined
         ? undefined
@@ -110,6 +115,8 @@ function Homepage({ page, userdata, dataPath, config, missions }) {
     dataPath + "/missions.json",
     JSON.stringify(missions, null, 2),
   ]);
+
+  console.log(chartData)
 
   return (
     <div className="autoscroll" id="main-content">
