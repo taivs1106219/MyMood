@@ -17,7 +17,7 @@ function Missions({ missions, setCurrentPage, userdata }) {
     setCurrentPage(0);
   }
   function handleTouchFishClick() {
-    setCurrentPage(7);
+    setCurrentPage(6);
   }
   return (
     <div id="main-content" className="autoscroll">
